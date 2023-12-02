@@ -1,0 +1,6 @@
+<resources>
+    <style name="CustomTextInputEditTextStyle" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox">
+        <item name="android:background">@drawable/custom_textinput</item>
+    </style>
+</resources>
+

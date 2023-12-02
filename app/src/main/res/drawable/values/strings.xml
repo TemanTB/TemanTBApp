@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">LoginWithAnimation</string>
+    <string name="signup">Daftar</string>
+    <string name="getOnTrack">Start the track</string>
+    <string name="message_welcome_page">Keep in track with your therapy \n through TemanTB</string>
+    <string name="title_welcome_page">TemanTB</string>
+    <string name="subtitle_welcome_page">Support your recovery.</string>
+    <string name="title_signup_page">Lengkapi data dirimu di bawah ini ya</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="message_login_page">Log in to your persistent account</string>
+    <string name="title_login_page">Welcome back!</string>
+    <string name="name">Name</string>
+    <string name="message_main_page">Selamat Belajar di Dicoding.</string>
+    <string name="greeting">Halo %1$s,</string>
+    <string name="logout">Keluar</string>
+    <string name="welcome_vector">Welcome Vector</string>
+    <string name="message_have_account">Already have account? Login</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="message_not_have_account">Don\'t have account? Register</string>
+    <string name="title_register_page">Let\'s Get Started</string>
+    <string name="message_register_page">Enter your detail to  proceed further.</string>
+    <string name="phoneNum">Phone Number</string>
+</resources>
