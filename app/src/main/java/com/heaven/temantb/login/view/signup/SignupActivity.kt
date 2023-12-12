@@ -4,17 +4,27 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.os.Build
 import android.os.Bundle
+import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.dicoding.picodiploma.loginwithanimation.databinding.ActivitySignupBinding
+import androidx.core.view.isVisible
+import com.google.android.material.textfield.TextInputLayout
+import com.heaven.storyapp.view.data.di.AlertIndicator
+import com.heaven.temanTB.R
+import com.heaven.temanTB.databinding.ActivitySignupBinding
+import com.heaven.temantb.login.view.ViewModelFactory
 
 
 class SignupActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignupBinding
+    private val signUpViewModel by viewModels<SignUpViewModel> {
+        ViewModelFactory.getInstance(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,10 +38,26 @@ class SignupActivity : AppCompatActivity() {
         binding.passwordEditText.addTextChangedListener(object:TextWatcher{
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int){
             }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                if (s.toString().length >= 8) {
+                    binding.signUpButton.isEnabled = true
+                    binding.passwordEditText.error = null
+                    binding.passwordEditTextLayout.endIconMode = TextInputLayout.END_ICON_PASSWORD_TOGGLE
+                } else if(s.isEmpty()){
+                    binding.signUpButton.isEnabled = false
+                    binding.passwordEditText.error = getString(R.string.required)
+                } else{
+                    binding.passwordEditText.setError(getString(R.string.msg_error_password),null)
+                    binding.passwordEditTextLayout.endIconMode = TextInputLayout.END_ICON_PASSWORD_TOGGLE
+                }
+            }
+
+            override fun afterTextChanged(s: Editable) {
+                setupAction()
+            }
         })
-
     }
-
 
     private fun setupView() {
         @Suppress("DEPRECATION")
@@ -48,20 +74,49 @@ class SignupActivity : AppCompatActivity() {
 
     private fun setupAction() {
         binding.signUpButton.setOnClickListener {
+            val name = binding.nameEditText.text.toString()
             val email = binding.emailEditText.text.toString()
+            val phone = binding.phoneEditText.toString()
+            val password = binding.passwordEditText.text.toString()
 
-            AlertDialog.Builder(this).apply {
-                setTitle("Yeah!")
-                setMessage("Akun dengan $email sudah jadi nih. Yuk, login dan belajar coding.")
-                setPositiveButton("Lanjut") { _, _ ->
-                    finish()
+            signUpViewModel.signUp(name, email, phone, password).observe(this) { result ->
+                if (result != null) {
+                    when(result) {
+                        AlertIndicator.Loading -> {
+                            binding.progressBar.isVisible = true
+                        }
+                        is AlertIndicator.Success -> {
+                            binding.progressBar.isVisible = false
+                            AlertDialog.Builder(this).apply {
+                                setTitle("Yay!")
+                                setMessage(getString(R.string.account_ready_message))
+                                setPositiveButton("Next") { _, _ ->
+                                    finish()
+                                }
+                                create()
+                                show()
+                            }
+                        }
+                        is AlertIndicator.Error -> {
+                            binding.progressBar.isVisible = false
+                            AlertDialog.Builder(this).apply {
+                                setTitle("Oops!")
+                                setMessage(getString(R.string.account_not_ready_message))
+                                setPositiveButton("Ok") { _, _ ->
+                                    binding.nameEditText.text?.clear()
+                                    binding.emailEditText.text?.clear()
+                                    binding.passwordEditText.text?.clear()
+                                    binding.nameEditText.requestFocus()
+                                }
+                                create()
+                                show()
+                            }
+                        }
+                    }
                 }
-                create()
-                show()
             }
         }
     }
-
     private fun playAnimation() {
         ObjectAnimator.ofFloat(binding.imageView, View.TRANSLATION_X, -30f, 30f).apply {
             duration = 6000
@@ -94,9 +149,10 @@ class SignupActivity : AppCompatActivity() {
                 emailEditTextLayout,
                 passwordTextView,
                 passwordEditTextLayout,
-                signup
+                signup,
             )
             startDelay = 100
         }.start()
     }
+
 }

@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.login.LoginActivity">
+    tools:context=".view.login.LoginActivity"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://schemas.android.com/apk/res/android ">
 
     <ImageView
         android:id="@+id/imageView"
@@ -85,8 +87,7 @@
             android:ems="10"
             android:inputType="text"
             tools:ignore="SpeakableTextPresentCheck"
-            style="@style/CustomTextInputEditTextStyle"
-            />
+            style="@style/CustomTextInputEditTextStyle" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -123,8 +124,7 @@
             android:ems="10"
             android:inputType="textEmailAddress"
             tools:ignore="SpeakableTextPresentCheck"
-            style="@style/CustomTextInputEditTextStyle"
-            />
+            style="@style/CustomTextInputEditTextStyle" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -162,10 +162,8 @@
             android:ems="10"
             android:inputType="textPassword"
             tools:ignore="SpeakableTextPresentCheck"
-            style="@style/CustomTextInputEditTextStyle"
-            />
+            style="@style/CustomTextInputEditTextStyle" />
     </com.google.android.material.textfield.TextInputLayout>
-
 
 
     <TextView
@@ -202,17 +200,8 @@
             android:ems="10"
             android:inputType="text"
             tools:ignore="SpeakableTextPresentCheck"
-            style="@style/CustomTextInputEditTextStyle"
-            />
+            style="@style/CustomTextInputEditTextStyle" />
     </com.google.android.material.textfield.TextInputLayout>
-
-
-
-
-
-
-
-
 
 
     <Button

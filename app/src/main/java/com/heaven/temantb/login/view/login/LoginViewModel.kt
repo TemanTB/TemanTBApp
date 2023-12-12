@@ -1,15 +1,8 @@
 package com.heaven.temantb.login.view.login
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.heaven.temantb.login.data.UserRepository
-import com.heaven.temantb.login.data.pref.UserModel
-import kotlinx.coroutines.launch
+import com.heaven.temantb.login.data.GeneralRepository
 
-class LoginViewModel(private val repository: UserRepository) : ViewModel() {
-    fun saveSession(user: UserModel) {
-        viewModelScope.launch {
-            repository.saveSession(user)
-        }
-    }
+class LoginViewModel(private val repository: GeneralRepository) : ViewModel() {
+    fun login(email: String, password: String) = repository.login(email, password)
 }

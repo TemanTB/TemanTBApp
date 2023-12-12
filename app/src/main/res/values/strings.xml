@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">TemanTB</string>
     <string name="signup">Daftar</string>
-    <string name="getOnTrack">Start the track</string>
+    <string name="getOnTrack">Start</string>
     <string name="message_welcome_page">Keep in track with your therapy \n through TemanTB</string>
     <string name="title_welcome_page">TemanTB</string>
     <string name="subtitle_welcome_page">Support your recovery.</string>
@@ -20,5 +20,36 @@
     <string name="message_not_have_account">Don\'t have account? Register</string>
     <string name="title_register_page">Let\'s Get Started</string>
     <string name="message_register_page">Enter your detail to  proceed further.</string>
-    <string name="phoneNum">Phone Number</string>
+    <string name="phone">Phone Number</string>
+    <string name="symptons">Symptons</string>
+    <string name="sympton_desc">Write down all your symptons here</string>
+    <string name="media">Media</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="select_date">Select Date</string>
+    <string name="date">Date</string>
+    <string name="date_reference">mm/dd/yyyy</string>
+    <string name="save_media">Save</string>
+    <string name="screning_page_title">Screening Infromation Detail</string>
+    <string name="upload_page_title">Add Medicine Reminder</string>
+    <string name="title_reminder">Title</string>
+    <string name="desc_reminder">Description</string>
+    <string name="hour_reminder">Repeat Every</string>
+    <string name="hint_hour">--:--  --</string>
+    <string name="your_medicine">Enter your medicine name</string>
+    <string name="medicine_description">Enter your medicine description</string>
+    <string name="msg_error_password">Password must be at least 8 characters</string>
+    <string name="upload">Upload</string>
+    <string name="error_empty_image">Please insert the image first.</string>
+    <string name="menu_logout_button">Log Out</string>
+    <string name="login_successful_message">Login successful.</string>
+    <string name="login_failed_message">Login failed</string>
+    <string name="account_ready_message">Your account is ready. Lets login and share your story. </string>
+    <string name="account_not_ready_message">There was an error, so the account cannot be created. Please try again.</string>
+    <string name="msg_error_email">Invalid email format</string>
+    <string name="retry">Retry</string>
+    <string name="no_internet_connection">No Internet Connection</string>
+    <string name="required">Required</string>
+    <string name="permission_request_granted">Permission request granted</string>
+    <string name="permission_request_denied">Permission request denied</string>
 </resources>

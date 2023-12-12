@@ -65,13 +65,9 @@
 
     <Button
         android:id="@+id/loginButton"
-        android:layout_width="wrap_content"
-        android:layout_height="64dp"
-        android:backgroundTint="@color/white"
-        android:paddingStart="50dp"
-        android:paddingEnd="50dp"
+        style="@style/CustomWhiteButton"
+        android:layout_width="150dp"
         android:text="@string/getOnTrack"
-        android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/view_bgWelcome"
         app:layout_constraintEnd_toEndOf="parent"

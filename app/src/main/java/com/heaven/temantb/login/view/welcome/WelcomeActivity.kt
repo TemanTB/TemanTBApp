@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import com.dicoding.picodiploma.loginwithanimation.databinding.ActivityWelcomeBinding
+import com.heaven.temanTB.databinding.ActivityWelcomeBinding
 import com.heaven.temantb.login.view.login.LoginActivity
 
 

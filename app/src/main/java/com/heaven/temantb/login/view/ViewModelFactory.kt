@@ -3,12 +3,13 @@ package com.heaven.temantb.login.view
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.heaven.temantb.login.data.UserRepository
-import com.heaven.temantb.login.di.Injection
+import com.heaven.temantb.login.data.GeneralRepository
+import com.heaven.temantb.login.data.di.Injection
 import com.heaven.temantb.login.view.login.LoginViewModel
 import com.heaven.temantb.login.view.main.MainViewModel
+import com.heaven.temantb.login.view.signup.SignUpViewModel
 
-class ViewModelFactory(private val repository: UserRepository) : ViewModelProvider.NewInstanceFactory() {
+class ViewModelFactory(private val repository: GeneralRepository) : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -19,6 +20,20 @@ class ViewModelFactory(private val repository: UserRepository) : ViewModelProvid
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
                 LoginViewModel(repository) as T
             }
+            modelClass.isAssignableFrom(SignUpViewModel::class.java) -> {
+                SignUpViewModel(repository) as T
+            }
+//            modelClass.isAssignableFrom(DetailStoryViewModel::class.java) -> {
+//                DetailStoryViewModel(repository) as T
+//            }
+
+//            modelClass.isAssignableFrom(UploadViewModel::class.java) -> {
+//                UploadViewModel(repository) as T
+//            }
+//            modelClass.isAssignableFrom(MapViewModel::class.java) -> {
+//                MapViewModel(repository) as T
+//            }
+
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
     }

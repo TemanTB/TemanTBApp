@@ -10,7 +10,7 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.dicoding.picodiploma.loginwithanimation.databinding.ActivityMainBinding
+import com.heaven.temanTB.databinding.ActivityMainBinding
 import com.heaven.temantb.login.view.ViewModelFactory
 import com.heaven.temantb.login.view.welcome.WelcomeActivity
 
