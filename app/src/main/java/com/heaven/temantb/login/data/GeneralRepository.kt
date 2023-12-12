@@ -27,10 +27,10 @@ class GeneralRepository private constructor(
         userPreference.logout()
     }
 
-    fun login(email: String, password: String) : LiveData<AlertIndicator<LoginResponse>> = liveData {
+    fun login(email: String, password: String, confPassword: String) : LiveData<AlertIndicator<LoginResponse>> = liveData {
         emit(AlertIndicator.Loading)
         try {
-            val response = apiService.login(email, password)
+            val response = apiService.login(email, password, confPassword)
             if (response.error){
                 emit(AlertIndicator.Error(response.message))
             }
@@ -43,10 +43,10 @@ class GeneralRepository private constructor(
         }
     }
 
-    fun signUp(name: String, email: String, phone: String, password: String): LiveData<AlertIndicator<SignUpResponse>> = liveData {
+    fun signUp(name: String, email: String, password: String, confPassword: String, phone: String): LiveData<AlertIndicator<SignUpResponse>> = liveData {
         emit(AlertIndicator.Loading)
         try {
-            val response = apiService.register(name, email, phone, password)
+            val response = apiService.register(name, email, password, confPassword, phone)
             if (response.error){
                 emit(AlertIndicator.Error(response.message))
             }

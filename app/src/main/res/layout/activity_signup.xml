@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:scrollbars="none"
+    android:overScrollMode="never"
     tools:context="com.heaven.temantb.login.view.signup.SignupActivity">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/imageView"
@@ -166,17 +173,56 @@
 
 
     <TextView
-        android:id="@+id/phoneTextView"
+        android:id="@+id/confPasswordTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:alpha="0"
-        android:text="@string/phone"
+        android:text="@string/confPassword"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordEditTextLayout"
         tools:alpha="100" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/confPasswordEditTextLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:alpha="0"
+        app:endIconMode="password_toggle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/confPasswordTextView"
+        app:startIconDrawable="@drawable/ic_baseline_lock_24"
+        tools:alpha="100">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/confPasswordEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPassword"
+            tools:ignore="SpeakableTextPresentCheck"
+            style="@style/CustomTextInputEditTextStyle"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/phoneTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:alpha="0"
+        android:text="@string/phone"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/confPasswordEditTextLayout"
+        tools:alpha="100" />
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/phoneEditTextLayout"
@@ -188,10 +234,9 @@
         android:alpha="0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phoneTextView"
+        app:layout_constraintTop_toBottomOf="@id/phoneTextView"
         app:startIconDrawable="@drawable/ic_baseline_phone_24"
         tools:alpha="100">
-
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/phoneEditText"
             android:layout_width="match_parent"
@@ -201,7 +246,7 @@
             tools:ignore="SpeakableTextPresentCheck"
             style="@style/CustomTextInputEditTextStyle"
             />
-    </com.google.android.material.textfield.TextInputLayout>
+</com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/signUpButton"
@@ -261,3 +306,4 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

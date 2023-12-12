@@ -13,15 +13,18 @@ interface ApiService {
     suspend fun register(
         @Field("name") name: String,
         @Field("email") email: String,
+        @Field("password") password: String,
+        @Field("confPassword") confPassword: String,
         @Field("phone") phone: String,
-        @Field("password") password: String
+
     ): SignUpResponse
 
     @FormUrlEncoded
     @POST("login")
     suspend fun login(
         @Field("email") email: String,
-        @Field("password") password: String
+        @Field("password") password: String,
+        @Field("confPassword") confPassword: String
     ): LoginResponse
 
 //    @GET("stories")

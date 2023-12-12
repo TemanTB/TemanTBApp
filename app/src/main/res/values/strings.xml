@@ -52,4 +52,5 @@
     <string name="required">Required</string>
     <string name="permission_request_granted">Permission request granted</string>
     <string name="permission_request_denied">Permission request denied</string>
+    <string name="confPassword">Confirmation Password</string>
 </resources>

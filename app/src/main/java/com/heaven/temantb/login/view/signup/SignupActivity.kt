@@ -76,10 +76,11 @@ class SignupActivity : AppCompatActivity() {
         binding.signUpButton.setOnClickListener {
             val name = binding.nameEditText.text.toString()
             val email = binding.emailEditText.text.toString()
-            val phone = binding.phoneEditText.toString()
             val password = binding.passwordEditText.text.toString()
+            val confPassword = binding.confPasswordEditText.text.toString()
+            val phone = binding.phoneEditText.text.toString()
 
-            signUpViewModel.signUp(name, email, phone, password).observe(this) { result ->
+            signUpViewModel.signUp(name, email, password, confPassword, phone).observe(this) { result ->
                 if (result != null) {
                     when(result) {
                         AlertIndicator.Loading -> {
@@ -103,9 +104,6 @@ class SignupActivity : AppCompatActivity() {
                                 setTitle("Oops!")
                                 setMessage(getString(R.string.account_not_ready_message))
                                 setPositiveButton("Ok") { _, _ ->
-                                    binding.nameEditText.text?.clear()
-                                    binding.emailEditText.text?.clear()
-                                    binding.passwordEditText.text?.clear()
                                     binding.nameEditText.requestFocus()
                                 }
                                 create()
@@ -137,6 +135,15 @@ class SignupActivity : AppCompatActivity() {
             ObjectAnimator.ofFloat(binding.passwordTextView, View.ALPHA, 1f).setDuration(100)
         val passwordEditTextLayout =
             ObjectAnimator.ofFloat(binding.passwordEditTextLayout, View.ALPHA, 1f).setDuration(100)
+        val confPasswordView =
+            ObjectAnimator.ofFloat(binding.confPasswordTextView, View.ALPHA, 1f).setDuration(100)
+        val confPasswordEditTextLayout =
+            ObjectAnimator.ofFloat(binding.confPasswordEditTextLayout, View.ALPHA, 1f).setDuration(100)
+        val phoneTextView =
+            ObjectAnimator.ofFloat(binding.phoneTextView, View.ALPHA, 1f).setDuration(100)
+        val phoneEditTextLayout =
+            ObjectAnimator.ofFloat(binding.phoneEditTextLayout, View.ALPHA, 1f).setDuration(100)
+
         val signup = ObjectAnimator.ofFloat(binding.signUpButton, View.ALPHA, 1f).setDuration(100)
 
 
@@ -149,6 +156,10 @@ class SignupActivity : AppCompatActivity() {
                 emailEditTextLayout,
                 passwordTextView,
                 passwordEditTextLayout,
+                confPasswordView,
+                confPasswordEditTextLayout,
+                phoneTextView,
+                phoneEditTextLayout,
                 signup,
             )
             startDelay = 100

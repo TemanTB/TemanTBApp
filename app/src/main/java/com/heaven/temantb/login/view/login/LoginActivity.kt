@@ -53,40 +53,47 @@ class LoginActivity : AppCompatActivity() {
         binding.loginButton.setOnClickListener {
             val email = binding.emailEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
+            val confPassword = binding.confPasswordEditText.text.toString()
 
-            loginViewModel.login(email, password).observe(this) { result ->
-                if (result != null) {
-                    when(result) {
-                        AlertIndicator.Loading -> {
-                            binding.progressBar.isVisible = true
-                        }
-                        is AlertIndicator.Success -> {
-                            binding.progressBar.isVisible = false
-                            AlertDialog.Builder(this).apply {
-                                setTitle("Yay!")
-                                setMessage(getString(R.string.login_successful_message))
-                                setPositiveButton("Ok") { _, _ ->
-                                    val intent = Intent(context, MainActivity::class.java)
-                                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                                    startActivity(intent)
-                                    finish()
-                                }
-                                create()
-                                show()
+
+            if (password == confPassword) {
+                loginViewModel.login(email, password, confPassword).observe(this) { result ->
+                    if (result != null) {
+                        when (result) {
+                            AlertIndicator.Loading -> {
+                                binding.progressBar.isVisible = true
                             }
-                        }
-                        is AlertIndicator.Error -> {
-                            binding.progressBar.isVisible = false
-                            AlertDialog.Builder(this).apply {
-                                setTitle("Oops!")
-                                setMessage(getString(R.string.login_failed_message))
-                                setPositiveButton("Ok") { _, _ ->
-                                    binding.emailEditText.text?.clear()
-                                    binding.passwordEditText.text?.clear()
-                                    binding.emailEditText.requestFocus()
+
+                            is AlertIndicator.Success -> {
+                                binding.progressBar.isVisible = false
+                                AlertDialog.Builder(this).apply {
+                                    setTitle("Yay!")
+                                    setMessage(getString(R.string.login_successful_message))
+                                    setPositiveButton("Ok") { _, _ ->
+                                        val intent = Intent(context, MainActivity::class.java)
+                                        intent.flags =
+                                            Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                                        startActivity(intent)
+                                        finish()
+                                    }
+                                    create()
+                                    show()
                                 }
-                                create()
-                                show()
+                            }
+
+                            is AlertIndicator.Error -> {
+                                binding.progressBar.isVisible = false
+                                AlertDialog.Builder(this).apply {
+                                    setTitle("Oops!")
+                                    setMessage(getString(R.string.login_failed_message))
+                                    setPositiveButton("Ok") { _, _ ->
+                                        binding.emailEditText.text?.clear()
+                                        binding.passwordEditText.text?.clear()
+                                        binding.emailEditText.requestFocus()
+                                    }
+                                    create()
+                                    show()
+                                }
                             }
                         }
                     }
@@ -114,9 +121,14 @@ class LoginActivity : AppCompatActivity() {
             ObjectAnimator.ofFloat(binding.passwordTextView, View.ALPHA, 1f).setDuration(100)
         val passwordEditTextLayout =
             ObjectAnimator.ofFloat(binding.passwordEditTextLayout, View.ALPHA, 1f).setDuration(100)
+        val confPasswordTextView =
+            ObjectAnimator.ofFloat(binding.confPasswordTextView, View.ALPHA, 1f).setDuration(100)
+        val confPasswordEditTextLayout =
+            ObjectAnimator.ofFloat(binding.confPasswordEditTextLayout, View.ALPHA, 1f).setDuration(100)
         val login = ObjectAnimator.ofFloat(binding.loginButton, View.ALPHA, 1f).setDuration(100)
         val alreadyRegister = ObjectAnimator.ofFloat(binding.tvHaveAccount, View.ALPHA, 1f).setDuration(100)
         val msgLogin = ObjectAnimator.ofFloat(binding.tvSubMessageLogin, View.ALPHA, 1f).setDuration(100)
+
 
         AnimatorSet().apply {
             playSequentially(
@@ -125,6 +137,8 @@ class LoginActivity : AppCompatActivity() {
                 emailEditTextLayout,
                 passwordTextView,
                 passwordEditTextLayout,
+                confPasswordTextView,
+                confPasswordEditTextLayout,
                 login,
                 alreadyRegister,
                 msgLogin
