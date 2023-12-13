@@ -9,7 +9,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         >
 
         <TextView
@@ -135,12 +134,11 @@
                 android:id="@+id/descReminder_EditText"
                 style="@style/CustomTextInputEditTextStyle"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:ems="10"
+                android:hint="@string/medicine_description"
                 android:inputType="text"
-                tools:ignore="SpeakableTextPresentCheck"
-android:hint="@string/medicine_description"
-                />
+                tools:ignore="SpeakableTextPresentCheck" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
@@ -155,8 +153,7 @@ android:hint="@string/medicine_description"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/descReminder_EditTextLayout"
-            />
+            app:layout_constraintTop_toBottomOf="@id/descReminder_EditTextLayout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

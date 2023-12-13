@@ -12,7 +12,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import com.heaven.storyapp.view.data.di.AlertIndicator
+import com.heaven.temantb.login.data.di.AlertIndicator
 import com.heaven.temanTB.R
 import com.heaven.temanTB.databinding.ActivityLoginBinding
 import com.heaven.temantb.login.view.ViewModelFactory
@@ -53,58 +53,65 @@ class LoginActivity : AppCompatActivity() {
         binding.loginButton.setOnClickListener {
             val email = binding.emailEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
-            val confPassword = binding.confPasswordEditText.text.toString()
-
-
-            if (password == confPassword) {
-                loginViewModel.login(email, password, confPassword).observe(this) { result ->
-                    if (result != null) {
-                        when (result) {
-                            AlertIndicator.Loading -> {
-                                binding.progressBar.isVisible = true
-                            }
-
-                            is AlertIndicator.Success -> {
-                                binding.progressBar.isVisible = false
-                                AlertDialog.Builder(this).apply {
-                                    setTitle("Yay!")
-                                    setMessage(getString(R.string.login_successful_message))
-                                    setPositiveButton("Ok") { _, _ ->
-                                        val intent = Intent(context, MainActivity::class.java)
-                                        intent.flags =
-                                            Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                                        startActivity(intent)
-                                        finish()
-                                    }
-                                    create()
-                                    show()
-                                }
-                            }
-
-                            is AlertIndicator.Error -> {
-                                binding.progressBar.isVisible = false
-                                AlertDialog.Builder(this).apply {
-                                    setTitle("Oops!")
-                                    setMessage(getString(R.string.login_failed_message))
-                                    setPositiveButton("Ok") { _, _ ->
-                                        binding.emailEditText.text?.clear()
-                                        binding.passwordEditText.text?.clear()
-                                        binding.emailEditText.requestFocus()
-                                    }
-                                    create()
-                                    show()
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+            loginUser(email, password)
         }
 
         binding.tvHaveAccount.setOnClickListener {
             startActivity(Intent(this, SignupActivity::class.java))
         }
     }
+
+    private fun loginUser(email: String, password: String) {
+        loginViewModel.login(email, password).observe(this) { result ->
+            if (result!= null){
+                when (result) {
+                    AlertIndicator.Loading -> {
+                        binding.progressBar.isVisible = true
+                    }
+
+                    is AlertIndicator.Success -> {
+                        binding.progressBar.isVisible = false
+                        showSuccessDialog(getString(R.string.login_successful_message))
+
+                    }
+
+                    is AlertIndicator.Error -> {
+                        binding.progressBar.isVisible = false
+                        showErrorDialog(getString(R.string.login_failed_message))
+                    }
+                }
+            }
+        }
+    }
+
+    private fun showSuccessDialog(message: String) {
+        AlertDialog.Builder(this).apply {
+            setTitle("Yay!")
+            setMessage(message)
+            setPositiveButton("Ok") { _, _ ->
+                val intent = Intent(context, MainActivity::class.java)
+                intent.flags =
+                    Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+                finish()
+            }
+            create()
+            show()
+        }
+    }
+
+    private fun showErrorDialog(message: String){
+        AlertDialog.Builder(this).apply {
+            setTitle("Oops!")
+            setMessage(message)
+            setPositiveButton("Ok") { _, _ ->
+                binding.emailEditText.requestFocus()
+            }
+            create()
+            show()
+        }
+    }
+
     private fun playAnimation() {
         ObjectAnimator.ofFloat(binding.imageView, View.TRANSLATION_X, -30f, 30f).apply {
             duration = 6000
@@ -121,10 +128,6 @@ class LoginActivity : AppCompatActivity() {
             ObjectAnimator.ofFloat(binding.passwordTextView, View.ALPHA, 1f).setDuration(100)
         val passwordEditTextLayout =
             ObjectAnimator.ofFloat(binding.passwordEditTextLayout, View.ALPHA, 1f).setDuration(100)
-        val confPasswordTextView =
-            ObjectAnimator.ofFloat(binding.confPasswordTextView, View.ALPHA, 1f).setDuration(100)
-        val confPasswordEditTextLayout =
-            ObjectAnimator.ofFloat(binding.confPasswordEditTextLayout, View.ALPHA, 1f).setDuration(100)
         val login = ObjectAnimator.ofFloat(binding.loginButton, View.ALPHA, 1f).setDuration(100)
         val alreadyRegister = ObjectAnimator.ofFloat(binding.tvHaveAccount, View.ALPHA, 1f).setDuration(100)
         val msgLogin = ObjectAnimator.ofFloat(binding.tvSubMessageLogin, View.ALPHA, 1f).setDuration(100)
@@ -137,8 +140,6 @@ class LoginActivity : AppCompatActivity() {
                 emailEditTextLayout,
                 passwordTextView,
                 passwordEditTextLayout,
-                confPasswordTextView,
-                confPasswordEditTextLayout,
                 login,
                 alreadyRegister,
                 msgLogin

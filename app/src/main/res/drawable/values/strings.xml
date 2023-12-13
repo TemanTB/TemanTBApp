@@ -11,7 +11,6 @@
     <string name="message_login_page">Log in to your persistent account</string>
     <string name="title_login_page">Welcome back!</string>
     <string name="name">Name</string>
-    <string name="message_main_page">Selamat Belajar di Dicoding.</string>
     <string name="greeting">Halo %1$s,</string>
     <string name="logout">Keluar</string>
     <string name="welcome_vector">Welcome Vector</string>

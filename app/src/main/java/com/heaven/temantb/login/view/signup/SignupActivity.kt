@@ -14,7 +14,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.google.android.material.textfield.TextInputLayout
-import com.heaven.storyapp.view.data.di.AlertIndicator
+import com.heaven.temantb.login.data.di.AlertIndicator
 import com.heaven.temanTB.R
 import com.heaven.temanTB.databinding.ActivitySignupBinding
 import com.heaven.temantb.login.view.ViewModelFactory
@@ -80,7 +80,7 @@ class SignupActivity : AppCompatActivity() {
             val confPassword = binding.confPasswordEditText.text.toString()
             val phone = binding.phoneEditText.text.toString()
 
-            signUpViewModel.signUp(name, email, password, confPassword, phone).observe(this) { result ->
+            signUpViewModel.signUp(name, email, phone, password, confPassword).observe(this) { result ->
                 if (result != null) {
                     when(result) {
                         AlertIndicator.Loading -> {

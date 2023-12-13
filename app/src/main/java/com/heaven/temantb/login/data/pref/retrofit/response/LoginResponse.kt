@@ -1,4 +1,4 @@
-package com.heaven.storyapp.view.data.retrofit.response
+package com.heaven.temantb.login.data.pref.retrofit.response
 
 import com.google.gson.annotations.SerializedName
 

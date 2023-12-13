@@ -1,4 +1,4 @@
-package com.heaven.storyapp.view.data.di
+package com.heaven.temantb.login.data.di
 
 sealed class AlertIndicator<out R> private constructor() {
     data class Success<out T>(val data: T) : AlertIndicator<T>()

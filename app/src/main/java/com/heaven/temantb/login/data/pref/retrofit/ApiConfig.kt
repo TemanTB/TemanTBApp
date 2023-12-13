@@ -1,7 +1,6 @@
-package com.heaven.storyapp.view.data.retrofit
+package com.heaven.temantb.login.data.pref.retrofit
 
 import com.heaven.temanTB.BuildConfig
-import com.heaven.temantb.login.data.pref.retrofit.ApiService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
