@@ -12,6 +12,8 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.heaven.temanTB.databinding.ActivityMainBinding
 import com.heaven.temantb.login.view.ViewModelFactory
+import com.heaven.temantb.login.view.health_monitor.HealthMonitorActivity
+import com.heaven.temantb.login.view.medicineSchedule.MedicineScheduleActivity
 import com.heaven.temantb.login.view.welcome.WelcomeActivity
 
 class MainActivity : AppCompatActivity() {
@@ -29,12 +31,12 @@ class MainActivity : AppCompatActivity() {
             if (!user.isLogin) {
                 startActivity(Intent(this, WelcomeActivity::class.java))
                 finish()
+            } else {
+                setupView()
+                setupAction(user.token)
             }
+            playAnimation()
         }
-
-        setupView()
-        setupAction()
-        playAnimation()
     }
 
     private fun setupView() {
@@ -47,28 +49,43 @@ class MainActivity : AppCompatActivity() {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
         }
-        supportActionBar?.hide()
     }
 
-    private fun setupAction() {
+    private fun setupAction(token: String) {
         binding.logoutButton.setOnClickListener {
             viewModel.logout()
+        }
+        binding.medicineSchedule.setOnClickListener{
+            val addIntent = Intent(this, MedicineScheduleActivity::class.java)
+            addIntent.putExtra(MedicineScheduleActivity.EXTRA_TOKEN, token)
+            startActivity(addIntent)
+        }
+        binding.healthMonitor.setOnClickListener{
+            val addIntent = Intent(this, HealthMonitorActivity::class.java)
+            startActivity(addIntent)
         }
     }
 
     private fun playAnimation() {
-        ObjectAnimator.ofFloat(binding.imageView, View.TRANSLATION_X, -30f, 30f).apply {
-            duration = 6000
-            repeatCount = ObjectAnimator.INFINITE
-            repeatMode = ObjectAnimator.REVERSE
-        }.start()
+//        ObjectAnimator.ofFloat(binding.imageView, View.TRANSLATION_X, -30f, 30f).apply {
+//            duration = 6000
+//            repeatCount = ObjectAnimator.INFINITE
+//            repeatMode = ObjectAnimator.REVERSE
+//        }.start()
 
-        val name = ObjectAnimator.ofFloat(binding.nameTextView, View.ALPHA, 1f).setDuration(100)
-        val message = ObjectAnimator.ofFloat(binding.tvSubMessageRegister, View.ALPHA, 1f).setDuration(100)
+//        val name = ObjectAnimator.ofFloat(binding.nameTextView, View.ALPHA, 1f).setDuration(100)
+//        val message = ObjectAnimator.ofFloat(binding.tvSubMessageRegister, View.ALPHA, 1f).setDuration(100)
         val logout = ObjectAnimator.ofFloat(binding.logoutButton, View.ALPHA, 1f).setDuration(100)
+        val medicineSchedule = ObjectAnimator.ofFloat(binding.medicineSchedule, View.ALPHA, 1f).setDuration(100)
+        val healthMonitor = ObjectAnimator.ofFloat(binding.healthMonitor, View.ALPHA, 1f).setDuration(100)
 
         AnimatorSet().apply {
-            playSequentially(name, message, logout)
+            playSequentially(
+                medicineSchedule,
+                healthMonitor,
+                logout
+            )
+//            playSequentially(name, message, logout)
             startDelay = 100
         }.start()
     }

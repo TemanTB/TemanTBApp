@@ -1,10 +1,13 @@
 package com.heaven.temantb.login.data.pref.retrofit
 
 import com.heaven.temantb.login.data.dataClass.LoginRequest
+import com.heaven.temantb.login.data.dataClass.MedicineScheduleRequest
 import com.heaven.temantb.login.data.dataClass.UserRequest
 import com.heaven.temantb.login.data.pref.retrofit.response.LoginResponse
+import com.heaven.temantb.login.data.pref.retrofit.response.MedicineScheduleResponse
 import com.heaven.temantb.login.data.pref.retrofit.response.SignUpResponse
 import retrofit2.http.Body
+import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface ApiService {
@@ -15,10 +18,20 @@ interface ApiService {
     @POST("login")
     suspend fun login(@Body loginRequest: LoginRequest): LoginResponse
 
-//        @Field("email") email: String,
-//        @Field("password") password: String,
-//        @Field("confPassword") confPassword: String
-//    ): LoginResponse
+//    @POST("schedule")
+//    suspend fun uploadMedicineSchedule(
+//        @Header("Authorization") token: String,
+//        @Query("medicineName") medicineName: RequestBody,
+//        @Query("description") description: RequestBody,
+//        @Query("hour") hour: RequestBody
+//    ): MedicineScheduleResponse
+
+    @POST("schedule")
+    suspend fun uploadMedicineSchedule(
+        @Header("Authorization") token: String,
+        @Body request: MedicineScheduleRequest
+    ): MedicineScheduleResponse
+
 
 //    @GET("stories")
 //    suspend fun getStories(
@@ -39,7 +52,7 @@ interface ApiService {
 //    @Header("Authorization") token: String,
 //    @Part file: MultipartBody.Part,
 //    @Part("description") description: RequestBody,
-//    ): FileUploadResponse
+//    ): MedicineScheduleResponse
 //
 //    @GET("stories")
 //    suspend fun getStoriesWithLocation(

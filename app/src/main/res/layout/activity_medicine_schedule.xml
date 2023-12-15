@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.upload.ReminderActivity"
+    tools:context="com.heaven.temantb.login.view.medicineSchedule.MedicineScheduleActivity"
     >
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -12,13 +12,12 @@
         >
 
         <TextView
-            android:id="@+id/pageTitle_reminder"
+            android:id="@+id/pageMedicine_reminder"
             style="@style/CustomMediumTitleFont"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="24dp"
-            android:alpha="0"
             android:text="@string/upload_page_title"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
@@ -26,34 +25,33 @@
             tools:alpha="100" />
 
         <TextView
-            android:id="@+id/titleReminderTextView"
+            android:id="@+id/medicineNameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="24dp"
-            android:alpha="0"
-            android:text="@string/title_reminder"
+            android:text="@string/medicineName"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pageTitle_reminder"
+            app:layout_constraintTop_toBottomOf="@+id/pageMedicine_reminder"
+            android:hint="@string/your_medicine"
             tools:alpha="100" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/titleReminder_EditTextLayout"
+            android:id="@+id/medicineName_EditTextLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
-            android:alpha="0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/titleReminderTextView"
+            app:layout_constraintTop_toBottomOf="@+id/medicineNameTextView"
             app:startIconDrawable="@drawable/ic_baseline_person_24"
-            tools:alpha="100">
+            >
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/dateEditText"
+                android:id="@+id/medicineNameEditText"
                 style="@style/CustomTextInputEditTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -65,56 +63,125 @@
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView android:id="@+id/hourReminderTextView"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--        <TextView android:id="@+id/hourReminderTextView"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="32dp"-->
+<!--            android:layout_marginTop="24dp"-->
+<!--            android:alpha="0"-->
+<!--            android:text="@string/hour_reminder"-->
+<!--            android:textColor="@color/black"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/titleReminder_EditTextLayout"-->
+<!--            tools:alpha="100" />-->
+
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:id="@+id/hourReminder_EditTextLayout"-->
+<!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="32dp"-->
+<!--            android:layout_marginEnd="32dp"-->
+<!--            android:alpha="0"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/hourReminderTextView"-->
+<!--            app:startIconDrawable="@drawable/ic_baseline_person_24"-->
+<!--            tools:alpha="100">-->
+
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:id="@+id/EditText"-->
+<!--                style="@style/CustomTextInputEditTextStyle"-->
+<!--                android:layout_width="75dp"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:ems="10"-->
+<!--                android:hint="@string/hint_hour"-->
+<!--                android:inputType="text"-->
+<!--                tools:ignore="SpeakableTextPresentCheck"-->
+
+<!--                />-->
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
+
+        <ImageButton
+            android:id="@+id/ibHour"
+            android:src="@drawable/ic_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="24dp"
-            android:alpha="0"
-            android:text="@string/hour_reminder"
-            android:textColor="@color/black"
+            android:onClick="buttonTimePickerHour"
+            app:layout_constraintTop_toBottomOf="@id/medicineName_EditTextLayout"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/titleReminder_EditTextLayout"
-            tools:alpha="100" />
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/hourReminder_EditTextLayout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
+            />
+
+        <TextView
+            android:id="@+id/hour"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:alpha="0"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="30dp"
+            android:text="@string/hour"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hourReminderTextView"
-            app:startIconDrawable="@drawable/ic_baseline_person_24"
-            tools:alpha="100">
+            app:layout_constraintTop_toBottomOf="@id/ibHour" />
+        <TextView
+            android:id="@+id/tv_hour"
+            android:textColor="@color/black"
+ android:layout_marginStart="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            app:layout_constraintTop_toBottomOf="@id/hour"
+            app:layout_constraintStart_toStartOf="parent"
+            />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/EditText"
-                style="@style/CustomTextInputEditTextStyle"
-                android:layout_width="75dp"
-                android:layout_height="match_parent"
-                android:ems="10"
-                android:hint="@string/hint_hour"
-                android:inputType="text"
-                tools:ignore="SpeakableTextPresentCheck"
 
-                />
-        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         <TextView
             android:id="@+id/descReminderTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="24dp"
-            android:alpha="0"
+            android:layout_marginTop="50dp"
             android:text="@string/desc_reminder"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hourReminder_EditTextLayout"
+            app:layout_constraintTop_toBottomOf="@+id/ibHour"
             tools:alpha="100" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -124,7 +191,6 @@
             android:layout_height="220dp"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
-            android:alpha="0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/descReminderTextView"
             app:startIconDrawable="@drawable/ic_baseline_person_24"
@@ -136,7 +202,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="@string/medicine_description"
                 android:inputType="text"
                 tools:ignore="SpeakableTextPresentCheck" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -154,6 +219,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/descReminder_EditTextLayout" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

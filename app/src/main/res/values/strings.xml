@@ -31,8 +31,8 @@
     <string name="date_reference">mm/dd/yyyy</string>
     <string name="save_media">Save</string>
     <string name="screning_page_title">Screening Infromation Detail</string>
-    <string name="upload_page_title">Add Medicine Reminder</string>
-    <string name="title_reminder">Title</string>
+    <string name="upload_page_title">Add Medicine Schedule</string>
+    <string name="medicineName">Medicine Name</string>
     <string name="desc_reminder">Description</string>
     <string name="hour_reminder">Repeat Every</string>
     <string name="hint_hour">--:--  --</string>
@@ -53,4 +53,5 @@
     <string name="permission_request_granted">Permission request granted</string>
     <string name="permission_request_denied">Permission request denied</string>
     <string name="confPassword">Confirmation Password</string>
+    <string name="hour">Set Hour</string>
 </resources>

@@ -19,7 +19,6 @@ import com.heaven.temantb.login.view.ViewModelFactory
 import com.heaven.temantb.login.view.main.MainActivity
 import com.heaven.temantb.login.view.signup.SignupActivity
 
-
 class LoginActivity : AppCompatActivity() {
     private val loginViewModel by viewModels<LoginViewModel> {
         ViewModelFactory.getInstance(this)

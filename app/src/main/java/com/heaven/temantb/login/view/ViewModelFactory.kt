@@ -7,6 +7,7 @@ import com.heaven.temantb.login.data.GeneralRepository
 import com.heaven.temantb.login.data.di.Injection
 import com.heaven.temantb.login.view.login.LoginViewModel
 import com.heaven.temantb.login.view.main.MainViewModel
+import com.heaven.temantb.login.view.medicineSchedule.MedicineScheduleViewModel
 import com.heaven.temantb.login.view.signup.SignUpViewModel
 
 class ViewModelFactory(private val repository: GeneralRepository) : ViewModelProvider.NewInstanceFactory() {
@@ -22,6 +23,9 @@ class ViewModelFactory(private val repository: GeneralRepository) : ViewModelPro
             }
             modelClass.isAssignableFrom(SignUpViewModel::class.java) -> {
                 SignUpViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(MedicineScheduleViewModel::class.java) -> {
+                MedicineScheduleViewModel(repository) as T
             }
 //            modelClass.isAssignableFrom(DetailStoryViewModel::class.java) -> {
 //                DetailStoryViewModel(repository) as T
