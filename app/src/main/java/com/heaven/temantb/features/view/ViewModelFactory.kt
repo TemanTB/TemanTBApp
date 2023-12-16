@@ -8,6 +8,7 @@ import com.heaven.temantb.features.data.di.Injection
 import com.heaven.temantb.features.view.login.LoginViewModel
 import com.heaven.temantb.features.view.main.MainViewModel
 import com.heaven.temantb.features.view.medicineScheduleAdd.MedicineScheduleViewModel
+import com.heaven.temantb.features.view.medicineScheduleDetail.DetailScheduleViewModel
 import com.heaven.temantb.features.view.medicineScheduleList.ScheduleListViewModel
 import com.heaven.temantb.features.view.signup.SignUpViewModel
 
@@ -31,7 +32,9 @@ class ViewModelFactory(private val repository: GeneralRepository) : ViewModelPro
             modelClass.isAssignableFrom(ScheduleListViewModel::class.java) -> {
                 ScheduleListViewModel(repository) as T
             }
-
+            modelClass.isAssignableFrom(DetailScheduleViewModel::class.java) -> {
+                DetailScheduleViewModel(repository) as T
+            }
 //            modelClass.isAssignableFrom(DetailStoryViewModel::class.java) -> {
 //                DetailStoryViewModel(repository) as T
 //            }

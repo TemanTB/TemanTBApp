@@ -13,16 +13,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="10dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="10dp">
 
         <TextView
             android:id="@+id/tv_item_medicineName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textColor="@color/black"
             android:layout_marginBottom="6dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
             tools:text="@tools:sample/lorem" />
 
         <TextView

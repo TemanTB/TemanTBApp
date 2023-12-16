@@ -88,8 +88,4 @@ class ScheduleListActivity : AppCompatActivity() {
         }
     }
 
-    companion object {
-        const val EXTRA_TOKEN = "extra_token"
-    }
-
 }

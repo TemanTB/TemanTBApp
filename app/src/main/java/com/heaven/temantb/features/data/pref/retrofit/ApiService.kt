@@ -3,7 +3,7 @@ package com.heaven.temantb.features.data.pref.retrofit
 import com.heaven.temantb.features.data.dataClass.LoginRequest
 import com.heaven.temantb.features.data.dataClass.MedicineScheduleRequest
 import com.heaven.temantb.features.data.dataClass.UserRequest
-import com.heaven.temantb.features.data.pref.retrofit.response.DetailStoryResponse
+import com.heaven.temantb.features.data.pref.retrofit.response.DetailScheduleResponse
 import com.heaven.temantb.features.data.pref.retrofit.response.ListScheduleResponse
 import com.heaven.temantb.features.data.pref.retrofit.response.LoginResponse
 import com.heaven.temantb.features.data.pref.retrofit.response.MedicineScheduleResponse
@@ -33,11 +33,11 @@ interface ApiService {
         @Header("Authorization") token: String,
     ): ListScheduleResponse
 
-    @GET("schedule/{id}")
-    suspend fun getDetailStory(
+    @GET("schedule/{scheduleID}")
+    suspend fun getDetailSchedule(
         @Path("id") id: String,
         @Header("Authorization") token: String
-    ): DetailStoryResponse
+    ): DetailScheduleResponse
 
 //    @GET("stories")
 //    suspend fun getStories(
@@ -50,7 +50,7 @@ interface ApiService {
 //    suspend fun getDetailStory(
 //        @Path("id") id: String,
 //        @Header("Authorization") token: String
-//    ): DetailStoryResponse
+//    ): DetailScheduleResponse
 //
 //    @Multipart
 //    @POST("stories")

@@ -55,4 +55,7 @@
     <string name="confPassword">Confirmation Password</string>
     <string name="hour">Set Hour</string>
     <string name="no_schedule_available">No schedhule available</string>
+    <string name="medicine_name">Medicine name</string>
+    <string name="time">Time</string>
+    <string name="description">Description</string>
 </resources>

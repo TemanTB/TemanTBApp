@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TemanTB" >
         <activity
-            android:name="com.heaven.temantb.features.view.medicineScheduleDetail.MedicineScheduleDetail"
+            android:name="com.heaven.temantb.features.view.medicineScheduleDetail.MedicineScheduleDetailActivity"
             android:exported="false" />
         <activity
             android:name="com.heaven.temantb.features.view.medicineScheduleList.ScheduleListActivity"

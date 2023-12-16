@@ -9,11 +9,11 @@ import androidx.core.util.Pair
 import androidx.recyclerview.widget.RecyclerView
 import com.heaven.temanTB.databinding.ItemRowScheduleBinding
 import com.heaven.temantb.features.data.pref.retrofit.response.ListScheduleItem
-import com.heaven.temantb.features.view.medicineScheduleDetail.MedicineScheduleDetail
+import com.heaven.temantb.features.view.medicineScheduleDetail.MedicineScheduleDetailActivity
 
 class ScheduleAdapter(private val listOfSchedule: List<ListScheduleItem>, private val token: String) : RecyclerView.Adapter<ScheduleAdapter.ViewHolder>() {
 
-    inner class ViewHolder(var binding: ItemRowScheduleBinding) : RecyclerView.ViewHolder(binding.root)
+    class ViewHolder(var binding: ItemRowScheduleBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemRowScheduleBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -30,9 +30,9 @@ class ScheduleAdapter(private val listOfSchedule: List<ListScheduleItem>, privat
             tvItemHour.text = schedule.hour
 
             root.setOnClickListener {
-                val intent = Intent(root.context, MedicineScheduleDetail::class.java)
-                intent.putExtra(MedicineScheduleDetail.EXTRA_ID, schedule.scheduleID)
-                intent.putExtra(MedicineScheduleDetail.EXTRA_TOKEN, token)
+                val intent = Intent(root.context, MedicineScheduleDetailActivity::class.java)
+                intent.putExtra(MedicineScheduleDetailActivity.EXTRA_ID, schedule.scheduleID)
+                intent.putExtra(MedicineScheduleDetailActivity.EXTRA_TOKEN, token)
 
                 val optionsCompat: ActivityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
                     root.context as Activity,
@@ -40,7 +40,6 @@ class ScheduleAdapter(private val listOfSchedule: List<ListScheduleItem>, privat
                     Pair(tvItemDescription, "trDescription"),
                     Pair(tvItemHour, "trHour")
                 )
-
                 root.context.startActivity(intent, optionsCompat.toBundle())
             }
         }
