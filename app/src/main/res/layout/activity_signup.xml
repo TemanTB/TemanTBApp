@@ -8,7 +8,7 @@
     android:fillViewport="true"
     android:scrollbars="none"
     android:overScrollMode="never"
-    tools:context="com.heaven.temantb.login.view.signup.SignupActivity">
+    tools:context="com.heaven.temantb.features.view.signup.SignupActivity">
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">

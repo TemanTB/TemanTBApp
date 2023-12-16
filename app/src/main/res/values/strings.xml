@@ -54,4 +54,5 @@
     <string name="permission_request_denied">Permission request denied</string>
     <string name="confPassword">Confirmation Password</string>
     <string name="hour">Set Hour</string>
+    <string name="no_schedule_available">No schedhule available</string>
 </resources>
