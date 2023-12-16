@@ -35,36 +35,9 @@ interface ApiService {
 
     @GET("schedule/{scheduleID}")
     suspend fun getDetailSchedule(
-        @Path("id") id: String,
+        @Path("scheduleID") scheduleID: String,
         @Header("Authorization") token: String
     ): DetailScheduleResponse
-
-//    @GET("stories")
-//    suspend fun getStories(
-//        @Header("Authorization") token: String,
-//        @Query("page") page: Int = 1,
-//        @Query("size") size: Int = 20,
-//    ): MedicineScheduleResponse
-//
-//    @GET("stories/{id}")
-//    suspend fun getDetailStory(
-//        @Path("id") id: String,
-//        @Header("Authorization") token: String
-//    ): DetailScheduleResponse
-//
-//    @Multipart
-//    @POST("stories")
-//    suspend fun uploadImage(
-//    @Header("Authorization") token: String,
-//    @Part file: MultipartBody.Part,
-//    @Part("description") description: RequestBody,
-//    ): MedicineScheduleResponse
-//
-//    @GET("stories")
-//    suspend fun getStoriesWithLocation(
-//        @Header("Authorization") token: String,
-//        @Query("location") location : Int = 1,
-//    ): MedicineScheduleResponse
 }
 
 

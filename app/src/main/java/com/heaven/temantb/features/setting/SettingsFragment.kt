@@ -1,12 +1,16 @@
-package com.dicoding.courseschedule.ui.setting
+package com.heaven.temantb.features.setting
 
 import android.os.Bundle
+import android.preference.ListPreference
+import android.preference.SwitchPreference
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreference
 import com.dicoding.courseschedule.R
 import com.dicoding.courseschedule.notification.DailyReminder
+import com.heaven.temanTB.R
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
