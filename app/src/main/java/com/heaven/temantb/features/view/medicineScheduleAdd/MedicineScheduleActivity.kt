@@ -1,15 +1,19 @@
 package com.heaven.temantb.features.view.medicineScheduleAdd
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.heaven.temantb.databinding.ActivityMedicineScheduleBinding
+import com.heaven.temantb.features.alarm.AlarmReceiver
 import com.heaven.temantb.features.data.di.AlertIndicator
 import com.heaven.temantb.features.view.ViewModelFactory
 import com.heaven.temantb.features.view.main.MainActivity
@@ -22,12 +26,29 @@ import java.util.Locale
 
 class MedicineScheduleActivity : AppCompatActivity(), TimePickerFragment.DialogTimeListener {
     private lateinit var binding: ActivityMedicineScheduleBinding
+    private lateinit var alarmReceiver: AlarmReceiver
     private val viewModel by viewModels<MedicineScheduleViewModel> {
         ViewModelFactory.getInstance(this)
     }
 
+    private val requestPermissionLauncher =
+        registerForActivityResult(
+            ActivityResultContracts.RequestPermission()
+        ) { isGranted: Boolean ->
+            if (isGranted) {
+                Toast.makeText(this, "Notifications permission granted", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Notifications permission rejected", Toast.LENGTH_SHORT).show()
+            }
+        }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        if (Build.VERSION.SDK_INT >= 33) {
+            requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+        }
+
         binding = ActivityMedicineScheduleBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -39,12 +60,17 @@ class MedicineScheduleActivity : AppCompatActivity(), TimePickerFragment.DialogT
                 uploadMedicineSchedule(token)
             }
         }
+
+        // Initialize the class variable
+        alarmReceiver = AlarmReceiver()
     }
+
 
     private fun uploadMedicineSchedule(token: String) {
         val medicineName = binding.medicineNameEditText.text.toString()
         val description = binding.descReminderEditText.text.toString()
         val hour = binding.tvHour.text.toString()
+        alarmReceiver.setRepeatingAlarm(this, AlarmReceiver.TYPE_TEMANTB, hour, description)
 
         if (isNotificationEnabled()) {
             Log.d(
@@ -139,7 +165,6 @@ class MedicineScheduleActivity : AppCompatActivity(), TimePickerFragment.DialogT
             "hourPicker" -> binding.tvHour.text = timeFormat.format(calendar.time)
         }
     }
-
 
     companion object {
         const val EXTRA_TOKEN = "extra_token"

@@ -1,6 +1,5 @@
 package com.heaven.temantb.features.view.setting
 
-import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.ListPreference
@@ -8,7 +7,6 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
 import com.heaven.temantb.R
 import com.heaven.temantb.features.alarm.AlarmReceiver
-import com.heaven.temantb.util.AppPreferences
 
 class SettingsFragment : PreferenceFragmentCompat() {
     private lateinit var alarmReceiver: AlarmReceiver
@@ -16,18 +14,22 @@ class SettingsFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.root_preferences, rootKey)
 
+        alarmReceiver = AlarmReceiver()
+
         val notificationSwitchPreference = findPreference<SwitchPreferenceCompat>("pref_key_notify")
 
         notificationSwitchPreference?.setOnPreferenceChangeListener { _, newValue ->
             val notificationEnabled = newValue as Boolean
-            if(notificationEnabled){
-                alarmReceiver.setRepeatingAlarm(requireContext(), EXTRA_TOKEN)
-            } else{
+            if (notificationEnabled) {
+                val defaultHour = "12:00" // Adjust to your default hour
+                val defaultDescription = "Default Description" // Adjust to your default description
+                alarmReceiver.setRepeatingAlarm(requireContext(), AlarmReceiver.TYPE_TEMANTB, defaultHour, defaultDescription)
+            } else {
                 alarmReceiver.cancelAlarm(requireContext())
             }
-//            saveNotificationSetting(notificationEnabled)
             true
         }
+
 
         val themePreferences = findPreference<ListPreference>(getString(R.string.pref_key_dark))
         themePreferences?.setOnPreferenceChangeListener { _, newValue ->
