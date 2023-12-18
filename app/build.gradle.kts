@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.heaven.temanTB"
+    namespace = "com.heaven.temantb"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.heaven.temanTB"
+        applicationId = "com.heaven.temantb"
         minSdk = 21
         targetSdk = 34
         versionCode = 1
@@ -51,10 +51,6 @@ dependencies {
     implementation("com.google.android.material:material:1.10.0")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
-    implementation("androidx.camera:camera-view:1.3.0")
-    implementation("androidx.camera:camera-lifecycle:1.3.0")
-    implementation("androidx.camera:camera-camera2:1.3.0")
-
     implementation("androidx.activity:activity-ktx:1.8.1")
     implementation("androidx.datastore:datastore-preferences:1.0.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
@@ -82,4 +78,7 @@ dependencies {
 
     implementation("androidx.room:room-ktx:2.6.1")
     implementation("androidx.room:room-paging:2.6.1")
+
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.5")
+    implementation("androidx.preference:preference-ktx:1.2.1")
 }

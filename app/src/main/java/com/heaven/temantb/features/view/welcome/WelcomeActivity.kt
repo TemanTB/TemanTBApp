@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import com.heaven.temanTB.databinding.ActivityWelcomeBinding
+import com.heaven.temantb.databinding.ActivityWelcomeBinding
 import com.heaven.temantb.features.view.login.LoginActivity
 
 

@@ -11,7 +11,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.heaven.temanTB.databinding.ActivityScheduleListBinding
+import com.heaven.temantb.databinding.ActivityScheduleListBinding
 import com.heaven.temantb.features.data.di.AlertIndicator
 import com.heaven.temantb.features.data.pref.retrofit.response.ListScheduleItem
 import com.heaven.temantb.features.view.ViewModelFactory

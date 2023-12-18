@@ -15,8 +15,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.google.android.material.textfield.TextInputLayout
 import com.heaven.temantb.features.data.di.AlertIndicator
-import com.heaven.temanTB.R
-import com.heaven.temanTB.databinding.ActivitySignupBinding
+import com.heaven.temantb.R
+import com.heaven.temantb.databinding.ActivitySignupBinding
 import com.heaven.temantb.features.view.ViewModelFactory
 
 

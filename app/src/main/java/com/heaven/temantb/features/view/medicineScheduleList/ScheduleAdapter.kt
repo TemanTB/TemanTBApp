@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
 import androidx.recyclerview.widget.RecyclerView
-import com.heaven.temanTB.databinding.ItemRowScheduleBinding
+import com.heaven.temantb.databinding.ItemRowScheduleBinding
 import com.heaven.temantb.features.data.pref.retrofit.response.ListScheduleItem
 import com.heaven.temantb.features.view.medicineScheduleDetail.MedicineScheduleDetailActivity
 

@@ -35,8 +35,8 @@ interface ApiService {
 
     @GET("schedule/{scheduleID}")
     suspend fun getDetailSchedule(
+        @Header("Authorization") token: String,
         @Path("scheduleID") scheduleID: String,
-        @Header("Authorization") token: String
     ): DetailScheduleResponse
 }
 

@@ -1,6 +1,6 @@
 package com.heaven.temantb.features.data.pref.retrofit
 
-import com.heaven.temanTB.BuildConfig
+import com.heaven.temantb.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

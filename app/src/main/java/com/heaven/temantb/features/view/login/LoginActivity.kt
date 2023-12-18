@@ -13,8 +13,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.heaven.temantb.features.data.di.AlertIndicator
-import com.heaven.temanTB.R
-import com.heaven.temanTB.databinding.ActivityLoginBinding
+import com.heaven.temantb.R
+import com.heaven.temantb.databinding.ActivityLoginBinding
 import com.heaven.temantb.features.view.ViewModelFactory
 import com.heaven.temantb.features.view.main.MainActivity
 import com.heaven.temantb.features.view.signup.SignupActivity

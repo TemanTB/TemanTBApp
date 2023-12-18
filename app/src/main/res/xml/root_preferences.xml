@@ -5,7 +5,9 @@
         <SwitchPreference
             app:key="@string/pref_key_notify"
             app:summary="@string/pref_notify_summary"
-            app:title="@string/pref_notify_name" />
+            app:title="@string/pref_notify_name"
+            app:defaultValue="true"
+                />
 
     </PreferenceCategory>
 

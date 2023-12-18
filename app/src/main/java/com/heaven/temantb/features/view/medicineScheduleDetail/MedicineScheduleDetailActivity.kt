@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import com.heaven.temanTB.databinding.ActivityMedicineScheduleDetailBinding
+import com.heaven.temantb.databinding.ActivityMedicineScheduleDetailBinding
 import com.heaven.temantb.features.data.di.AlertIndicator
 import com.heaven.temantb.features.view.ViewModelFactory
 

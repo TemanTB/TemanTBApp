@@ -10,11 +10,12 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.heaven.temanTB.databinding.ActivityMainBinding
+import com.heaven.temantb.databinding.ActivityMainBinding
 import com.heaven.temantb.features.view.ViewModelFactory
 import com.heaven.temantb.features.view.health_monitor.HealthMonitorActivity
 import com.heaven.temantb.features.view.medicineScheduleAdd.MedicineScheduleActivity
 import com.heaven.temantb.features.view.medicineScheduleList.ScheduleListActivity
+import com.heaven.temantb.features.view.setting.SettingsActivity
 import com.heaven.temantb.features.view.welcome.WelcomeActivity
 
 class MainActivity : AppCompatActivity() {
@@ -67,6 +68,10 @@ class MainActivity : AppCompatActivity() {
         binding.healthMonitor.setOnClickListener{
             val addIntent = Intent(this, HealthMonitorActivity::class.java)
             startActivity(addIntent)
+        }
+        binding.setting.setOnClickListener{
+            val intent = Intent(this, SettingsActivity::class.java)
+            startActivity(intent)
         }
     }
 

@@ -1,19 +1,19 @@
 package com.heaven.temantb.features.view.medicineScheduleAdd
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.heaven.temanTB.R
-import com.heaven.temanTB.databinding.ActivityMedicineScheduleBinding
+import com.heaven.temantb.databinding.ActivityMedicineScheduleBinding
 import com.heaven.temantb.features.data.di.AlertIndicator
 import com.heaven.temantb.features.view.ViewModelFactory
 import com.heaven.temantb.features.view.main.MainActivity
+import com.heaven.temantb.util.AppPreferences
 import com.heaven.temantb.util.TimePickerFragment
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -46,52 +46,63 @@ class MedicineScheduleActivity : AppCompatActivity(), TimePickerFragment.DialogT
         val description = binding.descReminderEditText.text.toString()
         val hour = binding.tvHour.text.toString()
 
-        Log.d("Ini logd medicineact", "Medicine Name: $medicineName, Description: $description, Hour: $hour")
-        viewModel.uploadMedicineSchedule(token, medicineName, description, hour).observe(this) { result ->
-            if (result != null) {
-                when (result) {
-                    AlertIndicator.Loading -> {
-                        showLoading(true)
-                    }
-
-                    is AlertIndicator.Success -> {
-                        showLoading(false)
-                        AlertDialog.Builder(this).apply {
-                            setTitle("Yay!")
-                            setMessage(result.data.message)
-                            setPositiveButton("Ok") { _, _ ->
-                                val intent = Intent(context, MainActivity::class.java)
-                                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                                startActivity(intent)
-                                finish()
+        if (isNotificationEnabled()) {
+            Log.d(
+                "Ini logd medicineact",
+                "Medicine Name: $medicineName, Description: $description, Hour: $hour"
+            )
+            viewModel.uploadMedicineSchedule(token, medicineName, description, hour)
+                .observe(this) { result ->
+                    if (result != null) {
+                        when (result) {
+                            AlertIndicator.Loading -> {
+                                showLoading(true)
                             }
-                            create()
-                            show()
-                        }
-                    }
 
-                    is AlertIndicator.Error -> {
-                        showLoading(false)
-                        AlertDialog.Builder(this).apply {
-                            setTitle("Ups!")
-                            setMessage(result.error)
-                            setPositiveButton("Ok") { _, _ ->
-                                val intent = Intent(context, MainActivity::class.java)
-                                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                                startActivity(intent)
-                                finish()
+                            is AlertIndicator.Success -> {
+                                showLoading(false)
+                                AlertDialog.Builder(this).apply {
+                                    setTitle("Yay!")
+                                    setMessage(result.data.message)
+                                    setPositiveButton("Ok") { _, _ ->
+                                        val intent = Intent(context, MainActivity::class.java)
+                                        intent.flags =
+                                            Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                                        startActivity(intent)
+                                        finish()
+                                    }
+                                    create()
+                                    show()
+                                }
                             }
-                            create()
-                            show()
+
+                            is AlertIndicator.Error -> {
+                                showLoading(false)
+                                AlertDialog.Builder(this).apply {
+                                    setTitle("Ups!")
+                                    setMessage(result.error)
+                                    setPositiveButton("Ok") { _, _ ->
+                                        val intent = Intent(context, MainActivity::class.java)
+                                        intent.flags =
+                                            Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                                        startActivity(intent)
+                                        finish()
+                                    }
+                                    create()
+                                    show()
+                                }
+                            }
                         }
                     }
                 }
-            }
+        }
+        else {
+            showToast("Please enable notifications in settings.")
         }
     }
 
-    private fun showToast(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    private fun showToast(description: String) {
+        Toast.makeText(this, description, Toast.LENGTH_SHORT).show()
     }
 
     private fun showLoading(isLoading: Boolean) {
@@ -107,17 +118,28 @@ class MedicineScheduleActivity : AppCompatActivity(), TimePickerFragment.DialogT
         dialogFragment.show(supportFragmentManager, tag)
     }
 
+    private fun isNotificationEnabled(): Boolean {
+        val sharedPreferences = getSharedPreferences(
+            AppPreferences.PREF_NAME,
+            Context.MODE_PRIVATE
+        )
+        return sharedPreferences.getBoolean(
+            AppPreferences.PREF_KEY_NOTIFICATION_ENABLED,
+            AppPreferences.DEFAULT_NOTIFICATION_ENABLED
+        )
+    }
+
     override fun onDialogTimeSet(tag: String?, hour: Int, minute: Int) {
         val calendar = Calendar.getInstance().apply {
             set(Calendar.HOUR_OF_DAY, hour)
             set(Calendar.MINUTE, minute)
         }
         val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
-
         when (tag) {
-            "hourPicker" -> findViewById<TextView>(R.id.tv_hour).text = timeFormat.format(calendar.time)
+            "hourPicker" -> binding.tvHour.text = timeFormat.format(calendar.time)
         }
     }
+
 
     companion object {
         const val EXTRA_TOKEN = "extra_token"

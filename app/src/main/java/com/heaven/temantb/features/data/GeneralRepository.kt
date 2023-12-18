@@ -1,5 +1,6 @@
 package com.heaven.temantb.features.data
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
@@ -18,11 +19,10 @@ import com.heaven.temantb.features.data.pref.retrofit.response.SignUpResponse
 import kotlinx.coroutines.flow.Flow
 
 class GeneralRepository private constructor(
+    private val context: Context,
     private val apiService: ApiService,
     private val userPreference: UserPreference
 ) {
-
-
         private suspend fun saveSession(user: UserModel) {
             userPreference.saveSession(user)
         }
@@ -135,60 +135,27 @@ class GeneralRepository private constructor(
         }
     }
 
+//    fun isNotificationEnabled(): Boolean {
+//        val sharedPreferences = context.getSharedPreferences(
+//            AppPreferences.PREF_NAME,
+//            Context.MODE_PRIVATE
+//        )
+//        return sharedPreferences.getBoolean(
+//            AppPreferences.PREF_KEY_NOTIFICATION_ENABLED,
+//            AppPreferences.DEFAULT_NOTIFICATION_ENABLED
+//        )
+//    }
+
     companion object {
         @Volatile
         private var instance: GeneralRepository? = null
         fun getInstance(
+            context: Context,
             apiService: ApiService,
             userPreference: UserPreference
         ): GeneralRepository =
             instance ?: synchronized(this) {
-                instance ?: GeneralRepository(apiService, userPreference)
+                instance ?: GeneralRepository(context, apiService, userPreference)
             }.also { instance = it }
     }
-
-
-//    fun getDetailStory(id: String, token: String): LiveData<AlertIndicator<DetailScheduleResponse>> = liveData{
-//        emit(AlertIndicator.Loading)
-//        try {
-//            val response = apiService.getDetailStory(id,"Bearer $token")
-//            if (response.error){
-//                emit(AlertIndicator.Error(response.message))
-//            }
-//            else {
-//                emit(AlertIndicator.Success(response))
-//            }
-//        } catch (e:Exception){
-//            emit(AlertIndicator.Error(e.message.toString()))
-//        }
-//    }
-//
-//    fun getStoriesWithLocation(token: String): LiveData<AlertIndicator<MedicineScheduleResponse>> = liveData{
-//        emit(AlertIndicator.Loading)
-//        try {
-//            val response = apiService.getStoriesWithLocation("Bearer $token")
-//            if (response.error){
-//                emit(AlertIndicator.Error(response.message))
-//            }
-//            else {
-//                emit(AlertIndicator.Success(response))
-//            }
-//        } catch (e:Exception){
-//            emit(AlertIndicator.Error(e.message.toString()))
-//        }
-//    }
-//
-//
-//    fun getStoryPaging(token: String): LiveData<PagingData<ListStoryItem>> {
-//        return Pager(
-//            config = PagingConfig(
-//                pageSize = 20
-//            ),
-//            pagingSourceFactory = {
-//                StoryPagingSource(apiService, token)
-//            }
-//        ).liveData
-//    }
-
-
 }
