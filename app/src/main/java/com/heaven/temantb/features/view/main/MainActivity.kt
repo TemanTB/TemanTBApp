@@ -5,6 +5,7 @@ import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
@@ -15,7 +16,6 @@ import com.heaven.temantb.features.view.ViewModelFactory
 import com.heaven.temantb.features.view.health_monitor.HealthMonitorActivity
 import com.heaven.temantb.features.view.medicineScheduleAdd.MedicineScheduleActivity
 import com.heaven.temantb.features.view.medicineScheduleList.ScheduleListActivity
-import com.heaven.temantb.features.view.setting.SettingsActivity
 import com.heaven.temantb.features.view.welcome.WelcomeActivity
 
 class MainActivity : AppCompatActivity() {
@@ -34,8 +34,15 @@ class MainActivity : AppCompatActivity() {
                 startActivity(Intent(this, WelcomeActivity::class.java))
                 finish()
             } else {
-                setupView()
-                setupAction(user.token)
+                if (user.userID != null) {
+                    Log.d("MainActivityCek1", "Token: ${user.token}, UserID: ${user.userID}")
+                    setupView()
+                    setupAction(user.token, user.userID)
+                    Log.d("MainActivityCek3", "Token: ${user.token}, UserID: ${user.userID}")
+                } else {
+                    Log.d("MainActivityCek1", "Token: ${user.token}, No UserID")
+                    // Handle the case when UserID is null
+                }
             }
             playAnimation()
         }
@@ -53,26 +60,24 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupAction(token: String) {
+    private fun setupAction(token: String, userID: String) {
         binding.logoutButton.setOnClickListener {
             viewModel.logout()
         }
         binding.medicineSchedule.setOnClickListener{
-//            val addIntent = Intent(this, MedicineScheduleActivity::class.java)
-//            addIntent.putExtra(MedicineScheduleActivity.EXTRA_TOKEN, token)
-//            startActivity(addIntent)
             val addIntent = Intent(this, ScheduleListActivity::class.java)
             addIntent.putExtra(MedicineScheduleActivity.EXTRA_TOKEN, token)
+            addIntent.putExtra(MedicineScheduleActivity.EXTRA_USER_ID, userID)
             startActivity(addIntent)
         }
         binding.healthMonitor.setOnClickListener{
             val addIntent = Intent(this, HealthMonitorActivity::class.java)
             startActivity(addIntent)
         }
-        binding.setting.setOnClickListener{
-            val intent = Intent(this, SettingsActivity::class.java)
-            startActivity(intent)
-        }
+//        binding.setting.setOnClickListener{
+//            val intent = Intent(this, SettingsActivity::class.java)
+//            startActivity(intent)
+//        }
     }
 
     private fun playAnimation() {

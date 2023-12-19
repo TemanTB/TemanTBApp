@@ -3,11 +3,11 @@ package com.heaven.temantb.features.view.medicineScheduleList
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -25,20 +25,8 @@ class ScheduleListActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityScheduleListBinding
 
-    private val requestPermissionLauncher =
-        registerForActivityResult(
-            ActivityResultContracts.RequestPermission()
-        ) { isGranted: Boolean ->
-            if (isGranted) {
-                Toast.makeText(this, "Notifications permission granted", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(this, "Notifications permission rejected", Toast.LENGTH_SHORT).show()
-            }
-        }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityScheduleListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -47,13 +35,13 @@ class ScheduleListActivity : AppCompatActivity() {
                 startActivity(Intent(this, ScheduleListActivity::class.java))
                 finish()
             } else {
-                setupView(user.token)
+                setupView(user.token, user.userID)
             }
-            setupAction(user.token)
+            setupAction(user.token, user.userID)
         }
     }
 
-    private fun setupView(token: String) {
+    private fun setupView(token: String, userID: String) {
         @Suppress("DEPRECATION")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.hide(WindowInsets.Type.statusBars())
@@ -64,9 +52,10 @@ class ScheduleListActivity : AppCompatActivity() {
             )
         }
 
-        viewModel.getSchedule(token).observe(this){ alert ->
-            if (alert != null){
-                when(alert) {
+        viewModel.getSchedule(token, userID).observe(this) { alert ->
+            Log.d("ScheduleListActivity1", "Get Schedule called")
+            if (alert != null) {
+                when (alert) {
                     AlertIndicator.Loading -> {
                         binding.progressBar.isVisible = true
                     }
@@ -78,12 +67,14 @@ class ScheduleListActivity : AppCompatActivity() {
                         binding.progressBar.isVisible = false
 
                         if (alert.data.listSchedule.isEmpty()) {
+                            Log.d("ScheduleListActivity2", "success empty")
                             binding.noStoriesTextView.visibility = View.VISIBLE
                             binding.rvStories.isVisible = false
                         } else {
+                            Log.d("ScheduleListActivity3", "success not empty")
                             binding.noStoriesTextView.visibility = View.GONE
                             binding.rvStories.layoutManager = LinearLayoutManager(this)
-                            binding.rvStories.adapter = triggerRecyclerView(alert.data.listSchedule,token)
+                            binding.rvStories.adapter = triggerRecyclerView(alert.data.listSchedule, token, userID)
                         }
                     }
                 }
@@ -91,14 +82,15 @@ class ScheduleListActivity : AppCompatActivity() {
         }
     }
 
-    private fun triggerRecyclerView(list: List<ListScheduleItem>, token: String) : ScheduleAdapter = ScheduleAdapter(list, token)
+    private fun triggerRecyclerView(list: List<ListScheduleItem>, token: String, userID: String): ScheduleAdapter =
+        ScheduleAdapter(list, token, userID)
 
-    private fun setupAction(token: String) {
+    private fun setupAction(token: String, userID: String) {
         binding.addSchedule.setOnClickListener {
             val intent = Intent(this, MedicineScheduleActivity::class.java)
             intent.putExtra(MedicineScheduleActivity.EXTRA_TOKEN, token)
+            intent.putExtra(MedicineScheduleActivity.EXTRA_USER_ID, userID)
             startActivity(intent)
         }
     }
-
 }

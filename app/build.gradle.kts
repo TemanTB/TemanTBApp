@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("kotlin-android")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -15,7 +16,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "API_URL", "\"https://temantb-api.et.r.appspot.com/\"")
+//        buildConfigField("String", "API_URL", "\"https://temantb-api.et.r.appspot.com/\"")
+        buildConfigField("String", "API_URL", "\"https://apitemantb-5vmozaariq-ts.a.run.app/\"")
 
     }
 

@@ -30,17 +30,9 @@ data class ScheduleInDetail(
 	@field:SerializedName("userID")
 	val userID: String,
 
-	@field:SerializedName("user")
-	val userInDetail: UserInDetail
-)
+	@field:SerializedName("createdAt")
+	val createdAt: String,
 
-data class UserInDetail(
-	@field:SerializedName("name")
-	val name: String,
-
-	@field:SerializedName("email")
-	val email: String,
-
-	@field:SerializedName("phone")
-	val phone: String
+	@field:SerializedName("updatedAt")
+	val updatedAt: String
 )

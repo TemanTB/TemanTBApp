@@ -17,6 +17,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.heaven.temantb.R
+import com.heaven.temantb.features.view.medicineScheduleDetail.MedicineScheduleDetailActivity
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -158,6 +159,20 @@ class AlarmReceiver : BroadcastReceiver() {
 
         val alarmSound = Uri.parse("android.resource://" + context.packageName + "/" + R.raw.heal)
 
+        // Create an Intent that opens MedicineScheduleDetailActivity
+        val intent = Intent(context, MedicineScheduleDetailActivity::class.java)
+        // You can add any extras you want to pass to the detail activity here
+        intent.putExtra("EXTRA_MEDICINE_NAME", medicineName)
+        intent.putExtra("EXTRA_DESCRIPTION", description)
+
+        // Create a PendingIntent for the notification
+        val pendingIntent = PendingIntent.getActivity(
+            context,
+            notifId,
+            intent,
+            PendingIntent.FLAG_IMMUTABLE
+        )
+
         val builder = NotificationCompat.Builder(context, channelId)
             .setSmallIcon(R.drawable.ic_ttb_circle)
             .setContentTitle(medicineName)
@@ -165,6 +180,7 @@ class AlarmReceiver : BroadcastReceiver() {
             .setColor(ContextCompat.getColor(context, android.R.color.transparent))
             .setVibrate(longArrayOf(1000, 1000, 1000, 2000, 2000, 2000, 1000, 1000, 1000))
             .setSound(alarmSound)
+            .setContentIntent(pendingIntent) // Set the content intent
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
@@ -186,9 +202,6 @@ class AlarmReceiver : BroadcastReceiver() {
         // Notify with the new notification and unique ID
         notificationManagerCompat.notify(notifId, notification)
     }
-
-// ...
-
 
     private fun generateUniqueId(): Int {
         return System.currentTimeMillis().toInt()

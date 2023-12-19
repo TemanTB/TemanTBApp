@@ -45,6 +45,10 @@
         <item name="android:gravity">center</item>
     </style>
 
+    <style name="articleTitle">Article Title</style>
+
+    <style name="articleDescription">Article Description</style>
+
 
 </resources>
 

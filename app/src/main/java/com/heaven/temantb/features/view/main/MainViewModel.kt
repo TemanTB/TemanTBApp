@@ -10,13 +10,10 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(private val repository: GeneralRepository) : ViewModel() {
 
-//    fun getStories(token: String) = repository.getStories(token)
 
     fun getSession(): LiveData<UserModel> {
         return repository.getSession().asLiveData()
     }
-
-//    fun getPagedStories(token: String): LiveData<PagingData<ListStoryItem>> = repository.getStoryPaging(token).cachedIn(viewModelScope)
 
     fun logout() {
         viewModelScope.launch {

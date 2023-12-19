@@ -28,11 +28,13 @@ class MedicineScheduleDetailActivity : AppCompatActivity() {
         val scheduleID = intent.getStringExtra(EXTRA_ID)
         val token = intent.getStringExtra(EXTRA_TOKEN)
 
-        Log.d("cekTokenNIdSchedule", "ID: $scheduleID, Token: $token")
+        Log.d("DetailActivity4", "ID: $scheduleID, Token: $token")
 
         if (token != null && scheduleID != null) {
             setupView(scheduleID, token)
         }
+        Log.d("DetailActivity1", "ID: $scheduleID, Token: $token, idSchedule: $scheduleID")
+
     }
 
     private fun setupView(scheduleID: String, token: String) {
@@ -65,12 +67,13 @@ class MedicineScheduleDetailActivity : AppCompatActivity() {
                             tvTime.text = it.hour
 
                             Log.d(
-                                "cekTokenNIdSchedule2",
+                                "DetailActivity2",
                                 "MedicineName: ${tvMedicineName.text}, Description: ${tvDescription.text}, Hour: ${tvTime.text}"
                             )
                         }
                     } ?: run {
-                        Log.d("Data", "No data found")
+                        Log.d("DetailActivity3", "No data found")
+                        Log.d("DetailActivity5", "No data found for scheduleID: $scheduleID")
                     }
                 }
             }
@@ -80,5 +83,6 @@ class MedicineScheduleDetailActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_ID: String = "extra_id"
         const val EXTRA_TOKEN: String = "extra_token"
+        const val EXTRA_USER_ID: String = "extra_id"
     }
 }

@@ -30,18 +30,4 @@ data class ListScheduleItem(
 
     @field:SerializedName("userID")
     val userID: String,
-
-    @field:SerializedName("user")
-    val user: User
-)
-
-data class User(
-    @field:SerializedName("name")
-    val name: String,
-
-    @field:SerializedName("email")
-    val email: String,
-
-    @field:SerializedName("phone")
-    val phone: String
 )

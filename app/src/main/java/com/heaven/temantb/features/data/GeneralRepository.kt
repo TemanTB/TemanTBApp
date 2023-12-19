@@ -39,26 +39,27 @@ class GeneralRepository private constructor(
             return AlertIndicator.Error(exception.message.toString())
         }
 
-        fun login(email: String, password: String): LiveData<AlertIndicator<LoginResponse>> = liveData {
-            emit(AlertIndicator.Loading)
-            try {
-                val loginRequest = LoginRequest(email, password)
-                val response = apiService.login(loginRequest)
-                if (response.error) {
-                    emit(AlertIndicator.Error(response.message))
+    fun login(email: String, password: String): LiveData<AlertIndicator<LoginResponse>> = liveData {
+        emit(AlertIndicator.Loading)
+        try {
+            val loginRequest = LoginRequest(email, password)
+            val response = apiService.login(loginRequest)
+            Log.d("GeneralRepository", "LoginResult: $response.loginResult")
+            if (response.error) {
+                emit(AlertIndicator.Error(response.message))
+            } else {
+                if (response.loginResult.token.isNullOrEmpty() || response.loginResult.userID.isNullOrEmpty()) {
+                    emit(AlertIndicator.Error("Token or UserID is null or empty"))
                 } else {
-                    if (response.loginResult.token.isNullOrEmpty()) {
-                        // Handle null or empty token
-                        emit(AlertIndicator.Error("Token is null or empty"))
-                    } else {
-                        emit(AlertIndicator.Success(response))
-                        saveSession(UserModel(email, response.loginResult.token, true))
-                    }
+                    val userModel = UserModel(email, response.loginResult.token, true, response.loginResult.userID)
+                    emit(AlertIndicator.Success(response))
+                    saveSession(userModel)
                 }
-            } catch (e: Exception) {
-                emit(handleError(e))
             }
+        } catch (e: Exception) {
+            emit(handleError(e))
         }
+    }
 
     fun signUp(name: String, email: String, phone: String, password: String, confPassword: String): LiveData<AlertIndicator<SignUpResponse>> = liveData {
         emit(AlertIndicator.Loading)
@@ -79,7 +80,8 @@ class GeneralRepository private constructor(
         token: String,
         medicineName: String,
         description: String,
-        hour: String
+        hour: String,
+        userID: String
     ): LiveData<AlertIndicator<MedicineScheduleResponse>> = liveData {
         emit(AlertIndicator.Loading)
         try {
@@ -90,7 +92,7 @@ class GeneralRepository private constructor(
 
             val response = apiService.uploadMedicineSchedule(
                 "Bearer $token",
-                MedicineScheduleRequest(medicineName, description, hour)
+                MedicineScheduleRequest(medicineName, description, hour, userID)
             )
 
             if (response.error) {
@@ -103,20 +105,22 @@ class GeneralRepository private constructor(
         }
     }
 
-    fun getSchedule(token: String): LiveData<AlertIndicator<ListScheduleResponse>> = liveData{
+    fun getSchedule(token: String, userID: String): LiveData<AlertIndicator<ListScheduleResponse>> = liveData {
         emit(AlertIndicator.Loading)
         try {
-            val response = apiService.getSchedule("Bearer $token")
-            if (response.error){
+            val response = apiService.getSchedule("Bearer $token", userID)
+
+            if (response.error) {
                 emit(AlertIndicator.Error(response.message))
-            }
-            else {
+            } else {
                 emit(AlertIndicator.Success(response))
             }
-        } catch (e:Exception){
+        } catch (e: Exception) {
             emit(AlertIndicator.Error(e.message.toString()))
         }
     }
+
+
 
     fun getDetailSchedule(scheduleID: String, token: String): LiveData<AlertIndicator<DetailScheduleResponse>> = liveData{
         Log.d("DetailScheduleModelapi", "API Request - ID: $scheduleID, Token: $token")
