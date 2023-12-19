@@ -1,6 +1,8 @@
 package com.heaven.temantb.features.view.setting
 
+import android.os.Build
 import android.os.Bundle
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
@@ -11,6 +13,7 @@ import com.heaven.temantb.features.alarm.AlarmReceiver
 class SettingsFragment : PreferenceFragmentCompat() {
     private lateinit var alarmReceiver: AlarmReceiver
 
+    @RequiresApi(Build.VERSION_CODES.S)
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.root_preferences, rootKey)
 
@@ -23,7 +26,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
             if (notificationEnabled) {
                 val defaultHour = "12:00" // Adjust to your default hour
                 val defaultDescription = "Default Description" // Adjust to your default description
-                alarmReceiver.setRepeatingAlarm(requireContext(), AlarmReceiver.TYPE_TEMANTB, defaultHour, defaultDescription)
+                val defaultMedicine = "Inoxin"
+                alarmReceiver.setRepeatingAlarm(requireContext(), AlarmReceiver.TYPE_TEMANTB, defaultHour, defaultDescription, defaultMedicine)
             } else {
                 alarmReceiver.cancelAlarm(requireContext())
             }

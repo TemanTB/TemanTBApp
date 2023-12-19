@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.heaven.temantb.databinding.ActivityMedicineScheduleBinding
@@ -42,6 +43,7 @@ class MedicineScheduleActivity : AppCompatActivity(), TimePickerFragment.DialogT
             }
         }
 
+    @RequiresApi(Build.VERSION_CODES.S)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -66,11 +68,12 @@ class MedicineScheduleActivity : AppCompatActivity(), TimePickerFragment.DialogT
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.S)
     private fun uploadMedicineSchedule(token: String) {
         val medicineName = binding.medicineNameEditText.text.toString()
         val description = binding.descReminderEditText.text.toString()
         val hour = binding.tvHour.text.toString()
-        alarmReceiver.setRepeatingAlarm(this, AlarmReceiver.TYPE_TEMANTB, hour, description)
+        alarmReceiver.setRepeatingAlarm(this, AlarmReceiver.TYPE_TEMANTB, hour, description, medicineName)
 
         if (isNotificationEnabled()) {
             Log.d(

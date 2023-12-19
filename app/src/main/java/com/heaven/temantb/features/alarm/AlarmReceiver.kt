@@ -9,10 +9,11 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.media.RingtoneManager
+import android.net.Uri
 import android.os.Build
 import android.util.Log
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.heaven.temantb.R
@@ -27,28 +28,32 @@ class AlarmReceiver : BroadcastReceiver() {
         Log.d("AlarmReceiver7", "onReceive called")
         val type = intent.getStringExtra(EXTRA_TYPE)
         val description = intent.getStringExtra(EXTRA_DESCRIPTION)
+        val medicineName = intent.getStringExtra(EXTRA_MEDICINE_NAME) ?: TYPE_TEMANTB
 
         Log.d("AlarmReceiver6", "Received alarm intent. Description: $description")
 
-        val medicineName = TYPE_TEMANTB
-        val notifId = ID_REPEATING
-
+        val notifId = generateUniqueId()
 
         if (description != null) {
             Log.d("AlarmReceiver5", "description not null")
-            showAlarmNotification(context, medicineName, description, notifId)
+            showAlarmNotification(context, medicineName, description, getCurrentTime(), notifId)
         }
     }
 
-//    fun setRepeatingAlarm(context: Context, token: String, hour: String, description: String) {
-    fun setRepeatingAlarm(context: Context, type: String, hour: String, description: String) {
+    @RequiresApi(Build.VERSION_CODES.S)
+    fun setRepeatingAlarm(context: Context, type: String, hour: String, description: String?, medicineName: String) {
         Log.d("AlarmReceiver1", "showAlarmNotification called")
-        if (checkPermission(context)){
+        if (checkPermission(context)) {
             if (isDateInvalid(hour, TIME_FORMAT)) return
 
             val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
             val intent = Intent(context, AlarmReceiver::class.java)
-            intent.putExtra(EXTRA_DESCRIPTION, description)
+
+            val defaultDescription = "It's time to take your medicine. Please get it now"
+            val alarmDescription = description.takeIf { !it.isNullOrBlank() } ?: defaultDescription
+
+            intent.putExtra(EXTRA_DESCRIPTION, alarmDescription)
+            intent.putExtra(EXTRA_MEDICINE_NAME, medicineName) //
             val timeArray = hour.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
 
             val calendar = Calendar.getInstance().apply {
@@ -57,19 +62,39 @@ class AlarmReceiver : BroadcastReceiver() {
                 set(Calendar.SECOND, 0)
             }
 
+            if (calendar.timeInMillis <= System.currentTimeMillis()) {
+                calendar.add(Calendar.DAY_OF_YEAR, 1)
+            }
+
             val pendingIntent = PendingIntent.getBroadcast(
                 context,
-                ID_REPEATING,
+                generateUniqueId(),
                 intent,
                 PendingIntent.FLAG_IMMUTABLE
             )
 
-            alarmManager.setInexactRepeating(
-                AlarmManager.RTC_WAKEUP,
-                calendar.timeInMillis,
-                AlarmManager.INTERVAL_DAY,
-                pendingIntent
-            )
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (alarmManager.canScheduleExactAlarms()) {
+                    alarmManager.setExactAndAllowWhileIdle(
+                        AlarmManager.RTC_WAKEUP,
+                        calendar.timeInMillis,
+                        pendingIntent
+                    )
+                } else {
+                    Log.e("AlarmReceiver", "Cannot schedule exact alarms on this device")
+                    Toast.makeText(
+                        context,
+                        "Cannot schedule exact alarms on this device",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            } else {
+                alarmManager.setExact(
+                    AlarmManager.RTC_WAKEUP,
+                    calendar.timeInMillis,
+                    pendingIntent
+                )
+            }
 
             Toast.makeText(context, "Medicine alarm set up.", Toast.LENGTH_SHORT).show()
         }
@@ -99,11 +124,16 @@ class AlarmReceiver : BroadcastReceiver() {
         }
     }
 
-//    DAH BENER
     fun cancelAlarm(context: Context) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, AlarmReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(context, ID_REPEATING, intent, PendingIntent.FLAG_IMMUTABLE)
+        val pendingIntent =
+            PendingIntent.getBroadcast(
+                context,
+                generateUniqueId(),
+                intent,
+                PendingIntent.FLAG_IMMUTABLE
+            )
         if (pendingIntent != null) {
             pendingIntent.cancel()
             alarmManager.cancel(pendingIntent)
@@ -111,39 +141,71 @@ class AlarmReceiver : BroadcastReceiver() {
         }
     }
 
+    // ...
 
-//    MEMBUAT NOTIFIKASI
-    private fun showAlarmNotification(context: Context, medicineName: String, description: String, notifId: Int) {
-    Log.d("AlarmReceiver4", "show alarmnotif ni kepanggil ga")
+    private fun showAlarmNotification(
+        context: Context,
+        medicineName: String,
+        description: String,
+        hour: String,
+        notifId: Int
+    ) {
+        Log.d("AlarmReceiver4", "show alarmnotif called")
         val channelId = "Channel_1"
         val channelName = "AlarmManager channel"
-        val notificationManagerCompat = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        val alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+        val notificationManagerCompat =
+            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        val alarmSound = Uri.parse("android.resource://" + context.packageName + "/" + R.raw.heal)
+
         val builder = NotificationCompat.Builder(context, channelId)
-            .setSmallIcon(R.drawable.ic_notification)
+            .setSmallIcon(R.drawable.ic_ttb_circle)
             .setContentTitle(medicineName)
             .setContentText(description)
             .setColor(ContextCompat.getColor(context, android.R.color.transparent))
-            .setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
+            .setVibrate(longArrayOf(1000, 1000, 1000, 2000, 2000, 2000, 1000, 1000, 1000))
             .setSound(alarmSound)
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(channelId,
+            val channel = NotificationChannel(
+                channelId,
                 channelName,
-                NotificationManager.IMPORTANCE_DEFAULT)
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
             channel.enableVibration(true)
             channel.vibrationPattern = longArrayOf(1000, 1000, 1000, 1000, 1000)
             builder.setChannelId(channelId)
             notificationManagerCompat.createNotificationChannel(channel)
         }
+
         val notification = builder.build()
+
+        // Cancel the previous notification if any
+        notificationManagerCompat.cancel(notifId)
+
+        // Notify with the new notification and unique ID
         notificationManagerCompat.notify(notifId, notification)
+    }
+
+// ...
+
+
+    private fun generateUniqueId(): Int {
+        return System.currentTimeMillis().toInt()
+    }
+
+    private fun getCurrentTime(): String {
+        val calendar = Calendar.getInstance()
+        val hour = calendar.get(Calendar.HOUR_OF_DAY)
+        val minute = calendar.get(Calendar.MINUTE)
+        return String.format(Locale.getDefault(), "%02d:%02d", hour, minute)
     }
 
     companion object {
         const val TYPE_TEMANTB = "TemanTB"
         const val EXTRA_DESCRIPTION = "description"
+        const val EXTRA_MEDICINE_NAME = "medicineName" // Add constant for medicineName
         const val EXTRA_TYPE = "type"
-        private const val ID_REPEATING = 101
         private const val TIME_FORMAT = "HH:mm"
     }
 }
