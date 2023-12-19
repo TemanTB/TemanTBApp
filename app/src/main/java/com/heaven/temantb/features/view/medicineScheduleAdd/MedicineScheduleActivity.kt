@@ -55,24 +55,21 @@ class MedicineScheduleActivity : AppCompatActivity(), TimePickerFragment.DialogT
         setContentView(binding.root)
 
         val token = intent.getStringExtra(EXTRA_TOKEN)
-        val userID = intent.getStringExtra(EXTRA_USER_ID)
-
-
 
         binding.saveButton.setOnClickListener {
-            if (token != null && userID != null) {
-                Log.d("AddSchedule1", "Button clicked")
-                Log.d("AddSchedule2", "token = $token, userID = $userID")
-                uploadMedicineSchedule(token, userID)
+            if (token != null) {
+                Log.d("ButtonClicked", "Button clicked")
+                uploadMedicineSchedule(token)
             }
         }
 
+        // Initialize the class variable
         alarmReceiver = AlarmReceiver()
     }
 
 
     @RequiresApi(Build.VERSION_CODES.S)
-    private fun uploadMedicineSchedule(token: String, userID: String) {
+    private fun uploadMedicineSchedule(token: String) {
         val medicineName = binding.medicineNameEditText.text.toString()
         val description = binding.descReminderEditText.text.toString()
         val hour = binding.tvHour.text.toString()
@@ -83,7 +80,7 @@ class MedicineScheduleActivity : AppCompatActivity(), TimePickerFragment.DialogT
                 "Ini logd medicineact",
                 "Medicine Name: $medicineName, Description: $description, Hour: $hour"
             )
-            viewModel.uploadMedicineSchedule(token, medicineName, description, hour, userID)
+            viewModel.uploadMedicineSchedule(token, medicineName, description, hour)
                 .observe(this) { result ->
                     if (result != null) {
                         when (result) {
@@ -174,7 +171,6 @@ class MedicineScheduleActivity : AppCompatActivity(), TimePickerFragment.DialogT
 
     companion object {
         const val EXTRA_TOKEN = "extra_token"
-        const val EXTRA_USER_ID = "extra_user_id"
     }
 
 }

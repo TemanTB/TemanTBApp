@@ -25,16 +25,14 @@ class MedicineScheduleDetailActivity : AppCompatActivity() {
         binding = ActivityMedicineScheduleDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val scheduleID = intent.getStringExtra(EXTRA_ID)
+        val scheduleId = intent.getStringExtra(EXTRA_ID)
         val token = intent.getStringExtra(EXTRA_TOKEN)
 
-        Log.d("DetailActivity4", "ID: $scheduleID, Token: $token")
+        Log.d("cekTokenNIdSchedule", "ID: $scheduleId, Token: $token")
 
-        if (token != null && scheduleID != null) {
-            setupView(scheduleID, token)
+        if (token != null && scheduleId != null) {
+            setupView(scheduleId, token)
         }
-        Log.d("DetailActivity1", "ID: $scheduleID, Token: $token, idSchedule: $scheduleID")
-
     }
 
     private fun setupView(scheduleID: String, token: String) {
@@ -67,13 +65,12 @@ class MedicineScheduleDetailActivity : AppCompatActivity() {
                             tvTime.text = it.hour
 
                             Log.d(
-                                "DetailActivity2",
+                                "cekTokenNIdSchedule2",
                                 "MedicineName: ${tvMedicineName.text}, Description: ${tvDescription.text}, Hour: ${tvTime.text}"
                             )
                         }
                     } ?: run {
-                        Log.d("DetailActivity3", "No data found")
-                        Log.d("DetailActivity5", "No data found for scheduleID: $scheduleID")
+                        Log.d("Data", "No data found")
                     }
                 }
             }
@@ -83,6 +80,5 @@ class MedicineScheduleDetailActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_ID: String = "extra_id"
         const val EXTRA_TOKEN: String = "extra_token"
-        const val EXTRA_USER_ID: String = "extra_id"
     }
 }

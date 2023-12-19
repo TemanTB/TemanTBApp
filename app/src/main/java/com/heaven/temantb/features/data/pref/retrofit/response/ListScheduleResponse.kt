@@ -16,8 +16,8 @@ data class ListScheduleResponse(
 
 data class ListScheduleItem(
 
-    @field:SerializedName("scheduleID")
-    val scheduleID: String,
+    @field:SerializedName("scheduleId")
+    val scheduleId: String,
 
     @field:SerializedName("medicineName")
     val medicineName: String,
@@ -30,4 +30,18 @@ data class ListScheduleItem(
 
     @field:SerializedName("userID")
     val userID: String,
+
+    @field:SerializedName("user")
+    val user: User
+)
+
+data class User(
+    @field:SerializedName("name")
+    val name: String,
+
+    @field:SerializedName("email")
+    val email: String,
+
+    @field:SerializedName("phone")
+    val phone: String
 )

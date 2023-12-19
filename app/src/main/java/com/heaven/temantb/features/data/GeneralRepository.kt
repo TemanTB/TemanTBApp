@@ -23,37 +23,36 @@ class GeneralRepository private constructor(
     private val apiService: ApiService,
     private val userPreference: UserPreference
 ) {
-        private suspend fun saveSession(user: UserModel) {
-            userPreference.saveSession(user)
-        }
+    private suspend fun saveSession(user: UserModel) {
+        userPreference.saveSession(user)
+    }
 
-        fun getSession(): Flow<UserModel> {
-            return userPreference.getSession()
-        }
+    fun getSession(): Flow<UserModel> {
+        return userPreference.getSession()
+    }
 
-        suspend fun logout() {
-            userPreference.logout()
-        }
+    suspend fun logout() {
+        userPreference.logout()
+    }
 
-        private fun handleError(exception: Exception): AlertIndicator.Error {
-            return AlertIndicator.Error(exception.message.toString())
-        }
+    private fun handleError(exception: Exception): AlertIndicator.Error {
+        return AlertIndicator.Error(exception.message.toString())
+    }
 
     fun login(email: String, password: String): LiveData<AlertIndicator<LoginResponse>> = liveData {
         emit(AlertIndicator.Loading)
         try {
             val loginRequest = LoginRequest(email, password)
             val response = apiService.login(loginRequest)
-            Log.d("GeneralRepository", "LoginResult: $response.loginResult")
             if (response.error) {
                 emit(AlertIndicator.Error(response.message))
             } else {
-                if (response.loginResult.token.isNullOrEmpty() || response.loginResult.userID.isNullOrEmpty()) {
-                    emit(AlertIndicator.Error("Token or UserID is null or empty"))
+                if (response.loginResult.token.isNullOrEmpty()) {
+                    // Handle null or empty token
+                    emit(AlertIndicator.Error("Token is null or empty"))
                 } else {
-                    val userModel = UserModel(email, response.loginResult.token, true, response.loginResult.userID)
                     emit(AlertIndicator.Success(response))
-                    saveSession(userModel)
+                    saveSession(UserModel(email, response.loginResult.token, true))
                 }
             }
         } catch (e: Exception) {
@@ -80,8 +79,7 @@ class GeneralRepository private constructor(
         token: String,
         medicineName: String,
         description: String,
-        hour: String,
-        userID: String
+        hour: String
     ): LiveData<AlertIndicator<MedicineScheduleResponse>> = liveData {
         emit(AlertIndicator.Loading)
         try {
@@ -92,7 +90,7 @@ class GeneralRepository private constructor(
 
             val response = apiService.uploadMedicineSchedule(
                 "Bearer $token",
-                MedicineScheduleRequest(medicineName, description, hour, userID)
+                MedicineScheduleRequest(medicineName, description, hour)
             )
 
             if (response.error) {
@@ -105,29 +103,27 @@ class GeneralRepository private constructor(
         }
     }
 
-    fun getSchedule(token: String, userID: String): LiveData<AlertIndicator<ListScheduleResponse>> = liveData {
+    fun getSchedule(token: String): LiveData<AlertIndicator<ListScheduleResponse>> = liveData{
         emit(AlertIndicator.Loading)
         try {
-            val response = apiService.getSchedule("Bearer $token", userID)
-
-            if (response.error) {
+            val response = apiService.getSchedule("Bearer $token")
+            if (response.error){
                 emit(AlertIndicator.Error(response.message))
-            } else {
+            }
+            else {
                 emit(AlertIndicator.Success(response))
             }
-        } catch (e: Exception) {
+        } catch (e:Exception){
             emit(AlertIndicator.Error(e.message.toString()))
         }
     }
 
-
-
-    fun getDetailSchedule(scheduleID: String, token: String): LiveData<AlertIndicator<DetailScheduleResponse>> = liveData{
-        Log.d("DetailScheduleModelapi", "API Request - ID: $scheduleID, Token: $token")
-        Log.d("DetailScheduleViewModel", "ID: $scheduleID, Token: $token")
+    fun getDetailSchedule(scheduleId: String, token: String): LiveData<AlertIndicator<DetailScheduleResponse>> = liveData{
+        Log.d("DetailScheduleModelapi", "API Request - ID: $scheduleId, Token: $token")
+        Log.d("DetailScheduleViewModel", "ID: $scheduleId, Token: $token")
         emit(AlertIndicator.Loading)
         try {
-            val response = apiService.getDetailSchedule(scheduleID,"Bearer $token")
+            val response = apiService.getDetailSchedule(scheduleId,"Bearer $token")
             if (response.error){
                 emit(AlertIndicator.Error(response.message))
             }

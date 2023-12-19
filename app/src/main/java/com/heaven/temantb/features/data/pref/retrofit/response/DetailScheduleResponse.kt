@@ -15,8 +15,8 @@ data class DetailScheduleResponse(
 
 data class ScheduleInDetail(
 
-	@field:SerializedName("scheduleID")
-	val scheduleID: String,
+	@field:SerializedName("scheduleId")
+	val scheduleId: String,
 
 	@field:SerializedName("medicineName")
 	val medicineName: String,
@@ -30,9 +30,17 @@ data class ScheduleInDetail(
 	@field:SerializedName("userID")
 	val userID: String,
 
-	@field:SerializedName("createdAt")
-	val createdAt: String,
+	@field:SerializedName("user")
+	val userInDetail: UserInDetail
+)
 
-	@field:SerializedName("updatedAt")
-	val updatedAt: String
+data class UserInDetail(
+	@field:SerializedName("name")
+	val name: String,
+
+	@field:SerializedName("email")
+	val email: String,
+
+	@field:SerializedName("phone")
+	val phone: String
 )

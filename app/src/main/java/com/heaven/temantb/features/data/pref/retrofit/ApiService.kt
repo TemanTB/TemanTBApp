@@ -28,18 +28,16 @@ interface ApiService {
         @Body request: MedicineScheduleRequest
     ): MedicineScheduleResponse
 
-    @GET("schedule/{scheduleID}")
-    suspend fun getDetailSchedule(
-        @Header("Authorization") token: String,
-        @Path("scheduleID") scheduleID: String
-    ): DetailScheduleResponse
-
-    @GET("schedule/users/{userID}")
+    @GET("schedule")
     suspend fun getSchedule(
         @Header("Authorization") token: String,
-        @Path("userID") userID: String
     ): ListScheduleResponse
 
+    @GET("schedule/{scheduleId}")
+    suspend fun getDetailSchedule(
+        @Header("Authorization") token: String,
+        @Path("scheduleId") scheduleID: String,
+    ): DetailScheduleResponse
 }
 
 
