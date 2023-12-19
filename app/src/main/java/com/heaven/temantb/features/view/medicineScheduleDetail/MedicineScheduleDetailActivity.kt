@@ -25,13 +25,13 @@ class MedicineScheduleDetailActivity : AppCompatActivity() {
         binding = ActivityMedicineScheduleDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val scheduleId = intent.getStringExtra(EXTRA_ID)
+        val scheduleID = intent.getStringExtra(EXTRA_ID)
         val token = intent.getStringExtra(EXTRA_TOKEN)
 
-        Log.d("cekTokenNIdSchedule", "ID: $scheduleId, Token: $token")
+        Log.d("cekTokenNIdSchedule", "ID: $scheduleID, Token: $token")
 
-        if (token != null && scheduleId != null) {
-            setupView(scheduleId, token)
+        if (token != null && scheduleID != null) {
+            setupView(scheduleID, token)
         }
     }
 

@@ -5,13 +5,19 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.app.ActivityOptionsCompat
+import androidx.core.content.ContextCompat
 import androidx.core.util.Pair
 import androidx.recyclerview.widget.RecyclerView
+import com.heaven.temantb.R
 import com.heaven.temantb.databinding.ItemRowScheduleBinding
 import com.heaven.temantb.features.data.pref.retrofit.response.ListScheduleItem
 import com.heaven.temantb.features.view.medicineScheduleDetail.MedicineScheduleDetailActivity
 
-class ScheduleAdapter(private val listOfSchedule: List<ListScheduleItem>, private val token: String) : RecyclerView.Adapter<ScheduleAdapter.ViewHolder>() {
+class ScheduleAdapter(
+    private val listOfSchedule: List<ListScheduleItem>,
+    private val token: String,
+    private val nearestHourIndex: Int
+) : RecyclerView.Adapter<ScheduleAdapter.ViewHolder>() {
 
     class ViewHolder(var binding: ItemRowScheduleBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -28,6 +34,14 @@ class ScheduleAdapter(private val listOfSchedule: List<ListScheduleItem>, privat
             tvItemMedicineName.text = schedule.medicineName
             tvItemDescription.text = schedule.description
             tvItemHour.text = schedule.hour
+
+            if (position == nearestHourIndex) {
+                // Set background color for the nearest hour
+                root.setBackgroundColor(ContextCompat.getColor(root.context, R.color.blue3))
+            } else {
+                // Reset background color for other items
+                root.setBackgroundColor(ContextCompat.getColor(root.context, android.R.color.transparent))
+            }
 
             root.setOnClickListener {
                 val intent = Intent(root.context, MedicineScheduleDetailActivity::class.java)

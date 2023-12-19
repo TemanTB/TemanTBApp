@@ -1,13 +1,11 @@
 package com.heaven.temantb.features.view.medicineScheduleList
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
-import android.view.WindowInsets
-import android.view.WindowManager
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -17,24 +15,21 @@ import com.heaven.temantb.features.data.di.AlertIndicator
 import com.heaven.temantb.features.data.pref.retrofit.response.ListScheduleItem
 import com.heaven.temantb.features.view.ViewModelFactory
 import com.heaven.temantb.features.view.medicineScheduleAdd.MedicineScheduleActivity
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 class ScheduleListActivity : AppCompatActivity() {
+
     private val viewModel by viewModels<ScheduleListViewModel> {
         ViewModelFactory.getInstance(this)
     }
 
     private lateinit var binding: ActivityScheduleListBinding
+    private lateinit var scheduleAdapter: ScheduleAdapter
 
-    private val requestPermissionLauncher =
-        registerForActivityResult(
-            ActivityResultContracts.RequestPermission()
-        ) { isGranted: Boolean ->
-            if (isGranted) {
-                Toast.makeText(this, "Notifications permission granted", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(this, "Notifications permission rejected", Toast.LENGTH_SHORT).show()
-            }
-        }
+    private val handler = Handler(Looper.getMainLooper())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,22 +46,19 @@ class ScheduleListActivity : AppCompatActivity() {
             }
             setupAction(user.token)
         }
+
+        handler.post(object : Runnable {
+            override fun run() {
+                updateDate()
+                handler.postDelayed(this, 1000)
+            }
+        })
     }
 
     private fun setupView(token: String) {
-        @Suppress("DEPRECATION")
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.insetsController?.hide(WindowInsets.Type.statusBars())
-        } else {
-            window.setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
-            )
-        }
-
-        viewModel.getSchedule(token).observe(this){ alert ->
-            if (alert != null){
-                when(alert) {
+        viewModel.getSchedule(token).observe(this) { alert ->
+            if (alert != null) {
+                when (alert) {
                     AlertIndicator.Loading -> {
                         binding.progressBar.isVisible = true
                     }
@@ -82,8 +74,10 @@ class ScheduleListActivity : AppCompatActivity() {
                             binding.rvStories.isVisible = false
                         } else {
                             binding.noStoriesTextView.visibility = View.GONE
+                            val nearestHourIndex = findNearestHourIndex(alert.data.listSchedule)
+                            scheduleAdapter = ScheduleAdapter(alert.data.listSchedule, token, nearestHourIndex)
                             binding.rvStories.layoutManager = LinearLayoutManager(this)
-                            binding.rvStories.adapter = triggerRecyclerView(alert.data.listSchedule,token)
+                            binding.rvStories.adapter = scheduleAdapter
                         }
                     }
                 }
@@ -91,7 +85,10 @@ class ScheduleListActivity : AppCompatActivity() {
         }
     }
 
-    private fun triggerRecyclerView(list: List<ListScheduleItem>, token: String) : ScheduleAdapter = ScheduleAdapter(list, token)
+    private fun updateDate() {
+        val currentDate = SimpleDateFormat("EEEE, dd yyyy", Locale.getDefault()).format(Date())
+        binding.dateTextView.text = currentDate
+    }
 
     private fun setupAction(token: String) {
         binding.addSchedule.setOnClickListener {
@@ -101,4 +98,36 @@ class ScheduleListActivity : AppCompatActivity() {
         }
     }
 
+    private fun findNearestHourIndex(listOfSchedule: List<ListScheduleItem>): Int {
+        val currentTime = Calendar.getInstance().timeInMillis
+
+        for ((index, scheduleItem) in listOfSchedule.withIndex()) {
+            val scheduleTime = getScheduleTimeInMillis(scheduleItem.hour)
+
+            // If the schedule time is after the current time, return the index
+            if (scheduleTime > currentTime) {
+                return index
+            }
+        }
+
+        // If no schedule time is after the current time, return the last index
+        return listOfSchedule.size - 1
+    }
+
+    private fun getScheduleTimeInMillis(scheduleTime: String): Long {
+        val format = SimpleDateFormat("HH:mm", Locale.getDefault())
+        val calendar = Calendar.getInstance()
+
+        // Set the calendar time to the schedule time
+        val timeParts = scheduleTime.split(":")
+        calendar.set(Calendar.HOUR_OF_DAY, timeParts[0].toInt())
+        calendar.set(Calendar.MINUTE, timeParts[1].toInt())
+
+        return calendar.timeInMillis
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        handler.removeCallbacksAndMessages(null)
+    }
 }
