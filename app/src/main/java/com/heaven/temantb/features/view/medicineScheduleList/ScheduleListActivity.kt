@@ -42,9 +42,9 @@ class ScheduleListActivity : AppCompatActivity() {
                 startActivity(Intent(this, ScheduleListActivity::class.java))
                 finish()
             } else {
-                setupView(user.token)
+                setupView(user.token, user.userId)
             }
-            setupAction(user.token)
+            setupAction(user.token, user.userId)
         }
 
         handler.post(object : Runnable {
@@ -55,8 +55,8 @@ class ScheduleListActivity : AppCompatActivity() {
         })
     }
 
-    private fun setupView(token: String) {
-        viewModel.getSchedule(token).observe(this) { alert ->
+    private fun setupView(token: String, userId: String) {
+        viewModel.getSchedule(token, userId).observe(this) { alert ->
             if (alert != null) {
                 when (alert) {
                     AlertIndicator.Loading -> {
@@ -90,10 +90,11 @@ class ScheduleListActivity : AppCompatActivity() {
         binding.dateTextView.text = currentDate
     }
 
-    private fun setupAction(token: String) {
+    private fun setupAction(token: String, userId: String) {
         binding.addSchedule.setOnClickListener {
             val intent = Intent(this, MedicineScheduleActivity::class.java)
             intent.putExtra(MedicineScheduleActivity.EXTRA_TOKEN, token)
+            intent.putExtra(MedicineScheduleActivity.EXTRA_USER_ID, userId)
             startActivity(intent)
         }
     }

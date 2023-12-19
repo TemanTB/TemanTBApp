@@ -28,8 +28,8 @@ data class ListScheduleItem(
     @field:SerializedName("hour")
     val hour: String,
 
-    @field:SerializedName("userID")
-    val userID: String,
+    @field:SerializedName("userId")
+    val userId: String,
 
     @field:SerializedName("user")
     val user: User

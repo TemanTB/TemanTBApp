@@ -52,7 +52,7 @@ class GeneralRepository private constructor(
                     emit(AlertIndicator.Error("Token is null or empty"))
                 } else {
                     emit(AlertIndicator.Success(response))
-                    saveSession(UserModel(email, response.loginResult.token, true))
+                    saveSession(UserModel(email, response.loginResult.token, true, response.loginResult.userId))
                 }
             }
         } catch (e: Exception) {
@@ -79,7 +79,8 @@ class GeneralRepository private constructor(
         token: String,
         medicineName: String,
         description: String,
-        hour: String
+        hour: String,
+        userId: String
     ): LiveData<AlertIndicator<MedicineScheduleResponse>> = liveData {
         emit(AlertIndicator.Loading)
         try {
@@ -90,7 +91,7 @@ class GeneralRepository private constructor(
 
             val response = apiService.uploadMedicineSchedule(
                 "Bearer $token",
-                MedicineScheduleRequest(medicineName, description, hour)
+                MedicineScheduleRequest(medicineName, description, hour, userId)
             )
 
             if (response.error) {
@@ -103,10 +104,10 @@ class GeneralRepository private constructor(
         }
     }
 
-    fun getSchedule(token: String): LiveData<AlertIndicator<ListScheduleResponse>> = liveData{
+    fun getSchedule(token: String, userId: String): LiveData<AlertIndicator<ListScheduleResponse>> = liveData{
         emit(AlertIndicator.Loading)
         try {
-            val response = apiService.getSchedule("Bearer $token")
+            val response = apiService.getSchedule("Bearer $token", userId)
             if (response.error){
                 emit(AlertIndicator.Error(response.message))
             }

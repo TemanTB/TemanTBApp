@@ -5,6 +5,7 @@ import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
@@ -34,7 +35,8 @@ class MainActivity : AppCompatActivity() {
                 finish()
             } else {
                 setupView()
-                setupAction(user.token)
+                setupAction(user.token, user.userId)
+                Log.d("MainActivityCek", "token: ${user.token}, userId: ${user.userId}")
             }
             playAnimation()
         }
@@ -52,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupAction(token: String) {
+    private fun setupAction(token: String, userId: String) {
         binding.logoutButton.setOnClickListener {
             viewModel.logout()
         }
@@ -62,6 +64,7 @@ class MainActivity : AppCompatActivity() {
 //            startActivity(addIntent)
             val addIntent = Intent(this, ScheduleListActivity::class.java)
             addIntent.putExtra(MedicineScheduleActivity.EXTRA_TOKEN, token)
+            addIntent.putExtra(MedicineScheduleActivity.EXTRA_USER_ID, userId)
             startActivity(addIntent)
         }
         binding.healthMonitor.setOnClickListener{
