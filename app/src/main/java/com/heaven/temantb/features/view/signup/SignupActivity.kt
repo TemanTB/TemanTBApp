@@ -2,22 +2,21 @@ package com.heaven.temantb.features.view.signup
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
-import android.os.Build
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.view.WindowInsets
-import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.google.android.material.textfield.TextInputLayout
-import com.heaven.temantb.features.data.di.AlertIndicator
 import com.heaven.temantb.R
 import com.heaven.temantb.databinding.ActivitySignupBinding
+import com.heaven.temantb.features.data.di.AlertIndicator
 import com.heaven.temantb.features.view.ViewModelFactory
+import com.heaven.temantb.features.view.login.LoginActivity
 
 
 class SignupActivity : AppCompatActivity() {
@@ -31,7 +30,6 @@ class SignupActivity : AppCompatActivity() {
         binding = ActivitySignupBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupView()
         setupAction()
         playAnimation()
 
@@ -59,20 +57,10 @@ class SignupActivity : AppCompatActivity() {
         })
     }
 
-    private fun setupView() {
-        @Suppress("DEPRECATION")
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.insetsController?.hide(WindowInsets.Type.statusBars())
-        } else {
-            window.setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
-            )
-        }
-        supportActionBar?.hide()
-    }
-
     private fun setupAction() {
+        binding.haveAccountButton.setOnClickListener {
+            startActivity(Intent(this, LoginActivity::class.java))
+        }
         binding.signUpButton.setOnClickListener {
             val name = binding.nameEditText.text.toString()
             val email = binding.emailEditText.text.toString()
@@ -116,13 +104,8 @@ class SignupActivity : AppCompatActivity() {
         }
     }
     private fun playAnimation() {
-        ObjectAnimator.ofFloat(binding.imageView, View.TRANSLATION_X, -30f, 30f).apply {
-            duration = 6000
-            repeatCount = ObjectAnimator.INFINITE
-            repeatMode = ObjectAnimator.REVERSE
-        }.start()
-
         val title = ObjectAnimator.ofFloat(binding.titleTextView, View.ALPHA, 1f).setDuration(100)
+        val tvSubMessageRegister = ObjectAnimator.ofFloat(binding.tvSubMessageRegister, View.ALPHA, 1f).setDuration(100)
         val nameTextView =
             ObjectAnimator.ofFloat(binding.nameTextView, View.ALPHA, 1f).setDuration(100)
         val nameEditTextLayout =
@@ -145,11 +128,14 @@ class SignupActivity : AppCompatActivity() {
             ObjectAnimator.ofFloat(binding.phoneEditTextLayout, View.ALPHA, 1f).setDuration(100)
 
         val signup = ObjectAnimator.ofFloat(binding.signUpButton, View.ALPHA, 1f).setDuration(100)
+        val alreadyRegister = ObjectAnimator.ofFloat(binding.haveAccountButton, View.ALPHA, 1f).setDuration(100)
+
 
 
         AnimatorSet().apply {
             playSequentially(
                 title,
+                tvSubMessageRegister,
                 nameTextView,
                 nameEditTextLayout,
                 emailTextView,
@@ -161,6 +147,7 @@ class SignupActivity : AppCompatActivity() {
                 phoneTextView,
                 phoneEditTextLayout,
                 signup,
+                alreadyRegister
             )
             startDelay = 100
         }.start()

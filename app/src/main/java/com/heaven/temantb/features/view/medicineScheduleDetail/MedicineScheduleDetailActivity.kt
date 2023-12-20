@@ -10,6 +10,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.heaven.temantb.databinding.ActivityMedicineScheduleDetailBinding
+import com.heaven.temantb.features.alarm.AlarmReceiver
 import com.heaven.temantb.features.data.di.AlertIndicator
 import com.heaven.temantb.features.view.ViewModelFactory
 
@@ -27,6 +28,9 @@ class MedicineScheduleDetailActivity : AppCompatActivity() {
 
         val scheduleID = intent.getStringExtra(EXTRA_ID)
         val token = intent.getStringExtra(EXTRA_TOKEN)
+        val medicineName = intent.getStringExtra(AlarmReceiver.EXTRA_MEDICINE_NAME)
+        val description = intent.getStringExtra(AlarmReceiver.EXTRA_DESCRIPTION)
+
 
         Log.d("cekTokenNIdSchedule", "ID: $scheduleID, Token: $token")
 

@@ -159,9 +159,8 @@ class AlarmReceiver : BroadcastReceiver() {
 
         val alarmSound = Uri.parse("android.resource://" + context.packageName + "/" + R.raw.heal)
 
-        // Create an Intent that opens MedicineScheduleDetailActivity
         val intent = Intent(context, MedicineScheduleDetailActivity::class.java)
-        // You can add any extras you want to pass to the detail activity here
+
         intent.putExtra("EXTRA_MEDICINE_NAME", medicineName)
         intent.putExtra("EXTRA_DESCRIPTION", description)
 
