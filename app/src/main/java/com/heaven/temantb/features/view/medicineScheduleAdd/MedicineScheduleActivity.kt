@@ -3,6 +3,7 @@ package com.heaven.temantb.features.view.medicineScheduleAdd
 import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -13,6 +14,7 @@ import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.heaven.temantb.R
 import com.heaven.temantb.databinding.ActivityMedicineScheduleBinding
 import com.heaven.temantb.features.alarm.AlarmReceiver
 import com.heaven.temantb.features.data.di.AlertIndicator
@@ -48,9 +50,10 @@ class MedicineScheduleActivity : AppCompatActivity(), TimePickerFragment.DialogT
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (Build.VERSION.SDK_INT >= 33) {
+        if (Build.VERSION.SDK_INT >= 33 && !isNotificationPermissionGranted()) {
             requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
         }
+
 
         binding = ActivityMedicineScheduleBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -75,6 +78,13 @@ class MedicineScheduleActivity : AppCompatActivity(), TimePickerFragment.DialogT
         val medicineName = binding.medicineNameEditText.text.toString()
         val description = binding.descReminderEditText.text.toString()
         val hour = binding.tvHour.text.toString()
+        alarmReceiver.setRepeatingAlarm(this, AlarmReceiver.TYPE_TEMANTB, hour, description, medicineName)
+
+        if (medicineName.isEmpty() || description.isEmpty() || hour.isEmpty()) {
+            showToast("Please fill in all the fields.")
+            return
+        }
+
         alarmReceiver.setRepeatingAlarm(this, AlarmReceiver.TYPE_TEMANTB, hour, description, medicineName)
 
 
@@ -129,7 +139,7 @@ class MedicineScheduleActivity : AppCompatActivity(), TimePickerFragment.DialogT
                 }
         }
         else {
-            showToast("Please enable notifications in settings.")
+            showToast(getString(R.string.please_enable_notifications_in_settings))
         }
     }
 
@@ -161,6 +171,10 @@ class MedicineScheduleActivity : AppCompatActivity(), TimePickerFragment.DialogT
         )
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
+    private fun isNotificationPermissionGranted(): Boolean {
+        return checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
+    }
     override fun onDialogTimeSet(tag: String?, hour: Int, minute: Int) {
         val calendar = Calendar.getInstance().apply {
             set(Calendar.HOUR_OF_DAY, hour)

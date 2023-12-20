@@ -71,10 +71,18 @@ class ScheduleListActivity : AppCompatActivity() {
                         binding.progressBar.isVisible = false
 
                         if (alert.data.listSchedule.isEmpty()) {
+                            binding.imageView2.visibility = View.GONE
+                            binding.dateTextView.visibility = View.GONE
+                            binding.todayScheduleTextView.visibility = View.GONE
                             binding.noStoriesTextView.visibility = View.VISIBLE
+                            binding.ivEmpty.visibility = View.VISIBLE
                             binding.rvStories.isVisible = false
                         } else {
+                            binding.imageView2.visibility = View.VISIBLE
+                            binding.dateTextView.visibility = View.VISIBLE
+                            binding.todayScheduleTextView.visibility = View.VISIBLE
                             binding.noStoriesTextView.visibility = View.GONE
+                            binding.ivEmpty.visibility = View.GONE
                             val nearestHourIndex = findNearestHourIndex(alert.data.listSchedule)
 
                             scheduleAdapter = ScheduleAdapter(alert.data.listSchedule, token, nearestHourIndex, viewModel)

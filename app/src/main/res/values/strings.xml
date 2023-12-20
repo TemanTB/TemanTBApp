@@ -92,6 +92,7 @@
     <string name="medicine_schedule">Schedule</string>
     <string name="no_health_available">There\'s no history of your health.</string>
     <string name="average">Average</string>
+    <string name="please_enable_notifications_in_settings">Please enable notifications in settings.</string>
     <string-array name="data_name">
         <item>Tahukah kalian Tahapan Pengobatan TBC?</item>
 <!--        <item>Lontong Sayur</item>-->
