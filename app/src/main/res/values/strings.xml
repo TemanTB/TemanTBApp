@@ -90,6 +90,8 @@
     <string name="articles_name">Nama Makanan</string>
     <string name="health_monitor">Monitor</string>
     <string name="medicine_schedule">Schedule</string>
+    <string name="no_health_available">There\'s no history of your health.</string>
+    <string name="average">Average</string>
     <string-array name="data_name">
         <item>Tahukah kalian Tahapan Pengobatan TBC?</item>
 <!--        <item>Lontong Sayur</item>-->

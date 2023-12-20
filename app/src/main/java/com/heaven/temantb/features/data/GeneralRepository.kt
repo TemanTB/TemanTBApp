@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
+import com.heaven.temantb.features.data.dataClass.HealthRequest
 import com.heaven.temantb.features.data.dataClass.LoginRequest
 import com.heaven.temantb.features.data.dataClass.MedicineScheduleRequest
 import com.heaven.temantb.features.data.dataClass.UserRequest
@@ -11,7 +12,10 @@ import com.heaven.temantb.features.data.di.AlertIndicator
 import com.heaven.temantb.features.data.pref.UserModel
 import com.heaven.temantb.features.data.pref.UserPreference
 import com.heaven.temantb.features.data.pref.retrofit.ApiService
+import com.heaven.temantb.features.data.pref.retrofit.response.DetailHealthResponse
 import com.heaven.temantb.features.data.pref.retrofit.response.DetailScheduleResponse
+import com.heaven.temantb.features.data.pref.retrofit.response.HealthResponse
+import com.heaven.temantb.features.data.pref.retrofit.response.ListHealthResponse
 import com.heaven.temantb.features.data.pref.retrofit.response.ListScheduleResponse
 import com.heaven.temantb.features.data.pref.retrofit.response.LoginResponse
 import com.heaven.temantb.features.data.pref.retrofit.response.MedicineScheduleResponse
@@ -20,7 +24,9 @@ import kotlinx.coroutines.flow.Flow
 
 class GeneralRepository private constructor(
     private val context: Context,
-    private val apiService: ApiService,
+//    private val apiService: ApiService,
+    private val scheduleApiService: ApiService,
+    private val healthApiService: ApiService,
     private val userPreference: UserPreference
 ) {
     private suspend fun saveSession(user: UserModel) {
@@ -43,7 +49,7 @@ class GeneralRepository private constructor(
         emit(AlertIndicator.Loading)
         try {
             val loginRequest = LoginRequest(email, password)
-            val response = apiService.login(loginRequest)
+            val response = scheduleApiService.login(loginRequest)
             if (response.error) {
                 emit(AlertIndicator.Error(response.message))
             } else {
@@ -64,7 +70,7 @@ class GeneralRepository private constructor(
         emit(AlertIndicator.Loading)
         try {
             val userRequest = UserRequest(name, email, phone, password, confPassword)
-            val response = apiService.users(userRequest)
+            val response = scheduleApiService.users(userRequest)
             if (response.error) {
                 emit(AlertIndicator.Error(response.message))
             } else {
@@ -89,7 +95,7 @@ class GeneralRepository private constructor(
                 return@liveData
             }
 
-            val response = apiService.uploadMedicineSchedule(
+            val response = scheduleApiService.uploadMedicineSchedule(
                 "Bearer $token",
                 MedicineScheduleRequest(medicineName, description, hour, userId)
             )
@@ -107,7 +113,7 @@ class GeneralRepository private constructor(
     fun getSchedule(token: String, userId: String): LiveData<AlertIndicator<ListScheduleResponse>> = liveData{
         emit(AlertIndicator.Loading)
         try {
-            val response = apiService.getSchedule("Bearer $token", userId)
+            val response = scheduleApiService.getSchedule("Bearer $token", userId)
             if (response.error){
                 emit(AlertIndicator.Error(response.message))
             }
@@ -124,7 +130,7 @@ class GeneralRepository private constructor(
         Log.d("DetailScheduleViewModel", "ID: $scheduleId, Token: $token")
         emit(AlertIndicator.Loading)
         try {
-            val response = apiService.getDetailSchedule(scheduleId,"Bearer $token")
+            val response = scheduleApiService.getDetailSchedule(scheduleId,"Bearer $token")
             if (response.error){
                 emit(AlertIndicator.Error(response.message))
             }
@@ -136,27 +142,107 @@ class GeneralRepository private constructor(
         }
     }
 
-//    fun isNotificationEnabled(): Boolean {
-//        val sharedPreferences = context.getSharedPreferences(
-//            AppPreferences.PREF_NAME,
-//            Context.MODE_PRIVATE
-//        )
-//        return sharedPreferences.getBoolean(
-//            AppPreferences.PREF_KEY_NOTIFICATION_ENABLED,
-//            AppPreferences.DEFAULT_NOTIFICATION_ENABLED
-//        )
-//    }
+    suspend fun deleteSchedule(token: String, scheduleId: String) {
+        try {
+            val response = scheduleApiService.deleteSchedule("Bearer $token", scheduleId)
+
+            val requestHeaders = response.raw().request.headers
+            Log.d("DeleteSchedule", "Request Headers: $requestHeaders")
+            Log.d("DeleteSchedule", "Request Headers: $requestHeaders")
+            Log.d("DeleteSchedule", "Token: $token, ScheduleId: $scheduleId")
+
+            Log.d("DeleteSchedule", "Response: ${response.code()}, ${response.body()}")
+        } catch (e: Exception) {
+            Log.e("DeleteSchedule", "Error: ${e.message}", e)
+        }
+    }
+
+    fun uploadHealth(
+        token: String,
+        description: String,
+        userId: String
+    ): LiveData<AlertIndicator<HealthResponse>> = liveData {
+        emit(AlertIndicator.Loading)
+        try {
+            if (token.isEmpty()) {
+                emit(AlertIndicator.Error("User not logged in"))
+                return@liveData
+            }
+            val response = healthApiService.uploadHealth(
+                "Bearer $token",
+                HealthRequest(description, userId)
+            )
+            if (response.error) {
+                emit(AlertIndicator.Error(response.message))
+            } else {
+                emit(AlertIndicator.Success(response))
+            }
+        } catch (e: Exception) {
+            emit(handleError(e))
+        }
+    }
+
+    fun getHealth(token: String, userId: String): LiveData<AlertIndicator<ListHealthResponse>> = liveData{
+        emit(AlertIndicator.Loading)
+        try {
+            val response = scheduleApiService.getHealth("Bearer $token", userId)
+            if (response.error){
+                emit(AlertIndicator.Error(response.message))
+            }
+            else {
+                emit(AlertIndicator.Success(response))
+            }
+        } catch (e:Exception){
+            emit(AlertIndicator.Error(e.message.toString()))
+        }
+    }
+
+    suspend fun deleteHealth(token: String, healthId: String) {
+        try {
+            val response = scheduleApiService.deleteHealth("Bearer $token", healthId)
+
+            val requestHeaders = response.raw().request.headers
+            Log.d("DeleteSchedule", "Request Headers: $requestHeaders")
+            Log.d("DeleteSchedule", "Request Headers: $requestHeaders")
+            Log.d("DeleteSchedule", "Token: $token, ScheduleId: $healthId")
+
+            Log.d("DeleteSchedule", "Response: ${response.code()}, ${response.body()}")
+        } catch (e: Exception) {
+            Log.e("DeleteSchedule", "Error: ${e.message}", e)
+        }
+    }
+
+    fun getDetailHealth(healthId: String, token: String): LiveData<AlertIndicator<DetailHealthResponse>> = liveData{
+        Log.d("DetailScheduleModelapi", "API Request - ID: $healthId, Token: $token")
+        Log.d("DetailScheduleViewModel", "ID: $healthId, Token: $token")
+        emit(AlertIndicator.Loading)
+        try {
+            val response = scheduleApiService.getDetailHealth(healthId,"Bearer $token")
+            if (response.error){
+                emit(AlertIndicator.Error(response.message))
+            }
+            else {
+                emit(AlertIndicator.Success(response))
+            }
+        } catch (e:Exception){
+            emit(AlertIndicator.Error(e.message.toString()))
+        }
+    }
+
 
     companion object {
         @Volatile
         private var instance: GeneralRepository? = null
+
         fun getInstance(
             context: Context,
-            apiService: ApiService,
+            scheduleApiService: ApiService,
+            healthApiService: ApiService,
             userPreference: UserPreference
         ): GeneralRepository =
             instance ?: synchronized(this) {
-                instance ?: GeneralRepository(context, apiService, userPreference)
+                instance ?: GeneralRepository(context, scheduleApiService, healthApiService, userPreference)
             }.also { instance = it }
     }
+
 }

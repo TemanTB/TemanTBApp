@@ -18,6 +18,7 @@ import com.heaven.temantb.features.alarm.AlarmReceiver
 import com.heaven.temantb.features.data.di.AlertIndicator
 import com.heaven.temantb.features.view.ViewModelFactory
 import com.heaven.temantb.features.view.main.MainActivity
+import com.heaven.temantb.features.view.medicineScheduleList.ScheduleListActivity
 import com.heaven.temantb.util.AppPreferences
 import com.heaven.temantb.util.TimePickerFragment
 import java.text.SimpleDateFormat
@@ -113,7 +114,7 @@ class MedicineScheduleActivity : AppCompatActivity(), TimePickerFragment.DialogT
                                     setTitle("Ups!")
                                     setMessage(result.error)
                                     setPositiveButton("Ok") { _, _ ->
-                                        val intent = Intent(context, MainActivity::class.java)
+                                        val intent = Intent(context, ScheduleListActivity::class.java)
                                         intent.flags =
                                             Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                                         startActivity(intent)

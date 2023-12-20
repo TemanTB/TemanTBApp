@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.heaven.temantb.features.data.GeneralRepository
 import com.heaven.temantb.features.data.di.Injection
+import com.heaven.temantb.features.view.healthMonitorAdd.HealthMonitorViewModel
+import com.heaven.temantb.features.view.healthMonitorList.HealthListViewModel
 import com.heaven.temantb.features.view.login.LoginViewModel
 import com.heaven.temantb.features.view.main.MainViewModel
 import com.heaven.temantb.features.view.medicineScheduleAdd.MedicineScheduleViewModel
@@ -35,17 +37,12 @@ class ViewModelFactory(private val repository: GeneralRepository) : ViewModelPro
             modelClass.isAssignableFrom(DetailScheduleViewModel::class.java) -> {
                 DetailScheduleViewModel(repository) as T
             }
-//            modelClass.isAssignableFrom(DetailStoryViewModel::class.java) -> {
-//                DetailStoryViewModel(repository) as T
-//            }
-
-//            modelClass.isAssignableFrom(UploadViewModel::class.java) -> {
-//                UploadViewModel(repository) as T
-//            }
-//            modelClass.isAssignableFrom(MapViewModel::class.java) -> {
-//                MapViewModel(repository) as T
-//            }
-
+            modelClass.isAssignableFrom(HealthMonitorViewModel::class.java) -> {
+                HealthMonitorViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(HealthListViewModel::class.java) -> {
+                HealthListViewModel(repository) as T
+            }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
     }

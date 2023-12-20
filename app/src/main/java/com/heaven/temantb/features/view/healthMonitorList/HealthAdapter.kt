@@ -1,4 +1,4 @@
-package com.heaven.temantb.features.view.medicineScheduleList
+package com.heaven.temantb.features.view.healthMonitorList
 
 import android.app.Activity
 import android.content.Intent
@@ -6,69 +6,58 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.app.ActivityOptionsCompat
-import androidx.core.content.ContextCompat
 import androidx.core.util.Pair
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.heaven.temantb.R
-import com.heaven.temantb.databinding.ItemRowScheduleBinding
-import com.heaven.temantb.features.data.pref.retrofit.response.ListScheduleItem
+import com.heaven.temantb.databinding.ItemRowHealthBinding
+import com.heaven.temantb.features.data.pref.retrofit.response.ListHealthItem
+import com.heaven.temantb.features.view.healthMonitorDetail.HealthMonitorDetailActivity
 import com.heaven.temantb.features.view.medicineScheduleDetail.MedicineScheduleDetailActivity
 
-@Suppress("DEPRECATION")
-class ScheduleAdapter(
-    private var listOfSchedule: List<ListScheduleItem>,
+class HealthAdapter(
+    private var listOfHealth: List<ListHealthItem>,
     private val token: String,
-    private val nearestHourIndex: Int,
-    private val viewModel: ScheduleListViewModel // Add this parameter
-) : RecyclerView.Adapter<ScheduleAdapter.ViewHolder>() {
+    private val viewModel: HealthListViewModel
+) : RecyclerView.Adapter<HealthAdapter.ViewHolder>() {
 
-    class ViewHolder(var binding: ItemRowScheduleBinding) : RecyclerView.ViewHolder(binding.root)
+    class ViewHolder(var binding: ItemRowHealthBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemRowScheduleBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemRowHealthBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val schedule = listOfSchedule[position]
+        val health = listOfHealth[position]
         val token = token
 
         holder.binding.apply {
-            tvItemMedicineName.text = schedule.medicineName
-            tvItemDescription.text = schedule.description
-            tvItemHour.text = schedule.hour
-
-            if (position == nearestHourIndex) {
-                // Set background color for the nearest hour
-                root.setBackgroundColor(ContextCompat.getColor(root.context, R.color.blue3))
-            } else {
-                // Reset background color for other items
-                root.setBackgroundColor(ContextCompat.getColor(root.context, android.R.color.transparent))
-            }
+            tvItemDescription.text = health.description
+            tvItemDate.text = health.date
+            tvItemAverage.text = health.average
 
             root.setOnClickListener {
-                val intent = Intent(root.context, MedicineScheduleDetailActivity::class.java)
-                intent.putExtra(MedicineScheduleDetailActivity.EXTRA_ID, schedule.scheduleId)
+                val intent = Intent(root.context, HealthMonitorDetailActivity::class.java)
+                intent.putExtra(MedicineScheduleDetailActivity.EXTRA_ID, health.healthId)
                 intent.putExtra(MedicineScheduleDetailActivity.EXTRA_TOKEN, token)
 
                 val optionsCompat: ActivityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
                     root.context as Activity,
-                    Pair(tvItemMedicineName, "trMedicineName"),
                     Pair(tvItemDescription, "trDescription"),
-                    Pair(tvItemHour, "trHour")
+                    Pair(tvItemDate, "trDate"),
+                    Pair(tvItemAverage, "trAverage")
                 )
                 root.context.startActivity(intent, optionsCompat.toBundle())
             }
         }
     }
 
-    override fun getItemCount(): Int = listOfSchedule.size
+    override fun getItemCount(): Int = listOfHealth.size
 
     fun removeItem(position: Int) {
-        val updatedList = listOfSchedule.toMutableList()
+        val updatedList = listOfHealth.toMutableList()
         updatedList.removeAt(position)
-        listOfSchedule = updatedList
+        listOfHealth = updatedList
         notifyItemRemoved(position)
         notifyItemRangeChanged(position, itemCount)
     }
@@ -87,8 +76,8 @@ class ScheduleAdapter(
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
             val position = viewHolder.adapterPosition
-            val scheduleId = listOfSchedule[position].scheduleId
-            viewModel.deleteSchedule(token, scheduleId)
+            val scheduleId = listOfHealth[position].healthId
+            viewModel.deleteHealth(token, scheduleId)
             Log.d("Delete Schedule", "Token: $token, ScheduleId: $scheduleId")
 
             removeItem(position)

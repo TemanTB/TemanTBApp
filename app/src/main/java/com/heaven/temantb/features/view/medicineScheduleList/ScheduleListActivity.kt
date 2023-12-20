@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.heaven.temantb.databinding.ActivityScheduleListBinding
 import com.heaven.temantb.features.data.di.AlertIndicator
@@ -75,9 +76,13 @@ class ScheduleListActivity : AppCompatActivity() {
                         } else {
                             binding.noStoriesTextView.visibility = View.GONE
                             val nearestHourIndex = findNearestHourIndex(alert.data.listSchedule)
-                            scheduleAdapter = ScheduleAdapter(alert.data.listSchedule, token, nearestHourIndex)
+
+                            scheduleAdapter = ScheduleAdapter(alert.data.listSchedule, token, nearestHourIndex, viewModel)
                             binding.rvStories.layoutManager = LinearLayoutManager(this)
                             binding.rvStories.adapter = scheduleAdapter
+
+                            val itemTouchHelper = ItemTouchHelper(scheduleAdapter.SwipeToDeleteCallback())
+                            itemTouchHelper.attachToRecyclerView(binding.rvStories)
                         }
                     }
                 }

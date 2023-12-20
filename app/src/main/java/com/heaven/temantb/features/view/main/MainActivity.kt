@@ -13,7 +13,8 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.heaven.temantb.databinding.ActivityMainBinding
 import com.heaven.temantb.features.view.ViewModelFactory
-import com.heaven.temantb.features.view.health_monitor.HealthMonitorActivity
+import com.heaven.temantb.features.view.healthMonitorAdd.HealthMonitorActivity
+import com.heaven.temantb.features.view.healthMonitorList.HealthListActivity
 import com.heaven.temantb.features.view.medicineScheduleAdd.MedicineScheduleActivity
 import com.heaven.temantb.features.view.medicineScheduleList.ScheduleListActivity
 import com.heaven.temantb.features.view.welcome.WelcomeActivity
@@ -59,17 +60,18 @@ class MainActivity : AppCompatActivity() {
             viewModel.logout()
         }
         binding.medicineSchedule.setOnClickListener{
-//            val addIntent = Intent(this, MedicineScheduleActivity::class.java)
-//            addIntent.putExtra(MedicineScheduleActivity.EXTRA_TOKEN, token)
-//            startActivity(addIntent)
             val addIntent = Intent(this, ScheduleListActivity::class.java)
+
             addIntent.putExtra(MedicineScheduleActivity.EXTRA_TOKEN, token)
             addIntent.putExtra(MedicineScheduleActivity.EXTRA_USER_ID, userId)
             startActivity(addIntent)
         }
         binding.healthMonitor.setOnClickListener{
-            val addIntent = Intent(this, HealthMonitorActivity::class.java)
-            startActivity(addIntent)
+            val addHealth = Intent(this, HealthListActivity::class.java)
+
+            addHealth.putExtra(HealthMonitorActivity.EXTRA_TOKEN, token)
+            addHealth.putExtra(HealthMonitorActivity.EXTRA_USER_ID, userId)
+            startActivity(addHealth)
         }
 //        binding.setting.setOnClickListener{
 //            val intent = Intent(this, SettingsActivity::class.java)

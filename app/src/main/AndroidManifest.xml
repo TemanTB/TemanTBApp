@@ -20,14 +20,23 @@
             android:name="com.heaven.temantb.features.view.medicineScheduleDetail.MedicineScheduleDetailActivity"
             android:exported="false" />
         <activity
+            android:name="com.heaven.temantb.features.view.healthMonitorDetail.HealthMonitorDetailActivity"
+            android:exported="false" />
+
+        <activity
             android:name="com.heaven.temantb.features.view.medicineScheduleList.ScheduleListActivity"
             android:exported="false" />
         <activity
-            android:name="com.heaven.temantb.features.view.health_monitor.HealthMonitorActivity"
+            android:name="com.heaven.temantb.features.view.healthMonitorList.HealthListActivity"
+            android:exported="false" />
+
+        <activity
+            android:name="com.heaven.temantb.features.view.healthMonitorAdd.HealthMonitorActivity"
             android:exported="false" />
         <activity
             android:name="com.heaven.temantb.features.view.medicineScheduleAdd.MedicineScheduleActivity"
             android:exported="false" />
+
         <activity
             android:name="com.heaven.temantb.features.view.welcome.WelcomeActivity"
             android:exported="false" />

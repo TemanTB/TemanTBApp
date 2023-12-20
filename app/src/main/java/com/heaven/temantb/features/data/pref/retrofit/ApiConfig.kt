@@ -7,17 +7,31 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiConfig {
-    fun getApiService(): ApiService {
+    enum class ApiType {
+        SCHEDULE,
+        HEALTH
+    }
+
+    fun getApiService(apiType: ApiType): ApiService {
+        val baseUrl = when (apiType) {
+            ApiType.SCHEDULE -> BuildConfig.API_URL_SCHEDULE
+            ApiType.HEALTH -> BuildConfig.API_URL_HEALTH
+        }
+
         val loggingInterceptor =
             HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
         val client = OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
             .build()
+
         val retrofit = Retrofit.Builder()
-            .baseUrl(BuildConfig.API_URL)
+            .baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
+
         return retrofit.create(ApiService::class.java)
     }
 }
+
+
