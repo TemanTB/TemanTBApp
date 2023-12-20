@@ -73,21 +73,9 @@ class MainActivity : AppCompatActivity() {
             addHealth.putExtra(HealthMonitorActivity.EXTRA_USER_ID, userId)
             startActivity(addHealth)
         }
-//        binding.setting.setOnClickListener{
-//            val intent = Intent(this, SettingsActivity::class.java)
-//            startActivity(intent)
-//        }
     }
 
     private fun playAnimation() {
-//        ObjectAnimator.ofFloat(binding.imageView, View.TRANSLATION_X, -30f, 30f).apply {
-//            duration = 6000
-//            repeatCount = ObjectAnimator.INFINITE
-//            repeatMode = ObjectAnimator.REVERSE
-//        }.start()
-
-//        val name = ObjectAnimator.ofFloat(binding.nameTextView, View.ALPHA, 1f).setDuration(100)
-//        val message = ObjectAnimator.ofFloat(binding.tvSubMessageRegister, View.ALPHA, 1f).setDuration(100)
         val logout = ObjectAnimator.ofFloat(binding.logoutButton, View.ALPHA, 1f).setDuration(100)
         val medicineSchedule = ObjectAnimator.ofFloat(binding.medicineSchedule, View.ALPHA, 1f).setDuration(100)
         val healthMonitor = ObjectAnimator.ofFloat(binding.healthMonitor, View.ALPHA, 1f).setDuration(100)
@@ -98,7 +86,6 @@ class MainActivity : AppCompatActivity() {
                 healthMonitor,
                 logout
             )
-//            playSequentially(name, message, logout)
             startDelay = 100
         }.start()
     }
