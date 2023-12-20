@@ -9,21 +9,35 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         >
 
         <TextView
             android:id="@+id/pageTitle_screening"
-            style="@style/CustomMediumTitleFont"
+            android:layout_marginTop="100dp"
+            style="@style/CustomLargeTitleFont"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="24dp"
-            android:text="@string/screning_page_title"
+            android:text="@string/upload_page_title"
             android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:alpha="100" />
+
+        <TextView
+            android:id="@+id/keterangan"
+            android:layout_marginTop="10dp"
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/keterangan_monitor"
+            android:textColor="@color/grey"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pageTitle_screening"
+            tools:alpha="100" />
+
 
         <TextView
             android:id="@+id/descriptionTextView"
@@ -34,7 +48,7 @@
             android:text="@string/symptons"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pageTitle_screening"
+            app:layout_constraintTop_toBottomOf="@+id/keterangan"
             tools:alpha="100" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -67,9 +81,6 @@
             android:id="@+id/saveButton"
             style="@style/CustomPrimaryButton"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
             android:layout_marginTop="30dp"
             android:text="@string/save_media"
             app:layout_constraintTop_toBottomOf="@id/symptonsEditTextLayout"

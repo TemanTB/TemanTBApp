@@ -94,6 +94,7 @@
     <string name="average">Average</string>
     <string name="please_enable_notifications_in_settings">Please enable notifications in settings.</string>
     <string name="keterangan_schedule">Fill in your medicine details here to receive reminders.</string>
+    <string name="keterangan_monitor">Write down your symptoms for the analysis.</string>
     <string-array name="data_name">
         <item>Tahukah kalian Tahapan Pengobatan TBC?</item>
 <!--        <item>Lontong Sayur</item>-->
