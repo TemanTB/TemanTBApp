@@ -62,7 +62,6 @@ class HealthListActivity : AppCompatActivity() {
                         } else {
                             binding.noHealthTextView.visibility = View.GONE
 
-                            // Initialize healthAdapter
                             healthAdapter = HealthAdapter(alert.data.listHealth, token, viewModel)
 
                             binding.rvHealth.layoutManager = LinearLayoutManager(this)

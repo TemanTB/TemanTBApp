@@ -9,6 +9,7 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.heaven.temantb.databinding.ItemRowHealthBinding
 import com.heaven.temantb.features.data.pref.retrofit.response.ListHealthItem
 import com.heaven.temantb.features.view.healthMonitorDetail.HealthMonitorDetailActivity
@@ -35,6 +36,9 @@ class HealthAdapter(
             tvItemDescription.text = health.description
             tvItemDate.text = health.date
             tvItemAverage.text = health.average
+            Glide.with(cardView.context)
+                .load(health.images)
+                .into(ivFlag)
 
             root.setOnClickListener {
                 val intent = Intent(root.context, HealthMonitorDetailActivity::class.java)
