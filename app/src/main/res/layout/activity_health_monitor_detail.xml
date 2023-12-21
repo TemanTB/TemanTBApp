@@ -44,9 +44,9 @@
             tools:alpha="100" />
 
         <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
             app:cardCornerRadius="8dp"
             app:cardElevation="2dp"
             android:layout_marginTop="10dp"
@@ -69,8 +69,8 @@
                 android:id="@+id/iv_flag"
                 android:layout_marginTop="10dp"
                 android:layout_gravity="center"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"

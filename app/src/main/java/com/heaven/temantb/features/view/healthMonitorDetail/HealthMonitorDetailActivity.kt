@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import com.bumptech.glide.Glide
 import com.heaven.temantb.databinding.ActivityHealthMonitorDetailBinding
 import com.heaven.temantb.features.data.di.AlertIndicator
 import com.heaven.temantb.features.view.ViewModelFactory
@@ -65,6 +66,10 @@ class HealthMonitorDetailActivity : AppCompatActivity() {
                             tvDeMoDescription.text = it.description
                             tvDeMoDate.text = it.date
                             tvDeMoAverage.text = it.average
+
+                            Glide.with(root.context)
+                                .load(it.images)
+                                .into(ivFlag)
                         }
                     } ?: run {
                         Log.d("Data", "No data found")
