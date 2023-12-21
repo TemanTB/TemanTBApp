@@ -15,18 +15,16 @@
         app:layout_constraintGuide_percent="0.1"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/lineChart"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/logoutButton"
+    <TextView
+        android:id="@+id/greetingText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/medicine_schedule"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.025" />
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -160,11 +158,6 @@
         app:layout_constraintStart_toStartOf="@id/guide"
         app:layout_constraintTop_toBottomOf="@id/guide"
         app:layout_constraintVertical_bias="0.025" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="string/point"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

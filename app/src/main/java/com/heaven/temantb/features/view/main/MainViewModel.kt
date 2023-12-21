@@ -18,9 +18,6 @@ class MainViewModel(private val repository: GeneralRepository) : ViewModel() {
 
     fun getPointHealth(token:String, userId: String) = repository.getPointHealth(token, userId)
 
-
-//    fun getPagedStories(token: String): LiveData<PagingData<ListStoryItem>> = repository.getStoryPaging(token).cachedIn(viewModelScope)
-
     fun logout() {
         viewModelScope.launch {
             repository.logout()

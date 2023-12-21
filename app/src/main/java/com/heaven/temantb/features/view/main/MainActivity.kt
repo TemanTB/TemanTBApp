@@ -37,10 +37,22 @@ class MainActivity : AppCompatActivity() {
             } else {
                 setupView()
                 setupAction(user.token, user.userId)
+
+                // Check if loginResult is not null before accessing its properties
+                val greetingText = if (user. != null) {
+                    "Hello, ${user.name}"
+                } else {
+                    // Handle the case when loginResult is null
+                    "Hello, Guest"
+                }
+
+                binding.greetingText.text = greetingText
+
                 Log.d("MainActivityCek", "token: ${user.token}, userId: ${user.userId}")
             }
             playAnimation()
         }
+
     }
 
     private fun setupView() {

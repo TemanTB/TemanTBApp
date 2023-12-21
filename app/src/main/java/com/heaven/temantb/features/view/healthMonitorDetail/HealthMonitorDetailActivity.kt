@@ -1,7 +1,6 @@
 package com.heaven.temantb.features.view.healthMonitorDetail
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -25,10 +24,6 @@ class HealthMonitorDetailActivity : AppCompatActivity() {
 
         val healthId = intent.getStringExtra(EXTRA_ID)
         val token = intent.getStringExtra(EXTRA_TOKEN)
-
-
-        Log.d("cekTokenNIdHealth", "ID: $healthId, Token: $token")
-        Log.d("cekTokenNIdHealth", "ID: $healthId, Token: $token")
 
         if (token != null && healthId != null) {
             setupView(healthId, token)

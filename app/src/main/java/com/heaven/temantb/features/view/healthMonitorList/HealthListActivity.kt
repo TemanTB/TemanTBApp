@@ -61,11 +61,14 @@ class HealthListActivity : AppCompatActivity() {
                         binding.progressBar.isVisible = false
 
                         if (alert.data.listHealth.isEmpty()) {
-                            binding.noHealthTextView.visibility = View.VISIBLE
-                            binding.rvHealth.isVisible = false
                             binding.ivEmpty.visibility = View.VISIBLE
+                            binding.noHealthTextView.visibility = View.VISIBLE
+                            binding.todayScheduleTextView.visibility = View.INVISIBLE
+                            binding.dateTextView.visibility = View.INVISIBLE
+                            binding.imageView2.visibility = View.INVISIBLE
                         } else {
-                            binding.noHealthTextView.visibility = View.GONE
+                            binding.ivEmpty.visibility = View.INVISIBLE
+                            binding.noHealthTextView.visibility = View.INVISIBLE
                             binding.todayScheduleTextView.visibility = View.VISIBLE
                             binding.dateTextView.visibility = View.VISIBLE
                             binding.imageView2.visibility = View.VISIBLE
