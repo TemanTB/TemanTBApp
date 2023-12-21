@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -36,6 +37,11 @@ class HealthMonitorActivity : AppCompatActivity() {
 
     private fun uploadHealth(token: String, userId: String) {
         val description = binding.descriptionEditText.text.toString()
+
+        if (description.isEmpty()) {
+            showToast("Please input your symptoms first.")
+            return
+        }
 
         viewModel.uploadHealth(token, description, userId).observe(this) { result ->
             if (result != null) {
@@ -78,13 +84,16 @@ class HealthMonitorActivity : AppCompatActivity() {
                         }
                     }
                 }
-
             }
         }
     }
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun showToast(description: String) {
+        Toast.makeText(this, description, Toast.LENGTH_SHORT).show()
     }
 
     companion object {
