@@ -36,14 +36,17 @@ class ScheduleAdapter(
 
         holder.binding.apply {
             tvItemMedicineName.text = schedule.medicineName
-            tvItemDescription.text = schedule.description
+            tvItemDescription.text = if (schedule.description.length > 55) {
+                "${schedule.description.substring(0, 45)}..."
+            } else {
+                schedule.description
+            }
+
             tvItemHour.text = schedule.hour
 
             if (position == nearestHourIndex) {
-                // Set background color for the nearest hour
                 root.setBackgroundColor(ContextCompat.getColor(root.context, R.color.blue3))
             } else {
-                // Reset background color for other items
                 root.setBackgroundColor(ContextCompat.getColor(root.context, android.R.color.transparent))
             }
 
@@ -72,6 +75,7 @@ class ScheduleAdapter(
         notifyItemRemoved(position)
         notifyItemRangeChanged(position, itemCount)
     }
+
 
     inner class SwipeToDeleteCallback : ItemTouchHelper.SimpleCallback(
         0,

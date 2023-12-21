@@ -63,8 +63,12 @@ class HealthListActivity : AppCompatActivity() {
                         if (alert.data.listHealth.isEmpty()) {
                             binding.noHealthTextView.visibility = View.VISIBLE
                             binding.rvHealth.isVisible = false
+                            binding.ivEmpty.visibility = View.VISIBLE
                         } else {
                             binding.noHealthTextView.visibility = View.GONE
+                            binding.todayScheduleTextView.visibility = View.VISIBLE
+                            binding.dateTextView.visibility = View.VISIBLE
+                            binding.imageView2.visibility = View.VISIBLE
 
                             val sortedList = sortHealthListByDate(alert.data.listHealth)
 

@@ -16,10 +16,7 @@ import com.heaven.temantb.features.data.di.AlertIndicator
 import com.heaven.temantb.features.data.pref.retrofit.response.ListScheduleItem
 import com.heaven.temantb.features.view.ViewModelFactory
 import com.heaven.temantb.features.view.medicineScheduleAdd.MedicineScheduleActivity
-import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.Date
-import java.util.Locale
 
 class ScheduleListActivity : AppCompatActivity() {
 
@@ -29,7 +26,6 @@ class ScheduleListActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityScheduleListBinding
     private lateinit var scheduleAdapter: ScheduleAdapter
-
     private val handler = Handler(Looper.getMainLooper())
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,7 +46,6 @@ class ScheduleListActivity : AppCompatActivity() {
 
         handler.post(object : Runnable {
             override fun run() {
-                updateDate()
                 handler.postDelayed(this, 1000)
             }
         })
@@ -74,12 +69,16 @@ class ScheduleListActivity : AppCompatActivity() {
                             binding.noStoriesTextView.visibility = View.VISIBLE
                             binding.rvStories.isVisible = false
                             binding.ivEmpty.visibility = View.VISIBLE
+                            binding.textHi.visibility = View.INVISIBLE
+                            binding.textName.visibility = View.INVISIBLE
+                            binding.ivNoMore.visibility = View.INVISIBLE
+
                         } else {
                             binding.ivEmpty.visibility = View.GONE
                             binding.noStoriesTextView.visibility = View.GONE
-                            binding.todayScheduleTextView.visibility = View.VISIBLE
-                            binding.dateTextView.visibility = View.VISIBLE
-                            binding.imageView2.visibility = View.VISIBLE
+                            binding.textHi.visibility = View.VISIBLE
+                            binding.textName.visibility = View.VISIBLE
+                            binding.ivNoMore.visibility = View.VISIBLE
 
                             val nearestHourIndex = findNearestHourIndex(alert.data.listSchedule)
 
@@ -94,11 +93,6 @@ class ScheduleListActivity : AppCompatActivity() {
                 }
             }
         }
-    }
-
-    private fun updateDate() {
-        val currentDate = SimpleDateFormat("EEEE, dd yyyy", Locale.getDefault()).format(Date())
-        binding.dateTextView.text = currentDate
     }
 
     private fun setupAction(token: String, userId: String) {
@@ -116,30 +110,21 @@ class ScheduleListActivity : AppCompatActivity() {
         for ((index, scheduleItem) in listOfSchedule.withIndex()) {
             val scheduleTime = getScheduleTimeInMillis(scheduleItem.hour)
 
-            // If the schedule time is after the current time, return the index
             if (scheduleTime > currentTime) {
                 return index
             }
         }
 
-        // If no schedule time is after the current time, return the last index
         return listOfSchedule.size - 1
     }
 
     private fun getScheduleTimeInMillis(scheduleTime: String): Long {
-        val format = SimpleDateFormat("HH:mm", Locale.getDefault())
         val calendar = Calendar.getInstance()
 
-        // Set the calendar time to the schedule time
         val timeParts = scheduleTime.split(":")
         calendar.set(Calendar.HOUR_OF_DAY, timeParts[0].toInt())
         calendar.set(Calendar.MINUTE, timeParts[1].toInt())
 
         return calendar.timeInMillis
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        handler.removeCallbacksAndMessages(null)
     }
 }
