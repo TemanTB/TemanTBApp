@@ -20,11 +20,7 @@ class HealthListViewModel(private val repository: GeneralRepository): ViewModel(
         viewModelScope.launch {
             try {
                 repository.deleteSchedule(token, healthId)
-                Log.d("DeleteSchedule", "Successfully deleted schedule on the server.")
-                Log.d("DeleteSchedule", "Token: $token, ScheduleId: $healthId")
-
             } catch (e: Exception) {
-                Log.e("DeleteSchedule", "Error deleting schedule: ${e.message}", e)
                 Log.d("DeleteSchedule", "Token: $token, ScheduleId: $healthId")
             }
         }

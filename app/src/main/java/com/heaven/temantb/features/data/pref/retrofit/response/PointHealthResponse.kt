@@ -20,6 +20,6 @@ data class PointHealthItem(
     val name: String,
 
     @field:SerializedName("point")
-    val userId: String,
+    val userId: Int,
 
 )

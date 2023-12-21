@@ -219,6 +219,8 @@ class GeneralRepository private constructor(
         emit(AlertIndicator.Loading)
         try {
             val response = scheduleApiService.getDetailHealth(healthId,"Bearer $token")
+            Log.d("DetailScheduleViewModel", "API Response: $response") // Log the response
+
             if (response.error){
                 emit(AlertIndicator.Error(response.message))
             }
@@ -229,6 +231,7 @@ class GeneralRepository private constructor(
             emit(AlertIndicator.Error(e.message.toString()))
         }
     }
+
 
     fun getPointHealth(token: String, userId: String): LiveData<AlertIndicator<PointHealthResponse>> = liveData{
         emit(AlertIndicator.Loading)

@@ -1,0 +1,12 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Gradient layer from blue to white -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:startColor="@color/blue3"
+                android:endColor="@android:color/white"
+                android:angle="270" />
+            <corners android:radius="15dp" />
+        </shape>
+    </item>
+</layer-list>

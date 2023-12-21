@@ -177,7 +177,7 @@ class AlarmReceiver : BroadcastReceiver() {
             .setContentTitle(medicineName)
             .setContentText(description)
             .setColor(ContextCompat.getColor(context, android.R.color.transparent))
-            .setVibrate(longArrayOf(1000, 1000, 1000, 2000, 2000, 2000, 1000, 1000, 1000))
+            .setVibrate(longArrayOf(1000, 1000, 1000, 2000, 2000, 2000, 1000))
             .setSound(alarmSound)
             .setContentIntent(pendingIntent) // Set the content intent
 

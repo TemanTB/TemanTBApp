@@ -78,17 +78,15 @@ class MedicineScheduleActivity : AppCompatActivity(), TimePickerFragment.DialogT
         val medicineName = binding.medicineNameEditText.text.toString()
         val description = binding.descReminderEditText.text.toString()
         val hour = binding.tvHour.text.toString()
-        alarmReceiver.setRepeatingAlarm(this, AlarmReceiver.TYPE_TEMANTB, hour, description, medicineName)
 
         if (medicineName.isEmpty() || description.isEmpty() || hour.isEmpty()) {
             showToast("Please fill in all the fields.")
             return
         }
 
-        alarmReceiver.setRepeatingAlarm(this, AlarmReceiver.TYPE_TEMANTB, hour, description, medicineName)
-
-
         if (isNotificationEnabled()) {
+            alarmReceiver.setRepeatingAlarm(this, AlarmReceiver.TYPE_TEMANTB, hour, description, medicineName)
+
             Log.d(
                 "Ini logd medicineact",
                 "Medicine Name: $medicineName, Description: $description, Hour: $hour"
@@ -137,8 +135,7 @@ class MedicineScheduleActivity : AppCompatActivity(), TimePickerFragment.DialogT
                         }
                     }
                 }
-        }
-        else {
+        } else {
             showToast(getString(R.string.please_enable_notifications_in_settings))
         }
     }

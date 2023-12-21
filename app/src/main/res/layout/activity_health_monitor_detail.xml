@@ -5,72 +5,208 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.heaven.temantb.features.view.medicineScheduleDetail.MedicineScheduleDetailActivity"
+    android:background="@color/white"
     >
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="20dp"
-        tools:context=".ui.detail.DetailActivity">
+        tools:context=".ui.detail.DetailActivity"
+        >
 
         <TextView
+            style="@style/CustomMediumTitleFont"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:gravity="start"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawablePadding="10dp"
             android:layout_marginTop="16dp"
-            android:text="@string/description"
-            app:drawableStartCompat="@drawable/custom_ic_medicine"
-
+            android:text="@string/detail_condition"
             />
 
         <TextView
-            android:id="@+id/tv_de_mo_description"
-            android:layout_width="match_parent"
+            android:id="@+id/keterangan"
+            android:layout_width="340dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="34dp"
-            android:textColor="@color/textPrimary"
-            android:textSize="16sp"
-            tools:text="@tools:sample/lorem"
-            android:transitionName="trDescription"
-            />
+            android:layout_marginTop="10dp"
+            android:layout_gravity="start"
+            android:text="@string/we_have_analyzed_your_condition_below"
+            android:textColor="@color/grey"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pageMedicine_reminder"
+            tools:alpha="100" />
 
-        <TextView
-            android:id="@+id/date"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:drawablePadding="10dp"
-            android:text="@string/date"
-            app:drawableStartCompat="@drawable/ic_time" />
+            android:layout_gravity="start"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="2dp"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/white">
 
-        <TextView
-            android:id="@+id/tv_de_mo_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="34dp"
-            android:textColor="@color/textPrimary"
-            android:textSize="16sp"
-            android:transitionName="trDate"
-            tools:text="@tools:sample/us_zipcodes" />
+            <TextView
+                style="@style/CustomMediumTitleFont"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_marginStart="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="10dp"
+                android:gravity="start"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="5dp"
+                android:text="@string/update" />
 
-        <TextView
-            android:id="@+id/average"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:drawablePadding="10dp"
-            android:text="@string/average"
-            app:drawableStartCompat="@drawable/ic_note" />
+            <ImageView
+                android:id="@+id/iv_flag"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@tools:sample/backgrounds/scenic" />
 
-        <TextView android:id="@+id/tv_de_mo_average"
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="34dp"
-            android:textColor="@color/textPrimary"
-            android:textSize="16sp"
-            android:transitionName="trAverage"
-            tools:text="@tools:sample/lorem" />
+            android:layout_gravity="start"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="2dp"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:gravity="start"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="10dp"
+                    android:text="@string/description" />
+
+                <TextView
+                    android:id="@+id/tv_de_mo_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="16sp"
+                    tools:text="@tools:sample/lorem"
+                    android:transitionName="trDescription" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="2dp"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/date"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="10dp"
+                    android:text="@string/date" />
+
+                <TextView
+                    android:id="@+id/tv_de_mo_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="16sp"
+                    android:transitionName="trDate"
+                    tools:text="@tools:sample/us_zipcodes" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="2dp"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/average"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="10dp"
+                    android:text="@string/average" />
+
+                <TextView
+                    android:id="@+id/tv_de_mo_average"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="16sp"
+                    android:transitionName="trAverage"
+                    tools:text="@tools:sample/lorem" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
 
         <ProgressBar
             android:id="@+id/progressBar"

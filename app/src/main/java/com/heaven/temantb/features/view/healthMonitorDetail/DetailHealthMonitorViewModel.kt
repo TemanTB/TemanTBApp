@@ -1,10 +1,10 @@
-package com.heaven.temantb.features.view.medicineScheduleDetail
+package com.heaven.temantb.features.view.healthMonitorDetail
 
 import androidx.lifecycle.ViewModel
 import com.heaven.temantb.features.data.GeneralRepository
 
 class DetailHealthViewModel (private val repository: GeneralRepository) : ViewModel() {
 
-    fun getDetailHealth(scheduleId: String, token: String) = repository.getDetailHealth(scheduleId, token)
+    fun getDetailHealth(healthId: String, token: String) = repository.getDetailHealth(healthId, token)
 }
 

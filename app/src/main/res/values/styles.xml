@@ -14,6 +14,18 @@
         <item name="android:gravity">center</item>
     </style>
 
+    <style name="CustomWhiteRectangle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">64dp</item>
+        <item name="android:layout_marginStart">32dp</item>
+        <item name="android:layout_marginTop">32dp</item>
+        <item name="android:layout_marginEnd">32dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+
     <style name="CustomPrimaryBorderButton">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">60dp</item>

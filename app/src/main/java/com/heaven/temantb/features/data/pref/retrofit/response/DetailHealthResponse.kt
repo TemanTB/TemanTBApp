@@ -7,7 +7,7 @@ data class DetailHealthResponse(
 	val error: Boolean,
 
 	@field:SerializedName("data")
-	val data: List<HealthInDetail>,
+	val data: HealthInDetail,
 
 	@field:SerializedName("message")
 	val message: String
@@ -19,8 +19,8 @@ data class HealthInDetail(
 	@field:SerializedName("healthId")
 	val healthId: String,
 
-	@field:SerializedName("week")
-	val week: String,
+	@field:SerializedName("weeks")
+	val weeks: Int,
 
 	@field:SerializedName("date")
 	val date: String,
@@ -29,7 +29,7 @@ data class HealthInDetail(
 	val nextDate: String,
 
 	@field:SerializedName("point")
-	val point: String,
+	val point: Int,
 
 	@field:SerializedName("alert")
 	val alert: String,

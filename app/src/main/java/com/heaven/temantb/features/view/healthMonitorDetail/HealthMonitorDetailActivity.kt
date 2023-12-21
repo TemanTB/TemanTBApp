@@ -12,7 +12,6 @@ import androidx.core.view.isVisible
 import com.heaven.temantb.databinding.ActivityHealthMonitorDetailBinding
 import com.heaven.temantb.features.data.di.AlertIndicator
 import com.heaven.temantb.features.view.ViewModelFactory
-import com.heaven.temantb.features.view.medicineScheduleDetail.DetailHealthViewModel
 
 class HealthMonitorDetailActivity : AppCompatActivity() {
 
@@ -26,15 +25,15 @@ class HealthMonitorDetailActivity : AppCompatActivity() {
         binding = ActivityHealthMonitorDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val healthID = intent.getStringExtra(EXTRA_ID)
+        val healthId = intent.getStringExtra(EXTRA_ID)
         val token = intent.getStringExtra(EXTRA_TOKEN)
 
 
-        Log.d("cekTokenNIdHealth", "ID: $healthID, Token: $token")
-        Log.d("cekTokenNIdHealth", "ID: $healthID, Token: $token")
+        Log.d("cekTokenNIdHealth", "ID: $healthId, Token: $token")
+        Log.d("cekTokenNIdHealth", "ID: $healthId, Token: $token")
 
-        if (token != null && healthID != null) {
-            setupView(healthID, token)
+        if (token != null && healthId != null) {
+            setupView(healthId, token)
         }
     }
 
@@ -59,18 +58,13 @@ class HealthMonitorDetailActivity : AppCompatActivity() {
                 }
                 is AlertIndicator.Success -> {
                     binding.progressBar.isVisible = false
-                    val healthInDetail = alert.data.data.firstOrNull()
+                    val healthInDetailList = alert.data.data
 
-                    healthInDetail?.let {
+                    healthInDetailList?.let {
                         binding.apply {
                             tvDeMoDescription.text = it.description
                             tvDeMoDate.text = it.date
                             tvDeMoAverage.text = it.average
-
-//                            Log.d(
-//                                "cekTokenNIdSchedule2",
-//                                "MedicineName: ${heal.text}, Description: ${tvDescription.text}, Hour: ${tvTime.text}"
-//                            )
                         }
                     } ?: run {
                         Log.d("Data", "No data found")
@@ -79,6 +73,7 @@ class HealthMonitorDetailActivity : AppCompatActivity() {
             }
         }
     }
+
 
     companion object {
         const val EXTRA_ID: String = "extra_id"

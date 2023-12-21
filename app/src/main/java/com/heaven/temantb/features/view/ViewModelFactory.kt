@@ -10,6 +10,7 @@ import com.heaven.temantb.features.view.healthMonitorList.HealthListViewModel
 import com.heaven.temantb.features.view.login.LoginViewModel
 import com.heaven.temantb.features.view.main.MainViewModel
 import com.heaven.temantb.features.view.medicineScheduleAdd.MedicineScheduleViewModel
+import com.heaven.temantb.features.view.healthMonitorDetail.DetailHealthViewModel
 import com.heaven.temantb.features.view.medicineScheduleDetail.DetailScheduleViewModel
 import com.heaven.temantb.features.view.medicineScheduleList.ScheduleListViewModel
 import com.heaven.temantb.features.view.signup.SignUpViewModel
@@ -42,6 +43,9 @@ class ViewModelFactory(private val repository: GeneralRepository) : ViewModelPro
             }
             modelClass.isAssignableFrom(HealthListViewModel::class.java) -> {
                 HealthListViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(DetailHealthViewModel::class.java) -> {
+                DetailHealthViewModel(repository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
