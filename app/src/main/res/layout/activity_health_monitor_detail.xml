@@ -5,10 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.heaven.temantb.features.view.medicineScheduleDetail.MedicineScheduleDetailActivity"
-    android:background="@drawable/custom_rectangle"
+    android:background="@color/white"
     >
-
-
 
     <LinearLayout
         android:layout_width="match_parent"

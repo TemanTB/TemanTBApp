@@ -142,8 +142,6 @@ class AlarmReceiver : BroadcastReceiver() {
         }
     }
 
-    // ...
-
     private fun showAlarmNotification(
         context: Context,
         medicineName: String,
@@ -179,7 +177,7 @@ class AlarmReceiver : BroadcastReceiver() {
             .setColor(ContextCompat.getColor(context, android.R.color.transparent))
             .setVibrate(longArrayOf(1000, 1000, 1000, 2000, 2000, 2000, 1000))
             .setSound(alarmSound)
-            .setContentIntent(pendingIntent) // Set the content intent
+            .setContentIntent(pendingIntent)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
@@ -195,10 +193,8 @@ class AlarmReceiver : BroadcastReceiver() {
 
         val notification = builder.build()
 
-        // Cancel the previous notification if any
         notificationManagerCompat.cancel(notifId)
 
-        // Notify with the new notification and unique ID
         notificationManagerCompat.notify(notifId, notification)
     }
 
@@ -216,7 +212,7 @@ class AlarmReceiver : BroadcastReceiver() {
     companion object {
         const val TYPE_TEMANTB = "TemanTB"
         const val EXTRA_DESCRIPTION = "description"
-        const val EXTRA_MEDICINE_NAME = "medicineName" // Add constant for medicineName
+        const val EXTRA_MEDICINE_NAME = "medicineName"
         const val EXTRA_TYPE = "type"
         private const val TIME_FORMAT = "HH:mm"
     }

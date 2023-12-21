@@ -1,10 +1,7 @@
 package com.heaven.temantb.features.view.medicineScheduleDetail
 
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.WindowInsets
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -31,25 +28,13 @@ class MedicineScheduleDetailActivity : AppCompatActivity() {
         val medicineName = intent.getStringExtra(AlarmReceiver.EXTRA_MEDICINE_NAME)
         val description = intent.getStringExtra(AlarmReceiver.EXTRA_DESCRIPTION)
 
-
-        Log.d("cekTokenNIdSchedule", "ID: $scheduleID, Token: $token")
-
         if (token != null && scheduleID != null) {
             setupView(scheduleID, token)
         }
     }
 
     private fun setupView(scheduleID: String, token: String) {
-        @Suppress("DEPRECATION")
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.insetsController?.hide(WindowInsets.Type.statusBars())
-        } else {
-            window.setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
-            )
-        }
-        supportActionBar?.hide()
+        supportActionBar?.show()
 
         detailScheduleViewModel.getDetailSchedule(scheduleID, token).observe(this) { alert ->
             when (alert) {

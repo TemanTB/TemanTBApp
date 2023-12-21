@@ -20,7 +20,7 @@ class ScheduleAdapter(
     private var listOfSchedule: List<ListScheduleItem>,
     private val token: String,
     private val nearestHourIndex: Int,
-    private val viewModel: ScheduleListViewModel // Add this parameter
+    private val viewModel: ScheduleListViewModel
 ) : RecyclerView.Adapter<ScheduleAdapter.ViewHolder>() {
 
     class ViewHolder(var binding: ItemRowScheduleBinding) : RecyclerView.ViewHolder(binding.root)

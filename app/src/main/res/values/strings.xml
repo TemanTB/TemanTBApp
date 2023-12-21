@@ -95,12 +95,14 @@
     <string name="please_enable_notifications_in_settings">Please enable notifications in settings.</string>
     <string name="keterangan_schedule">Fill in your medicine details here to receive reminders.</string>
     <string name="keterangan_monitor">Write down your symptoms for the analysis.</string>
+    <string name="greeting_message">hello, %1$s</string>
     <string name="detail_condition">Detail Condition</string>
     <string name="we_have_analyzed_your_condition_below">We have analyzed your condition below.</string>
     <string name="update">Update</string>
     <string name="setYourAlarm">Set your medicine</string>
     <string name="setAlarm">Set Alarm</string>
     <string-array name="data_name">
+
         <item>Tahukah kalian Tahapan Pengobatan TBC?</item>
 <!--        <item>Lontong Sayur</item>-->
 <!--        <item>Lunpia</item>-->

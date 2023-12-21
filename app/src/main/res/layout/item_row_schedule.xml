@@ -42,6 +42,7 @@
             android:layout_height="wrap_content"
             tools:text="@tools:sample/full_names" />
 
+
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

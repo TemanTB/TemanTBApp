@@ -2,6 +2,7 @@ package com.heaven.temantb.features.view.medicineScheduleList
 
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
@@ -15,6 +16,9 @@ class ScheduleListViewModel(private val repository: GeneralRepository): ViewMode
     fun getSession(): LiveData<UserModel> {
         return repository.getSession().asLiveData()
     }
+
+    private val _userName = MutableLiveData<String>()
+    val userName: LiveData<String> get() = _userName
 
     fun deleteSchedule(token: String, scheduleId: String) {
         viewModelScope.launch {
