@@ -11,10 +11,10 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.heaven.temantb.databinding.ActivityHealthListBinding
 import com.heaven.temantb.features.data.di.AlertIndicator
+import com.heaven.temantb.features.data.pref.retrofit.response.ListHealthItem
 import com.heaven.temantb.features.view.ViewModelFactory
 import com.heaven.temantb.features.view.healthMonitorAdd.HealthMonitorActivity
 import com.heaven.temantb.features.view.medicineScheduleAdd.MedicineScheduleActivity
-
 
 class HealthListActivity : AppCompatActivity() {
 
@@ -42,6 +42,10 @@ class HealthListActivity : AppCompatActivity() {
         }
     }
 
+    private fun sortHealthListByDate(listHealth: List<ListHealthItem>): List<ListHealthItem> {
+        return listHealth.sortedByDescending { it.date }
+    }
+
     private fun setupView(token: String, userId: String) {
         viewModel.getHealth(token, userId).observe(this) { alert ->
             if (alert != null) {
@@ -62,7 +66,9 @@ class HealthListActivity : AppCompatActivity() {
                         } else {
                             binding.noHealthTextView.visibility = View.GONE
 
-                            healthAdapter = HealthAdapter(alert.data.listHealth, token, viewModel)
+                            val sortedList = sortHealthListByDate(alert.data.listHealth)
+
+                            healthAdapter = HealthAdapter(sortedList, token, viewModel)
 
                             binding.rvHealth.layoutManager = LinearLayoutManager(this)
                             binding.rvHealth.adapter = healthAdapter
@@ -84,5 +90,4 @@ class HealthListActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
-
 }

@@ -1,10 +1,7 @@
 package com.heaven.temantb.features.view.healthMonitorDetail
 
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.WindowInsets
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -39,15 +36,6 @@ class HealthMonitorDetailActivity : AppCompatActivity() {
     }
 
     private fun setupView(healthId: String, token: String) {
-        @Suppress("DEPRECATION")
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.insetsController?.hide(WindowInsets.Type.statusBars())
-        } else {
-            window.setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
-            )
-        }
         supportActionBar?.hide()
 
         detailHealthViewModel.getDetailHealth(healthId, token).observe(this) { alert ->
@@ -61,7 +49,7 @@ class HealthMonitorDetailActivity : AppCompatActivity() {
                     binding.progressBar.isVisible = false
                     val healthInDetailList = alert.data.data
 
-                    healthInDetailList?.let {
+                    healthInDetailList.let {
                         binding.apply {
                             tvDeMoDescription.text = it.description
                             tvDeMoDate.text = it.date
@@ -71,8 +59,6 @@ class HealthMonitorDetailActivity : AppCompatActivity() {
                                 .load(it.images)
                                 .into(ivFlag)
                         }
-                    } ?: run {
-                        Log.d("Data", "No data found")
                     }
                 }
             }

@@ -10,10 +10,14 @@ import androidx.core.util.Pair
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.heaven.temantb.R
 import com.heaven.temantb.databinding.ItemRowHealthBinding
 import com.heaven.temantb.features.data.pref.retrofit.response.ListHealthItem
 import com.heaven.temantb.features.view.healthMonitorDetail.HealthMonitorDetailActivity
 import com.heaven.temantb.features.view.medicineScheduleDetail.MedicineScheduleDetailActivity
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class HealthAdapter(
     private var listOfHealth: List<ListHealthItem>,
@@ -21,7 +25,7 @@ class HealthAdapter(
     private val viewModel: HealthListViewModel
 ) : RecyclerView.Adapter<HealthAdapter.ViewHolder>() {
 
-    class ViewHolder(var binding: ItemRowHealthBinding) : RecyclerView.ViewHolder(binding.root)
+    class ViewHolder(var binding: com.heaven.temantb.databinding.ItemRowHealthBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemRowHealthBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -32,13 +36,30 @@ class HealthAdapter(
         val health = listOfHealth[position]
         val token = token
 
+        val inputDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+        val outputDateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+
+        val date: Date? = try {
+            inputDateFormat.parse(health.date)
+        } catch (e: Exception) {
+            null
+        }
+
+        val formattedDate: String = date?.let { outputDateFormat.format(it) } ?: ""
+
         holder.binding.apply {
             tvItemDescription.text = health.description
-            tvItemDate.text = health.date
+            tvItemDate.text = formattedDate
             tvItemAverage.text = health.average
             Glide.with(cardView.context)
                 .load(health.images)
                 .into(ivFlag)
+
+            if (position == 0) {
+                cardView.setBackgroundResource(R.drawable.blue_frame_with_border) // Set the blue frame with border drawable
+            } else {
+                cardView.setBackgroundResource(R.color.white) // Set the background to white for other items
+            }
 
             root.setOnClickListener {
                 val intent = Intent(root.context, HealthMonitorDetailActivity::class.java)

@@ -9,9 +9,10 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.heaven.temantb.databinding.ActivityHealthMonitorBinding
+import com.heaven.temantb.features.article.DetailActivity
 import com.heaven.temantb.features.data.di.AlertIndicator
 import com.heaven.temantb.features.view.ViewModelFactory
-import com.heaven.temantb.features.view.main.MainActivity
+import com.heaven.temantb.features.view.healthMonitorList.HealthListActivity
 
 class HealthMonitorActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHealthMonitorBinding
@@ -56,7 +57,7 @@ class HealthMonitorActivity : AppCompatActivity() {
                             setTitle("Yay!")
                             setMessage(result.data.message)
                             setPositiveButton("Ok") { _, _ ->
-                                val intent = Intent(context, MainActivity::class.java)
+                                val intent = Intent(context, HealthListActivity::class.java)
                                 intent.flags =
                                     Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                                 startActivity(intent)
@@ -73,7 +74,7 @@ class HealthMonitorActivity : AppCompatActivity() {
                             setTitle("Ups!")
                             setMessage(result.error)
                             setPositiveButton("Ok") { _, _ ->
-                                val intent = Intent(context, MainActivity::class.java)
+                                val intent = Intent(context, DetailActivity::class.java)
                                 intent.flags =
                                     Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                                 startActivity(intent)
