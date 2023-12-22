@@ -110,49 +110,4 @@
     <string name="please_input_your_symptoms_first">Please input your symptoms first.</string>
     <string name="yay">Yay!</string>
     <string name="ok">Ok</string>
-    <string-array name="data_name">
-
-        <item>Tahukah kalian Tahapan Pengobatan TBC?</item>
-<!--        <item>Lontong Sayur</item>-->
-<!--        <item>Lunpia</item>-->
-<!--        <item>Nasi Goreng</item>-->
-<!--        <item>Nasi Lemak</item>-->
-<!--        <item>Otak-Otak</item>-->
-<!--        <item>Pempek</item>-->
-<!--        <item>Rendang</item>-->
-<!--        <item>Sate</item>-->
-<!--        <item>Coto Makassar</item>-->
-    </string-array>
-    <string-array name="data_description">
-        <item>Penyakit yang tergolong serius ini dapat disembuhkan dan jarang berakibat fatal jika diobati dengan benar. Langkah pengobatan yang digunakan adalah pemberian antibiotik yang harus dihabiskan oleh pengidap TB selama jangka waktu tertentu sesuai resep dokter.
-
-        Masa penyembuhan TB berbeda-beda pada tiap pengidap dan tergantung pada kondisi kesehatan pengidap serta tingkat keparahan TB yang dialami. Kondisi pengidap umumnya akan mulai membaik dan TB berhenti menular setelah mengonsumsi antibiotik selama 2 minggu. Tetapi untuk memastikan kesembuhan total, pengidap TB harus menggunakan antibiotik yang diberikan dokter selama 6 bulan.
-
-        Apabila pengidap tidak meminum obat sesuai resep dokter atau berhenti meminumnya sebelum waktu yang dianjurkan, bakteri TB bisa tidak hilang sepenuhnya meski pengidap merasa kondisinya sudah membaik. Infeksi TB yang diidap juga berpotensi menjadi resistan terhadap antibiotik. Jika ini terjadi, TB akan menjadi lebih berbahaya dan sulit diobati sehingga masa penyembuhannya pun akan jauh lebih lama. Pengidap TB dapat menularkan penyakit ini jika belum menjalani pengobatan dalam jangka waktu yang ditentukan oleh dokter
-
-        Sementara langkah utama untuk mencegah TB adalah dengan menerima vaksin BCG (Bacillus Calmette-Guerin). Di Indonesia, vaksin ini termasuk dalam daftar imunisasi wajib dan diberikan sebelum bayi berusia 2 bulan.
-
-        Kita juga bisa mencegah TB dengan senantiasa mengenakan masker saat berada di tempat ramai, jika berinteraksi dengan pengidap TB, serta mencuci tangan secara teratur (khususnya pekerja medis). Cara lain adalah dengan memastikan bahwa rumah memiliki sirkulasi udara yang baik, misalnya sering membuka pintu dan jendela agar udara segar serta sinar matahari dapat masuk.</item>
-        <item>Lontong gulai atau lontong sayur adalah makanan Indonesia yang berasal dari Minangkabau, Sumatra Barat. Lontong ini identik dengan kuah santan yang memiliki bumbu kental khas masakan Minang. Kuah santan yang kaya bumbu rempah sudah dikenal sebagai salah satu cara memasak ala masakan Minang.</item>
-        <item>Loenpia atau dieja lun pia diserap dari kata dialek bahasa Cina Hokkian run bing yang kemudian bersinergi dengan bahasa Jawa lum ping (kulit) menjadi lumpia. Lumpia merupakan spring roll (kue gulung) sehingga dimungkinkan lumpia belum digoreng hanya lumpia basah. Lumpia atau lunpia keduanya benar. Lumpia Semarang bahan utamanya rebung, rasanya gurih manis dan dimakan dengan saus kental agak manis dengan acar mentimun, cabai rawit, dan daun bawang. Lunpia disajikan ketika perayaan Imlek.</item>
-        <item>Nasi goreng merupakan sajian nasi yang digoreng dalam sebuah wajan atau penggorengan yang menghasilkan cita rasa berbeda karena dicampur dengan bumbu-bumbu seperti garam, bawang putih, bawang merah, merica, rempah-rempah tertentu dan kecap manis. Selain itu, ditambahkan bahan-bahan pelengkap seperti telur, sayur-sayuran, makanan laut, atau daging.</item>
-        <item>Nasi lemak adalah jenis makanan khas suku Melayu yang lazim ditemukan di Malaysia di mana hidangan ini dianggap sebagai salah satu hidangan nasionalnya,[6] dan Indonesia, khususnya di Riau, Kepulauan Riau dan Sumatera Utara. Hidangan ini pun dapat ditemukan di Singapura dan Brunei. Makanan ini biasanya dihidangkan untuk sarapan pagi.</item>
-        <item>Otak-otak adalah makanan yang terbuat dari daging ikan tenggiri cincang yang dibungkus dengan daun pisang, dipanggang, dan disajikan dengan saus kacang atau kuah asam pedas. Makanan ini populer di kawasan Bangka Belitung, Palembang (Sumatra Selatan), Pontianak (Kalimantan Barat), DKI Jakarta, Tanjung Pinang (Kepulauan Riau) serta Selat Melaka dan Selat Karimata, tetapi tersebar luas pula di berbagai kota pesisir pantai di Sumatra dan Jawa. Otak-otak juga tersebar di Singapura, dan Muar (Malaysia).</item>
-        <item>Pempek adalah makanan yang terbuat dari daging ikan yang digiling lembut yang dicampur tepung kanji atau tepung sagu, serta komposisi beberapa bahan lain seperti telur, bawang putih yang dihaluskan, penyedap rasa, dan garam. Pempek biasanya disajikan dengan kuah yang disebut cuka yang memiliki rasa asam, manis, dan pedas. Pempek merupakan makanan khas Palembang - Sumatera Selatan.</item>
-        <item>Rendang (bahasa Minangkabau: randang;) adalah hidangan berbahan dasar daging yang dihasilkan dari proses memasak suhu rendah dalam waktu lama dengan menggunakan aneka rempah-rempah dan santan. Proses memasaknya memakan waktu berjam-jam (biasanya sekitar empat jam) hingga yang tinggal hanyalah potongan daging berwarna hitam pekat dan dedak. Dalam suhu ruangan, rendang dapat bertahan hingga berminggu-minggu. Rendang yang dimasak dalam waktu yang lebih singkat dan santannya belum mengering disebut kalio, berwarna cokelat terang keemasan.</item>
-        <item>Sate (Jawa: sate, bahasa Inggris: satay) adalah makanan yang terbuat dari daging yang dipotong kecil-kecil dan ditusuk sedemikian rupa dengan tusukan lidi tulang daun kelapa atau bambu, kemudian dipanggang menggunakan bara arang kayu. Sate disajikan dengan berbagai macam bumbu yang bergantung pada variasi resep sate.[9] Daging yang dijadikan sate antara lain daging ayam, kambing, domba, sapi, babi, kelinci, kuda, dan lain-lain.</item>
-        <item>Coto makassar atau Pallu coto mangkasarak adalah hidangan tradisional Suku Makassar, Sulawesi Selatan.Makanan ini terbuat dari jeroan sapi yang direbus dalam waktu yang lama. Rebusan jeroan bercampur daging sapi ini kemudian diiris-iris, lalu dibumbui dengan bumbu yang diracik secara khusus. Biasanya, Coto makassar dihidangkan dalam mangkuk dan dinikmati dengan ketupat dari daun kelapa dan burasa, yakni sejenis ketupat yang dibungkus daun pisang.</item>
-    </string-array>
-    <integer-array name="data_photo">
-        <item>@drawable/article1</item>
-<!--        <item>@drawable/lontongsayur</item>-->
-<!--        <item>@drawable/lunpia</item>-->
-<!--        <item>@drawable/nasigoreng</item>-->
-<!--        <item>@drawable/nasilemak</item>-->
-<!--        <item>@drawable/otakotak</item>-->
-<!--        <item>@drawable/pempek</item>-->
-<!--        <item>@drawable/rendang</item>-->
-<!--        <item>@drawable/sate</item>-->
-<!--        <item>@drawable/cotomakassar</item>-->
-    </integer-array>
 </resources>

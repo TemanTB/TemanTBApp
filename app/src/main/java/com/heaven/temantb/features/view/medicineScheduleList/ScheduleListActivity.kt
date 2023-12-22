@@ -114,7 +114,6 @@ class ScheduleListActivity : AppCompatActivity() {
                 return index
             }
         }
-
         return listOfSchedule.size - 1
     }
 

@@ -85,7 +85,5 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.5")
     implementation("androidx.preference:preference-ktx:1.2.1")
 
-    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
-
     implementation("com.github.bumptech.glide:glide:4.16.0")
 }

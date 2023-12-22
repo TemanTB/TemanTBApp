@@ -15,7 +15,6 @@ class ScheduleListViewModel(private val repository: GeneralRepository): ViewMode
         return repository.getSession().asLiveData()
     }
 
-
     fun deleteSchedule(token: String, scheduleId: String) {
         viewModelScope.launch {
             try {
