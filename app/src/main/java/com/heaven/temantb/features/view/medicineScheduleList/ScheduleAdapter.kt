@@ -40,7 +40,7 @@ class ScheduleAdapter(
                 } else {
                     it
                 }
-            } ?: ""
+            }
 
             tvItemMedicineName.text = schedule.medicineName
             tvItemDescription.text = descriptionText
@@ -77,7 +77,6 @@ class ScheduleAdapter(
         notifyItemRemoved(position)
         notifyItemRangeChanged(position, itemCount)
     }
-
 
     inner class SwipeToDeleteCallback : ItemTouchHelper.SimpleCallback(
         0,

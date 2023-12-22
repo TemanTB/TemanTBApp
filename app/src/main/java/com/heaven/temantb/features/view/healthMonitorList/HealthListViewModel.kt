@@ -1,5 +1,6 @@
 package com.heaven.temantb.features.view.healthMonitorList
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
@@ -19,7 +20,7 @@ class HealthListViewModel(private val repository: GeneralRepository): ViewModel(
         viewModelScope.launch {
             try {
                 repository.deleteHealth(token, healthId)
-            } catch (_: Exception) {
+            } catch (e: Exception) {
             }
         }
     }
