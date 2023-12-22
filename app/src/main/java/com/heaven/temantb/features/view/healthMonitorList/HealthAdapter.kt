@@ -49,13 +49,13 @@ class HealthAdapter(
         val formattedDate: String = date?.let { outputDateFormat.format(it) } ?: ""
 
         holder.binding.apply {
-            val descriptionText = health.description.let {
+            val descriptionText = health.description?.let {
                 if (it.length > 24) {
                     "${it.substring(0, 24)}..."
                 } else {
                     it
                 }
-            }
+            } ?: ""
 
             tvItemDescription.text = descriptionText
             tvItemDate.text = formattedDate
