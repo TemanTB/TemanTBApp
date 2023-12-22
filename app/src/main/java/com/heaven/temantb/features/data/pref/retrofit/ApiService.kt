@@ -11,7 +11,6 @@ import com.heaven.temantb.features.data.pref.retrofit.response.ListHealthRespons
 import com.heaven.temantb.features.data.pref.retrofit.response.ListScheduleResponse
 import com.heaven.temantb.features.data.pref.retrofit.response.LoginResponse
 import com.heaven.temantb.features.data.pref.retrofit.response.MedicineScheduleResponse
-import com.heaven.temantb.features.data.pref.retrofit.response.PointHealthResponse
 import com.heaven.temantb.features.data.pref.retrofit.response.SignUpResponse
 import retrofit2.Response
 import retrofit2.http.Body
@@ -80,13 +79,6 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Path("healthId") healthId: String
     ): Response<Unit>
-
-    @GET("point/{userId}")
-    suspend fun getPointHealth(
-        @Header("Authorization") token: String,
-        @Path("userId") userId: String,
-    ): PointHealthResponse
-
 }
 
 

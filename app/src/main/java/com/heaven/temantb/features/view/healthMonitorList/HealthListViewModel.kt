@@ -19,7 +19,7 @@ class HealthListViewModel(private val repository: GeneralRepository): ViewModel(
     fun deleteHealth(token: String, healthId: String) {
         viewModelScope.launch {
             try {
-                repository.deleteSchedule(token, healthId)
+                repository.deleteHealth(token, healthId)
             } catch (e: Exception) {
                 Log.d("DeleteSchedule", "Token: $token, ScheduleId: $healthId")
             }

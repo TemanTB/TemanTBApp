@@ -16,7 +16,6 @@ class MainViewModel(private val repository: GeneralRepository) : ViewModel() {
         return repository.getSession().asLiveData()
     }
 
-    fun getPointHealth(token:String, userId: String) = repository.getPointHealth(token, userId)
 
     fun logout() {
         viewModelScope.launch {

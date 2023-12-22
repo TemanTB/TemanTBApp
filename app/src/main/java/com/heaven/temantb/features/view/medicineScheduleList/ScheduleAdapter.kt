@@ -2,7 +2,6 @@ package com.heaven.temantb.features.view.medicineScheduleList
 
 import android.app.Activity
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.app.ActivityOptionsCompat
@@ -93,7 +92,6 @@ class ScheduleAdapter(
             val position = viewHolder.adapterPosition
             val scheduleId = listOfSchedule[position].scheduleId
             viewModel.deleteSchedule(token, scheduleId)
-            Log.d("Delete Schedule", "Token: $token, ScheduleId: $scheduleId")
 
             removeItem(position)
         }

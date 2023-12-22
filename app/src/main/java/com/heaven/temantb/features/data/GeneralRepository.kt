@@ -19,7 +19,6 @@ import com.heaven.temantb.features.data.pref.retrofit.response.ListHealthRespons
 import com.heaven.temantb.features.data.pref.retrofit.response.ListScheduleResponse
 import com.heaven.temantb.features.data.pref.retrofit.response.LoginResponse
 import com.heaven.temantb.features.data.pref.retrofit.response.MedicineScheduleResponse
-import com.heaven.temantb.features.data.pref.retrofit.response.PointHealthResponse
 import com.heaven.temantb.features.data.pref.retrofit.response.SignUpResponse
 import kotlinx.coroutines.flow.Flow
 
@@ -214,29 +213,11 @@ class GeneralRepository private constructor(
     }
 
     fun getDetailHealth(healthId: String, token: String): LiveData<AlertIndicator<DetailHealthResponse>> = liveData{
-        Log.d("DetailScheduleModelapi", "API Request - ID: $healthId, Token: $token")
-        Log.d("DetailScheduleViewModel", "ID: $healthId, Token: $token")
         emit(AlertIndicator.Loading)
         try {
             val response = scheduleApiService.getDetailHealth(healthId,"Bearer $token")
             Log.d("DetailScheduleViewModel", "API Response: $response") // Log the response
 
-            if (response.error){
-                emit(AlertIndicator.Error(response.message))
-            }
-            else {
-                emit(AlertIndicator.Success(response))
-            }
-        } catch (e:Exception){
-            emit(AlertIndicator.Error(e.message.toString()))
-        }
-    }
-
-
-    fun getPointHealth(token: String, userId: String): LiveData<AlertIndicator<PointHealthResponse>> = liveData{
-        emit(AlertIndicator.Loading)
-        try {
-            val response = scheduleApiService.getPointHealth("Bearer $token", userId)
             if (response.error){
                 emit(AlertIndicator.Error(response.message))
             }

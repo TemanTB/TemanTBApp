@@ -101,9 +101,9 @@ class HealthAdapter(
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
             val position = viewHolder.adapterPosition
-            val scheduleId = listOfHealth[position].healthId
-            viewModel.deleteHealth(token, scheduleId)
-            Log.d("Delete Schedule", "Token: $token, ScheduleId: $scheduleId")
+            val healthId = listOfHealth[position].healthId
+            viewModel.deleteHealth(token, healthId)
+            Log.d("Delete Schedule", "Token: $token, ScheduleId: $healthId")
 
             removeItem(position)
         }
