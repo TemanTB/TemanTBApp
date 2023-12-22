@@ -17,7 +17,7 @@
             style="@style/CustomLargeTitleFont"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/upload_page_title"
+            android:text="@string/daily_update_symptons"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -72,8 +72,6 @@
                 android:inputType="text"
                 tools:ignore="SpeakableTextPresentCheck"
                 style="@style/CustomTextInputEditTextStyle"
-                android:hint="@string/sympton_desc"
-
                 />
         </com.google.android.material.textfield.TextInputLayout>
 

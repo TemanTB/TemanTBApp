@@ -51,6 +51,7 @@
             android:exported="false" />
         <activity
             android:name="com.heaven.temantb.features.view.main.MainActivity"
+            android:launchMode="singleTop"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
