@@ -37,17 +37,6 @@ class MedicineScheduleDetailActivity : AppCompatActivity() {
     }
 
     private fun setupView(scheduleID: String, token: String) {
-        @Suppress("DEPRECATION")
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.insetsController?.hide(WindowInsets.Type.statusBars())
-        } else {
-            window.setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
-            )
-        }
-        supportActionBar?.hide()
-
         detailScheduleViewModel.getDetailSchedule(scheduleID, token).observe(this) { alert ->
             when (alert) {
                 AlertIndicator.Loading -> binding.progressBar.isVisible = true

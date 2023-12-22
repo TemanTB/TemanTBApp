@@ -90,6 +90,8 @@ class ScheduleListActivity : AppCompatActivity() {
                             itemTouchHelper.attachToRecyclerView(binding.rvStories)
                         }
                     }
+
+                    else -> {}
                 }
             }
         }

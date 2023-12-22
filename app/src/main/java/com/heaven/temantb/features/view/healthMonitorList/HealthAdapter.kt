@@ -48,7 +48,15 @@ class HealthAdapter(
         val formattedDate: String = date?.let { outputDateFormat.format(it) } ?: ""
 
         holder.binding.apply {
-            tvItemDescription.text = health.description
+            val descriptionText = health.description?.let {
+                if (it.length > 24) {
+                    "${it.substring(0, 24)}..."
+                } else {
+                    it
+                }
+            } ?: ""
+
+            tvItemDescription.text = descriptionText
             tvItemDate.text = formattedDate
             tvItemAverage.text = health.average
             Glide.with(cardView.context)

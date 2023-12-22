@@ -1,29 +1,50 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.heaven.temantb.features.view.main.MainActivity">
+    android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineHorizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_percent="0.1"
-        app:layout_constraintStart_toStartOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context="com.heaven.temantb.features.view.main.MainActivity">
 
     <TextView
+        style="@style/CustomLargeTitleFont"
         android:id="@+id/greetingText"
         android:layout_width="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="25dp"
+        android:gravity="start"
         android:layout_height="wrap_content"
-        android:text="@string/medicine_schedule"
-        android:textColor="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="Homepage"
+        android:textColor="@android:color/black" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="0.025" />
+
+    <ImageView
+        android:id="@+id/iv_temantb"
+        android:layout_width="350dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="20dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/temantb1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/greetingText" />
+
+    <TextView
+        style="@style/CustomLargeTitleFont"
+        android:id="@+id/Features"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="25dp"
+        android:gravity="start"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/iv_temantb"
+        android:text="@string/features"
+        android:textColor="@android:color/black" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintVertical_bias="0.025" />
 
 
@@ -31,81 +52,32 @@
         android:id="@+id/medicine_schedule"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         app:fabCustomSize="65dp"
         app:fabSize="mini"
         app:maxImageSize="40dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="30dp"
         android:backgroundTint="@color/blue2"
         app:srcCompat="@drawable/ic_schedule"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/Features"
         app:layout_constraintEnd_toStartOf="@id/healthMonitor"
-        app:layout_constraintBottom_toBottomOf="parent"
         />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/healthMonitor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         app:fabCustomSize="65dp"
         app:fabSize="mini"
         app:maxImageSize="40dp"
         android:layout_marginStart="20dp"
         android:backgroundTint="@color/blue2"
         app:srcCompat="@drawable/ic_monitor"
-        app:layout_constraintEnd_toStartOf="@id/article"
         app:layout_constraintStart_toEndOf="@id/medicine_schedule"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/Features"
         />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/guide"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            app:fabCustomSize="65dp"
-            android:layout_marginStart="24dp"
-            app:fabSize="mini"
-            app:maxImageSize="40dp"
-            android:backgroundTint="@color/blue2"
-            app:srcCompat="@drawable/ic_guide"
-            app:layout_constraintStart_toEndOf="@id/article"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/article"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:fabCustomSize="65dp"
-        android:layout_marginStart="20dp"
-        app:fabSize="mini"
-        app:maxImageSize="40dp"
-        android:backgroundTint="@color/blue2"
-        app:srcCompat="@drawable/ic_article"
-        app:layout_constraintEnd_toStartOf="@id/guide"
-        app:layout_constraintStart_toEndOf="@id/healthMonitor"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
-
-    <Button
-        android:id="@+id/logoutButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="32dp"
-        android:alpha="0"
-        android:backgroundTint="@color/navy"
-        android:text="@string/logout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/medicine_schedule"
-        tools:alpha="100" />
 
     <TextView
         android:id="@+id/medicineScheduleText"
@@ -134,30 +106,45 @@
         app:layout_constraintVertical_bias="0.026" />
 
     <TextView
-        android:id="@+id/articleText"
+        style="@style/CustomLargeTitleFont"
+        android:id="@+id/services"
         android:layout_width="wrap_content"
+        android:layout_marginStart="25dp"
         android:layout_height="wrap_content"
-        android:text="Article"
-        android:textColor="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/article"
-        app:layout_constraintHorizontal_bias="0.625"
-        app:layout_constraintStart_toStartOf="@id/article"
-        app:layout_constraintTop_toBottomOf="@id/article"
+        android:layout_marginTop="26dp"
+        android:gravity="start"
+        android:text="Our Services"
+        app:layout_constraintTop_toBottomOf="@id/medicineScheduleText"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintVertical_bias="0.025" />
 
-    <TextView
-        android:id="@+id/guideText"
-        android:layout_width="wrap_content"
+    <ImageView
+        android:id="@+id/our_services"
+        android:layout_width="350dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="20dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/our_services"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/services" />
+
+    <Button
+        android:id="@+id/logoutButton"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Guide"
-        android:textColor="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/guide"
-        app:layout_constraintHorizontal_bias="0.551"
-        app:layout_constraintStart_toStartOf="@id/guide"
-        app:layout_constraintTop_toBottomOf="@id/guide"
-        app:layout_constraintVertical_bias="0.025" />
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="32dp"
+        android:alpha="0"
+        android:backgroundTint="@color/navy"
+        android:text="@string/logout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/our_services"
+        tools:alpha="100" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

@@ -34,13 +34,16 @@ class ScheduleAdapter(
         val token = token
 
         holder.binding.apply {
-            tvItemMedicineName.text = schedule.medicineName
-            tvItemDescription.text = if (schedule.description.length > 24) {
-                "${schedule.description.substring(0, 24)}..."
-            } else {
-                schedule.description
-            }
+            val descriptionText = schedule.description?.let {
+                if (it.length > 30) {
+                    "${it.substring(0, 30)}..."
+                } else {
+                    it
+                }
+            } ?: ""
 
+            tvItemMedicineName.text = schedule.medicineName
+            tvItemDescription.text = descriptionText
             tvItemHour.text = schedule.hour
 
             if (position == nearestHourIndex) {

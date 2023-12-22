@@ -131,6 +131,8 @@ class MedicineScheduleActivity : AppCompatActivity(), TimePickerFragment.DialogT
                                     show()
                                 }
                             }
+
+                            else -> {}
                         }
                     }
                 }

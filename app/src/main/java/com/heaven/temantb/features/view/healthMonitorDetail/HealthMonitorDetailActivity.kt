@@ -9,6 +9,8 @@ import com.bumptech.glide.Glide
 import com.heaven.temantb.databinding.ActivityHealthMonitorDetailBinding
 import com.heaven.temantb.features.data.di.AlertIndicator
 import com.heaven.temantb.features.view.ViewModelFactory
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class HealthMonitorDetailActivity : AppCompatActivity() {
 
@@ -47,7 +49,11 @@ class HealthMonitorDetailActivity : AppCompatActivity() {
                     healthInDetailList.let {
                         binding.apply {
                             tvDeMoDescription.text = it.description
-                            tvDeMoDate.text = it.date
+                            val originalDate = it.date
+
+                            val convertedDate = convertDateFormat(originalDate)
+                            binding.tvDeMoDate.text = convertedDate
+
                             tvDeMoAverage.text = it.average
 
                             Glide.with(root.context)
@@ -58,6 +64,20 @@ class HealthMonitorDetailActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun convertDateFormat(originalDate: String): String {
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+        val outputFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+
+        try {
+            val date = inputFormat.parse(originalDate)
+            return outputFormat.format(date!!)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        return ""
     }
 
 

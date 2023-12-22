@@ -84,6 +84,8 @@ class HealthListActivity : AppCompatActivity() {
                             itemTouchHelper.attachToRecyclerView(binding.rvHealth)
                         }
                     }
+
+                    else -> {}
                 }
             }
         }

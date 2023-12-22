@@ -102,6 +102,11 @@
     <string name="setYourAlarm">Set your medicine</string>
     <string name="setAlarm">Set Alarm</string>
     <string name="daily_update_symptons">Daily Update Symptons</string>
+    <string name="features">Features</string>
+    <string name="it_s_time_to_take_your_medicine_please_get_it_now">It\'s time to take your medicine. Please get it now</string>
+    <string name="cannot_schedule_exact_alarms_on_this_device">Cannot schedule exact alarms on this device</string>
+    <string name="medicine_alarm_set_up">Medicine alarm set up.</string>
+    <string name="repeating_alarm_cancelled">Repeating alarm cancelled</string>
     <string-array name="data_name">
 
         <item>Tahukah kalian Tahapan Pengobatan TBC?</item>

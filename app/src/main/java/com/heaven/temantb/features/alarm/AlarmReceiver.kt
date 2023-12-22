@@ -11,7 +11,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
-import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
@@ -26,35 +25,32 @@ import java.util.Locale
 class AlarmReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
-        Log.d("AlarmReceiver7", "onReceive called")
         val type = intent.getStringExtra(EXTRA_TYPE)
         val description = intent.getStringExtra(EXTRA_DESCRIPTION)
         val medicineName = intent.getStringExtra(EXTRA_MEDICINE_NAME) ?: TYPE_TEMANTB
 
-        Log.d("AlarmReceiver6", "Received alarm intent. Description: $description")
 
         val notifId = generateUniqueId()
 
         if (description != null) {
-            Log.d("AlarmReceiver5", "description not null")
             showAlarmNotification(context, medicineName, description, getCurrentTime(), notifId)
         }
     }
 
     @RequiresApi(Build.VERSION_CODES.S)
     fun setRepeatingAlarm(context: Context, type: String, hour: String, description: String?, medicineName: String) {
-        Log.d("AlarmReceiver1", "showAlarmNotification called")
         if (checkPermission(context)) {
             if (isDateInvalid(hour, TIME_FORMAT)) return
 
             val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
             val intent = Intent(context, AlarmReceiver::class.java)
 
-            val defaultDescription = "It's time to take your medicine. Please get it now"
+            val defaultDescription =
+                context.getString(R.string.it_s_time_to_take_your_medicine_please_get_it_now)
             val alarmDescription = description.takeIf { !it.isNullOrBlank() } ?: defaultDescription
 
             intent.putExtra(EXTRA_DESCRIPTION, alarmDescription)
-            intent.putExtra(EXTRA_MEDICINE_NAME, medicineName) //
+            intent.putExtra(EXTRA_MEDICINE_NAME, medicineName)
             val timeArray = hour.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
 
             val calendar = Calendar.getInstance().apply {
@@ -82,10 +78,9 @@ class AlarmReceiver : BroadcastReceiver() {
                         pendingIntent
                     )
                 } else {
-                    Log.e("AlarmReceiver", "Cannot schedule exact alarms on this device")
                     Toast.makeText(
                         context,
-                        "Cannot schedule exact alarms on this device",
+                        context.getString(R.string.cannot_schedule_exact_alarms_on_this_device),
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -97,13 +92,12 @@ class AlarmReceiver : BroadcastReceiver() {
                 )
             }
 
-            Toast.makeText(context, "Medicine alarm set up.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context,
+                context.getString(R.string.medicine_alarm_set_up), Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun isDateInvalid(date: String, format: String): Boolean {
-        Log.d("AlarmReceiver2", "date calid tak")
-
         return try {
             val df = SimpleDateFormat(format, Locale.getDefault())
             df.isLenient = false
@@ -115,7 +109,6 @@ class AlarmReceiver : BroadcastReceiver() {
     }
 
     private fun checkPermission(context: Context): Boolean {
-        Log.d("AlarmReceiver3", "done check?")
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val permission = Manifest.permission.WAKE_LOCK
             val granted = PackageManager.PERMISSION_GRANTED
@@ -138,7 +131,8 @@ class AlarmReceiver : BroadcastReceiver() {
         if (pendingIntent != null) {
             pendingIntent.cancel()
             alarmManager.cancel(pendingIntent)
-            Toast.makeText(context, "Repeating alarm dibatalkan", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context,
+                context.getString(R.string.repeating_alarm_cancelled), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -149,7 +143,6 @@ class AlarmReceiver : BroadcastReceiver() {
         hour: String,
         notifId: Int
     ) {
-        Log.d("AlarmReceiver4", "show alarmnotif called")
         val channelId = "Channel_1"
         val channelName = "AlarmManager channel"
         val notificationManagerCompat =
@@ -162,7 +155,6 @@ class AlarmReceiver : BroadcastReceiver() {
         intent.putExtra("EXTRA_MEDICINE_NAME", medicineName)
         intent.putExtra("EXTRA_DESCRIPTION", description)
 
-        // Create a PendingIntent for the notification
         val pendingIntent = PendingIntent.getActivity(
             context,
             notifId,
