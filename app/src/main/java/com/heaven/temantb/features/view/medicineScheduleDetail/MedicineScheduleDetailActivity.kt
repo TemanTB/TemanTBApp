@@ -1,7 +1,10 @@
 package com.heaven.temantb.features.view.medicineScheduleDetail
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.WindowInsets
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -34,7 +37,16 @@ class MedicineScheduleDetailActivity : AppCompatActivity() {
     }
 
     private fun setupView(scheduleID: String, token: String) {
-        supportActionBar?.show()
+        @Suppress("DEPRECATION")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.insetsController?.hide(WindowInsets.Type.statusBars())
+        } else {
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
+        supportActionBar?.hide()
 
         detailScheduleViewModel.getDetailSchedule(scheduleID, token).observe(this) { alert ->
             when (alert) {
