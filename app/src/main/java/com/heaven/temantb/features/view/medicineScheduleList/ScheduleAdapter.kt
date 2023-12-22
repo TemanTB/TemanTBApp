@@ -35,8 +35,8 @@ class ScheduleAdapter(
 
         holder.binding.apply {
             tvItemMedicineName.text = schedule.medicineName
-            tvItemDescription.text = if (schedule.description.length > 55) {
-                "${schedule.description.substring(0, 45)}..."
+            tvItemDescription.text = if (schedule.description.length > 24) {
+                "${schedule.description.substring(0, 24)}..."
             } else {
                 schedule.description
             }
