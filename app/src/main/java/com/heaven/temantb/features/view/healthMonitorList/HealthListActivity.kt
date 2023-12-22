@@ -14,6 +14,7 @@ import com.heaven.temantb.features.data.di.AlertIndicator
 import com.heaven.temantb.features.data.pref.retrofit.response.ListHealthItem
 import com.heaven.temantb.features.view.ViewModelFactory
 import com.heaven.temantb.features.view.healthMonitorAdd.HealthMonitorActivity
+import com.heaven.temantb.features.view.main.MainActivity
 import com.heaven.temantb.features.view.medicineScheduleAdd.MedicineScheduleActivity
 
 class HealthListActivity : AppCompatActivity() {
@@ -33,13 +34,14 @@ class HealthListActivity : AppCompatActivity() {
 
         viewModel.getSession().observe(this) { user ->
             if (!user.isLogin) {
-                startActivity(Intent(this, HealthListActivity::class.java))
+                startActivity(Intent(this, MainActivity::class.java))
                 finish()
             } else {
                 setupView(user.token, user.userId)
             }
             setupAction(user.token, user.userId)
         }
+
     }
 
     private fun sortHealthListByDate(listHealth: List<ListHealthItem>): List<ListHealthItem> {
