@@ -9,13 +9,9 @@ import com.heaven.temantb.features.data.pref.UserModel
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val repository: GeneralRepository) : ViewModel() {
-
-//    fun getStories(token: String) = repository.getStories(token)
-
     fun getSession(): LiveData<UserModel> {
         return repository.getSession().asLiveData()
     }
-
 
     fun logout() {
         viewModelScope.launch {

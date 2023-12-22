@@ -4,7 +4,6 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -12,25 +11,15 @@ import com.heaven.temantb.databinding.ActivityMainBinding
 import com.heaven.temantb.features.view.ViewModelFactory
 import com.heaven.temantb.features.view.healthMonitorAdd.HealthMonitorActivity
 import com.heaven.temantb.features.view.healthMonitorList.HealthListActivity
-import com.heaven.temantb.features.view.healthMonitorList.HealthListViewModel
 import com.heaven.temantb.features.view.medicineScheduleAdd.MedicineScheduleActivity
 import com.heaven.temantb.features.view.medicineScheduleList.ScheduleListActivity
-import com.heaven.temantb.features.view.medicineScheduleList.ScheduleListViewModel
 import com.heaven.temantb.features.view.welcome.WelcomeActivity
 
 class MainActivity : AppCompatActivity() {
     private val viewModel by viewModels<MainViewModel> {
         ViewModelFactory.getInstance(this)
     }
-    private val viewModel_2 by viewModels<ScheduleListViewModel> {
-        ViewModelFactory.getInstance(this)
-    }
-    private val viewModel_3 by viewModels<HealthListViewModel> {
-        ViewModelFactory.getInstance(this)
-    }
-
     private lateinit var binding: ActivityMainBinding
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,8 +32,6 @@ class MainActivity : AppCompatActivity() {
                 finish()
             } else {
                 setupAction(user.token, user.userId)
-
-                Log.d("MainActivityCek", "token: ${user.token}, userId: ${user.userId}")
             }
             playAnimation()
         }

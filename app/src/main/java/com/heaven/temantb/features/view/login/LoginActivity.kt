@@ -54,7 +54,6 @@ class LoginActivity : AppCompatActivity() {
                     is AlertIndicator.Success -> {
                         binding.progressBar.isVisible = false
                         showSuccessDialog(getString(R.string.login_successful_message))
-
                     }
 
                     is AlertIndicator.Error -> {
@@ -68,9 +67,9 @@ class LoginActivity : AppCompatActivity() {
 
     private fun showSuccessDialog(message: String) {
         AlertDialog.Builder(this).apply {
-            setTitle("Yay!")
+            setTitle(getString(R.string.yay))
             setMessage(message)
-            setPositiveButton("Ok") { _, _ ->
+            setPositiveButton(getString(R.string.ok)) { _, _ ->
                 val intent = Intent(context, MainActivity::class.java)
                 intent.flags =
                     Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
@@ -86,7 +85,7 @@ class LoginActivity : AppCompatActivity() {
         AlertDialog.Builder(this).apply {
             setTitle("Oops!")
             setMessage(message)
-            setPositiveButton("Ok") { _, _ ->
+            setPositiveButton(getString(R.string.ok)) { _, _ ->
                 binding.emailEditText.requestFocus()
             }
             create()
@@ -107,7 +106,6 @@ class LoginActivity : AppCompatActivity() {
         val login = ObjectAnimator.ofFloat(binding.loginButton, View.ALPHA, 1f).setDuration(100)
         val alreadyRegister = ObjectAnimator.ofFloat(binding.haveAccountButton, View.ALPHA, 1f).setDuration(100)
         val msgLogin = ObjectAnimator.ofFloat(binding.tvSubMessageLogin, View.ALPHA, 1f).setDuration(100)
-
 
         AnimatorSet().apply {
             playSequentially(

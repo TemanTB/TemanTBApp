@@ -1,16 +1,11 @@
 package com.heaven.temantb.features.view.medicineScheduleDetail
 
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import android.view.WindowInsets
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.heaven.temantb.databinding.ActivityMedicineScheduleDetailBinding
-import com.heaven.temantb.features.alarm.AlarmReceiver
 import com.heaven.temantb.features.data.di.AlertIndicator
 import com.heaven.temantb.features.view.ViewModelFactory
 
@@ -28,8 +23,6 @@ class MedicineScheduleDetailActivity : AppCompatActivity() {
 
         val scheduleID = intent.getStringExtra(EXTRA_ID)
         val token = intent.getStringExtra(EXTRA_TOKEN)
-        val medicineName = intent.getStringExtra(AlarmReceiver.EXTRA_MEDICINE_NAME)
-        val description = intent.getStringExtra(AlarmReceiver.EXTRA_DESCRIPTION)
 
         if (token != null && scheduleID != null) {
             setupView(scheduleID, token)
@@ -53,14 +46,7 @@ class MedicineScheduleDetailActivity : AppCompatActivity() {
                             tvMedicineName.text = it.medicineName
                             tvDescription.text = it.description
                             tvTime.text = it.hour
-
-                            Log.d(
-                                "cekTokenNIdSchedule2",
-                                "MedicineName: ${tvMedicineName.text}, Description: ${tvDescription.text}, Hour: ${tvTime.text}"
-                            )
                         }
-                    } ?: run {
-                        Log.d("Data", "No data found")
                     }
                 }
             }

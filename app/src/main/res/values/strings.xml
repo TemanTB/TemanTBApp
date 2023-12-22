@@ -108,6 +108,8 @@
     <string name="medicine_alarm_set_up">Medicine alarm set up.</string>
     <string name="repeating_alarm_cancelled">Repeating alarm cancelled</string>
     <string name="please_input_your_symptoms_first">Please input your symptoms first.</string>
+    <string name="yay">Yay!</string>
+    <string name="ok">Ok</string>
     <string-array name="data_name">
 
         <item>Tahukah kalian Tahapan Pengobatan TBC?</item>
