@@ -107,6 +107,7 @@
     <string name="cannot_schedule_exact_alarms_on_this_device">Cannot schedule exact alarms on this device</string>
     <string name="medicine_alarm_set_up">Medicine alarm set up.</string>
     <string name="repeating_alarm_cancelled">Repeating alarm cancelled</string>
+    <string name="please_input_your_symptoms_first">Please input your symptoms first.</string>
     <string-array name="data_name">
 
         <item>Tahukah kalian Tahapan Pengobatan TBC?</item>

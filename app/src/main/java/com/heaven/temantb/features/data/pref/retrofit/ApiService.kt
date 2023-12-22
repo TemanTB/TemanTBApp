@@ -34,15 +34,12 @@ interface ApiService {
         @Body request: MedicineScheduleRequest
     ): MedicineScheduleResponse
 
-
-    //list schedule
     @GET("schedule/{userId}")
     suspend fun getSchedule(
         @Header("Authorization") token: String,
         @Path("userId") userId: String
     ): ListScheduleResponse
 
-    //detail
     @GET("getschedule/{scheduleId}")
     suspend fun getDetailSchedule(
         @Path("scheduleId") scheduleId: String,
@@ -61,7 +58,6 @@ interface ApiService {
         @Body request: HealthRequest
     ): HealthResponse
 
-    //list schedule
     @GET("health/{userId}")
     suspend fun getHealth(
         @Header("Authorization") token: String,

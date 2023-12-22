@@ -2,17 +2,17 @@ package com.heaven.temantb.features.view.healthMonitorAdd
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.heaven.temantb.R
 import com.heaven.temantb.databinding.ActivityHealthMonitorBinding
-import com.heaven.temantb.features.article.DetailActivity
 import com.heaven.temantb.features.data.di.AlertIndicator
 import com.heaven.temantb.features.view.ViewModelFactory
 import com.heaven.temantb.features.view.healthMonitorList.HealthListActivity
+import com.heaven.temantb.features.view.main.MainActivity
 
 class HealthMonitorActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHealthMonitorBinding
@@ -30,7 +30,6 @@ class HealthMonitorActivity : AppCompatActivity() {
 
         binding.saveButton.setOnClickListener {
             if (token != null && userId != null) {
-                Log.d("ButtonClicked", "Button clicked")
                 uploadHealth(token, userId)
             }
         }
@@ -40,7 +39,7 @@ class HealthMonitorActivity : AppCompatActivity() {
         val description = binding.descriptionEditText.text.toString()
 
         if (description.isEmpty()) {
-            showToast("Please input your symptoms first.")
+            showToast(getString(R.string.please_input_your_symptoms_first))
             return
         }
 
@@ -74,7 +73,7 @@ class HealthMonitorActivity : AppCompatActivity() {
                             setTitle("Ups!")
                             setMessage(result.error)
                             setPositiveButton("Ok") { _, _ ->
-                                val intent = Intent(context, DetailActivity::class.java)
+                                val intent = Intent(context, MainActivity::class.java)
                                 intent.flags =
                                     Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                                 startActivity(intent)

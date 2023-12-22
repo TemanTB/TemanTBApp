@@ -24,7 +24,6 @@ import kotlinx.coroutines.flow.Flow
 
 class GeneralRepository private constructor(
     private val context: Context,
-//    private val apiService: ApiService,
     private val scheduleApiService: ApiService,
     private val healthApiService: ApiService,
     private val userPreference: UserPreference
@@ -126,8 +125,6 @@ class GeneralRepository private constructor(
     }
 
     fun getDetailSchedule(scheduleId: String, token: String): LiveData<AlertIndicator<DetailScheduleResponse>> = liveData{
-        Log.d("DetailScheduleModelapi", "API Request - ID: $scheduleId, Token: $token")
-        Log.d("DetailScheduleViewModel", "ID: $scheduleId, Token: $token")
         emit(AlertIndicator.Loading)
         try {
             val response = scheduleApiService.getDetailSchedule(scheduleId,"Bearer $token")
@@ -147,11 +144,6 @@ class GeneralRepository private constructor(
             val response = scheduleApiService.deleteSchedule("Bearer $token", scheduleId)
 
             val requestHeaders = response.raw().request.headers
-            Log.d("DeleteSchedule", "Request Headers: $requestHeaders")
-            Log.d("DeleteSchedule", "Request Headers: $requestHeaders")
-            Log.d("DeleteSchedule", "Token: $token, ScheduleId: $scheduleId")
-
-            Log.d("DeleteSchedule", "Response: ${response.code()}, ${response.body()}")
         } catch (e: Exception) {
             Log.e("DeleteSchedule", "Error: ${e.message}", e)
         }
@@ -202,11 +194,6 @@ class GeneralRepository private constructor(
             val response = scheduleApiService.deleteHealth("Bearer $token", healthId)
 
             val requestHeaders = response.raw().request.headers
-            Log.d("DeleteSchedule", "Request Headers: $requestHeaders")
-            Log.d("DeleteSchedule", "Request Headers: $requestHeaders")
-            Log.d("DeleteSchedule", "Token: $token, ScheduleId: $healthId")
-
-            Log.d("DeleteSchedule", "Response: ${response.code()}, ${response.body()}")
         } catch (e: Exception) {
             Log.e("DeleteSchedule", "Error: ${e.message}", e)
         }
@@ -216,8 +203,6 @@ class GeneralRepository private constructor(
         emit(AlertIndicator.Loading)
         try {
             val response = scheduleApiService.getDetailHealth(healthId,"Bearer $token")
-            Log.d("DetailScheduleViewModel", "API Response: $response") // Log the response
-
             if (response.error){
                 emit(AlertIndicator.Error(response.message))
             }
