@@ -70,16 +70,14 @@ class HealthMonitorDetailActivity : AppCompatActivity() {
         val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
         val outputFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
 
-        try {
+        return try {
             val date = inputFormat.parse(originalDate)
-            return outputFormat.format(date!!)
+            outputFormat.format(date!!)
         } catch (e: Exception) {
             e.printStackTrace()
+            "Invalid Date Format"
         }
-
-        return ""
     }
-
 
     companion object {
         const val EXTRA_ID: String = "extra_id"

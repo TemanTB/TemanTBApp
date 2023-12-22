@@ -19,13 +19,14 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
+@Suppress("DEPRECATION")
 class HealthAdapter(
     private var listOfHealth: List<ListHealthItem>,
     private val token: String,
     private val viewModel: HealthListViewModel
 ) : RecyclerView.Adapter<HealthAdapter.ViewHolder>() {
 
-    class ViewHolder(var binding: com.heaven.temantb.databinding.ItemRowHealthBinding) : RecyclerView.ViewHolder(binding.root)
+    class ViewHolder(var binding: ItemRowHealthBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemRowHealthBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -48,13 +49,13 @@ class HealthAdapter(
         val formattedDate: String = date?.let { outputDateFormat.format(it) } ?: ""
 
         holder.binding.apply {
-            val descriptionText = health.description?.let {
+            val descriptionText = health.description.let {
                 if (it.length > 24) {
                     "${it.substring(0, 24)}..."
                 } else {
                     it
                 }
-            } ?: ""
+            }
 
             tvItemDescription.text = descriptionText
             tvItemDate.text = formattedDate
